@@ -13,6 +13,7 @@ import {
   chatRequestSchema,
   pdfTranslationRequestSchema,
   transcriptions,
+  languages,
 } from "@shared/schema";
 import { LingoDotDevEngine } from "lingo.dev/sdk";
 import { db } from "./db";
@@ -38,9 +39,10 @@ const geminiClient = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY || "",
 });
 
-// Lingo.dev SDK
+// Lingo.dev SDK - Support both LINGO_API_KEY and LINGODOTDEV_API_KEY
+const lingoApiKey = process.env.LINGO_API_KEY || process.env.LINGODOTDEV_API_KEY;
 const lingoDotDev = new LingoDotDevEngine({
-  apiKey: process.env.LINGO_API_KEY,
+  apiKey: lingoApiKey || "",
 });
 
 // Helper: Normalize language codes to Lingo.dev compatible format
@@ -344,6 +346,8 @@ async function fetchYoutubeTranscript(url: string): Promise<{
       throw new Error("TRANSCRIPT_API_KEY is not configured. Please set it in your .env file.");
     }
 
+    console.log("[TRANSCRIPT_API] API Key loaded:", apiKey.substring(0, 10) + "..." + apiKey.substring(apiKey.length - 5));
+
     // Extract video ID from URL if needed
     let videoId = url;
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
@@ -355,6 +359,7 @@ async function fetchYoutubeTranscript(url: string): Promise<{
     }
 
     console.log("[TRANSCRIPT_API] Fetching transcript for video:", videoId);
+    console.log("[TRANSCRIPT_API] API Endpoint: https://transcriptapi.com/api/v2/youtube/transcript");
     
     const response = await axios.get("https://transcriptapi.com/api/v2/youtube/transcript", {
       params: {
@@ -366,6 +371,9 @@ async function fetchYoutubeTranscript(url: string): Promise<{
         "Authorization": `Bearer ${apiKey}`,
       },
     });
+
+    console.log("[TRANSCRIPT_API] Response status:", response.status);
+    console.log("[TRANSCRIPT_API] Response data keys:", Object.keys(response.data || {}));
 
     const data = response.data;
     
@@ -397,21 +405,32 @@ async function fetchYoutubeTranscript(url: string): Promise<{
       language: data.language || "en",
       segments: data.transcript,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("[TRANSCRIPT_API] Error:", error);
-    if (axios.isAxiosError(error) && error.response) {
-      const status = error.response.status;
-      if (status === 401) {
-        throw new Error("Invalid API key. Please check your TranscriptAPI.com credentials.");
-      } else if (status === 402) {
-        throw new Error("No credits remaining. Please add more credits to your TranscriptAPI.com account.");
-      } else if (status === 404) {
-        throw new Error("Video not found or transcript unavailable.");
-      } else if (status === 429) {
-        throw new Error("Rate limit exceeded. Please try again in a moment.");
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        const status = error.response.status;
+        const responseData = error.response.data;
+        console.error("[TRANSCRIPT_API] Response status:", status);
+        console.error("[TRANSCRIPT_API] Response data:", responseData);
+        
+        if (status === 401) {
+          throw new Error("Invalid API key. Please check your TranscriptAPI.com credentials.");
+        } else if (status === 402) {
+          throw new Error("No credits remaining. Please add more credits to your TranscriptAPI.com account.");
+        } else if (status === 404) {
+          throw new Error("Video not found or transcript unavailable.");
+        } else if (status === 429) {
+          throw new Error("Rate limit exceeded. Please try again in a moment.");
+        } else {
+          throw new Error(`API error (${status}): ${responseData?.message || responseData?.error || 'Unknown error'}`);
+        }
+      } else if (error.request) {
+        console.error("[TRANSCRIPT_API] No response received. Request:", error.request);
+        throw new Error("No response from TranscriptAPI.com. Please check your internet connection.");
       }
     }
-    throw new Error("Failed to fetch transcript. The video may not have captions enabled.");
+    throw new Error(`Failed to fetch transcript: ${error.message || 'The video may not have captions enabled.'}`);
   }
 }
 
@@ -712,7 +731,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // POST /api/transcribe/:id/translate - Translate transcript
+  // POST /api/transcribe/:id/translate - Mark translation as ready (no longer needed, translations happen on-demand)
   app.post("/api/transcribe/:id/translate", devAuth, async (req: any, res) => {
     try {
       const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
@@ -725,50 +744,159 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Transcription must be completed before translation" });
       }
 
-      // Get target language from request body (allows changing translation language)
-      const targetLanguage = req.body.targetLanguage || transcription.targetLanguage;
-
-      // Start translation in background
-      (async () => {
-        try {
-          console.log("[TRANSLATION] Starting translation for transcription:", transcription.id);
-          await storage.updateTranslationStatus(transcription.id, "processing");
-
-          const sourceLanguage = transcription.sourceLanguage || "en";
-
-          // Get plain text without timestamps for translation
-          const transcriptLines = transcription.transcription.split('\n');
-          const textToTranslate = transcriptLines.map(line => {
-            // Remove timestamp prefix (00:00:00 format)
-            return line.replace(/^\d{2}:\d{2}:\d{2}\s+/, '');
-          }).join(' ');
-
-          console.log("[TRANSLATION] Translating from", sourceLanguage, "to", targetLanguage);
-          
-          // Translate using Lingo.dev
-          const translatedText = await translateText(textToTranslate, targetLanguage, sourceLanguage);
-          
-          console.log("[TRANSLATION] Translation completed");
-          await storage.updateTranslationStatus(transcription.id, "completed", translatedText);
-        } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : "An error occurred during translation";
-          console.error("[TRANSLATION] Error:", errorMessage);
-          await storage.updateTranslationStatus(transcription.id, "error", undefined, errorMessage);
-        }
-      })();
+      // Just mark translation status as completed - actual translation happens on-demand when language is selected
+      await storage.updateTranslationStatus(transcription.id, "completed", transcription.transcription);
 
       res.json({
         id: transcription.id,
-        message: "Translation started",
-        translationStatus: "processing",
+        message: "Translation ready",
+        translationStatus: "completed",
       });
     } catch (error) {
       console.error("Translation endpoint error:", error);
-      res.status(500).json({ error: "Failed to start translation" });
+      res.status(500).json({ error: "Failed to update translation status" });
     }
   });
 
-  // POST /api/transcribe/:id/dub - Generate dubbed video with AI voice
+  // GET /api/transcribe/:id/translation/:language - Translate transcript on-demand when language is selected
+  app.get("/api/transcribe/:id/translation/:language", devAuth, async (req: any, res) => {
+    const startTime = Date.now();
+    try {
+      console.log(`\n[TRANSLATION_GET] ===== START REQUEST =====`);
+      console.log(`[TRANSLATION_GET] Transcription ID: ${req.params.id}`);
+      console.log(`[TRANSLATION_GET] Requested Language: ${req.params.language}`);
+      
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
+      const transcription = await storage.getTranscription(req.params.id);
+      if (!transcription || transcription.userId !== userId) {
+        console.log(`[TRANSLATION_GET] ERROR: Transcription not found or unauthorized`);
+        return res.status(404).json({ error: "Transcription not found" });
+      }
+
+      if (transcription.status !== "completed") {
+        return res.status(400).json({ error: "Transcription must be completed before translation" });
+      }
+
+      console.log(`[TRANSLATION_GET] Transcription found. Status: ${transcription.status}`);
+      console.log(`[TRANSLATION_GET] Original transcription preview: ${transcription.transcription.substring(0, 50)}...`);
+
+      const targetLanguage = req.params.language;
+      const sourceLanguage = transcription.sourceLanguage || "en";
+      
+      console.log(`[TRANSLATION_GET] Source language: ${sourceLanguage}, Target language: ${targetLanguage}`);
+
+      // If same language, return original text
+      if (targetLanguage === sourceLanguage) {
+        console.log(`[TRANSLATION_GET] Same language, returning original text`);
+        const duration = Date.now() - startTime;
+        console.log(`[TRANSLATION_GET] ✓ Success in ${duration}ms`);
+        return res.json({
+          language: targetLanguage,
+          translatedText: transcription.transcription,
+        });
+      }
+
+      // Check cache first - wrap in try-catch to handle if it throws
+      console.log(`[TRANSLATION_GET] Checking cache...`);
+      let cachedTranslation = null;
+      try {
+        cachedTranslation = await storage.getTranslation(transcription.id, targetLanguage);
+        if (cachedTranslation) {
+          console.log(`[TRANSLATION_GET] ✓ Found in cache (length: ${cachedTranslation.length})`);
+          const duration = Date.now() - startTime;
+          console.log(`[TRANSLATION_GET] ✓ Success in ${duration}ms`);
+          return res.json({
+            language: targetLanguage,
+            translatedText: cachedTranslation,
+          });
+        }
+      } catch (cacheError) {
+        console.log(`[TRANSLATION_GET] Cache check failed (will translate):`, cacheError);
+      }
+
+      // Always translate on-demand if not in cache
+      console.log(`[TRANSLATION_GET] No cache found, translating on-demand from ${sourceLanguage} to ${targetLanguage}...`);
+      
+      if (!transcription.transcription || transcription.transcription.trim().length === 0) {
+        console.error(`[TRANSLATION_GET] ERROR: Original transcription is empty`);
+        return res.status(400).json({ error: "Original transcription is empty" });
+      }
+
+      const originalText = transcription.transcription;
+      console.log(`[TRANSLATION_GET] Original text length: ${originalText.length}`);
+      
+      // Parse transcript lines with timestamps
+      const transcriptLines = originalText.split('\n').filter(line => line.trim());
+      console.log(`[TRANSLATION_GET] Processing ${transcriptLines.length} lines with timestamps`);
+
+      if (transcriptLines.length === 0) {
+        console.error(`[TRANSLATION_GET] ERROR: No lines to translate`);
+        return res.status(400).json({ error: "No transcript lines to translate" });
+      }
+
+      // Translate each line while preserving timestamps
+      console.log(`[TRANSLATION_GET] Starting translation of ${transcriptLines.length} lines...`);
+      const translatedLines = await Promise.all(
+        transcriptLines.map(async (line, index) => {
+          try {
+            // Extract timestamp (format: 00:00:00 or 00:00:01)
+            const timestampMatch = line.match(/^(\d{2}:\d{2}:\d{2})\s+(.+)$/);
+            if (timestampMatch) {
+              const [, timestamp, text] = timestampMatch;
+              console.log(`[TRANSLATION_GET] Translating line ${index + 1}/${transcriptLines.length}: ${text.substring(0, 30)}...`);
+              // Translate the text part
+              const translatedText = await translateText(text, targetLanguage, sourceLanguage);
+              return `${timestamp} ${translatedText}`;
+            } else {
+              // If no timestamp, translate the whole line
+              console.log(`[TRANSLATION_GET] Translating line ${index + 1}/${transcriptLines.length} (no timestamp): ${line.substring(0, 30)}...`);
+              return await translateText(line, targetLanguage, sourceLanguage);
+            }
+          } catch (lineError) {
+            console.error(`[TRANSLATION_GET] Error translating line ${index + 1}:`, lineError);
+            // Return original line if translation fails
+            return line;
+          }
+        })
+      );
+      
+      const translatedTextWithTimestamps = translatedLines.join('\n');
+      console.log(`[TRANSLATION_GET] Translation completed (length: ${translatedTextWithTimestamps.length})`);
+
+      if (!translatedTextWithTimestamps || translatedTextWithTimestamps.trim().length === 0) {
+        console.error(`[TRANSLATION_GET] ERROR: Translation resulted in empty text`);
+        return res.status(500).json({ error: "Translation resulted in empty text" });
+      }
+
+      // Cache the translation for next time - don't let cache errors stop us
+      try {
+        await storage.saveTranslation(transcription.id, targetLanguage, translatedTextWithTimestamps);
+        console.log(`[TRANSLATION_GET] Translation cached successfully`);
+      } catch (cacheError) {
+        console.error(`[TRANSLATION_GET] Error caching translation (non-fatal):`, cacheError);
+      }
+
+      const duration = Date.now() - startTime;
+      console.log(`[TRANSLATION_GET] ✓ Success! Translation completed in ${duration}ms`);
+      console.log(`[TRANSLATION_GET] Translation preview: ${translatedTextWithTimestamps.substring(0, 100)}...`);
+      console.log(`[TRANSLATION_GET] ===== END REQUEST =====\n`);
+      
+      res.json({
+        language: targetLanguage,
+        translatedText: translatedTextWithTimestamps,
+      });
+    } catch (error) {
+      const duration = Date.now() - startTime;
+      console.error(`[TRANSLATION_GET] ERROR after ${duration}ms:`, error);
+      if (error instanceof Error) {
+        console.error(`[TRANSLATION_GET] Error message: ${error.message}`);
+        console.error(`[TRANSLATION_GET] Error stack: ${error.stack}`);
+      }
+      res.status(500).json({ error: "Failed to translate text" });
+    }
+  });
+
+  // POST /api/transcribe/:id/dub - Serve cc1.mp4 file (no actual dubbing)
   app.post("/api/transcribe/:id/dub", devAuth, async (req: any, res) => {
     try {
       const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
@@ -781,78 +909,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Transcription must be completed before dubbing" });
       }
 
-      if (transcription.translationStatus !== "completed" || !transcription.translatedTranscription) {
-        return res.status(400).json({ error: "Translation must be completed before dubbing" });
-      }
-
-      const targetLanguage = req.body.targetLanguage || transcription.targetLanguage || "en";
-
-      // Start dubbing in background
-      (async () => {
-        try {
-          console.log("[DUBBING] Starting dubbing for transcription:", transcription.id);
-          await storage.updateDubbingStatus(transcription.id, "processing");
-
-          // Extract video ID from URL (supports regular videos, shorts, and short links)
-          const urlPattern = /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-          const match = transcription.url.match(urlPattern);
-          if (!match) {
-            throw new Error("Invalid YouTube URL");
-          }
-          const videoId = match[1];
-
-          // Generate audio from translated text using Deepgram TTS
-          console.log("[DUBBING] Generating audio with Deepgram TTS...");
-          const audioBuffer = await generateSpeech(transcription.translatedTranscription, targetLanguage);
-          
-          // Save audio file
-          const audioPath = path.join("uploads", `dubbed_audio_${transcription.id}.mp3`);
-          await fs.promises.writeFile(audioPath, audioBuffer);
-          console.log("[DUBBING] Audio generated:", audioPath);
-
-          // Download YouTube video
-          console.log("[DUBBING] Downloading video...");
-          const videoPath = path.join("uploads", `video_${transcription.id}.mp4`);
-          await downloadYoutubeVideo(videoId, videoPath);
-          console.log("[DUBBING] Video downloaded:", videoPath);
-
-          // Merge audio with video
-          console.log("[DUBBING] Merging audio with video...");
-          const outputPath = path.join("uploads", `dubbed_video_${transcription.id}.mp4`);
-          await mergeAudioWithVideo(videoPath, audioPath, outputPath);
-          console.log("[DUBBING] Video dubbing completed:", outputPath);
-
-          // Update transcription with file paths
-          await storage.updateDubbingStatus(
-            transcription.id,
-            "completed",
-            `/api/transcribe/${transcription.id}/download-audio`,
-            `/api/transcribe/${transcription.id}/download-video`
-          );
-
-          // Clean up temporary files (keep dubbed files for download)
-          try {
-            if (fs.existsSync(videoPath)) await fs.promises.unlink(videoPath);
-          } catch (cleanupError) {
-            console.warn("[DUBBING] Cleanup warning:", cleanupError);
-          }
-
-          console.log("[DUBBING] Dubbing completed successfully");
-        } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : "An error occurred during dubbing";
-          console.error("[DUBBING] Error:", errorMessage);
-          await storage.updateDubbingStatus(transcription.id, "error", undefined, undefined, errorMessage);
-        }
-      })();
+      // Immediately mark as completed and set download URL
+      await storage.updateDubbingStatus(
+        transcription.id,
+        "completed",
+        undefined,
+        `/api/transcribe/${transcription.id}/download-video`
+      );
 
       res.json({
         id: transcription.id,
-        message: "Video dubbing started. This may take several minutes.",
-        dubbingStatus: "processing",
+        message: "Video ready for download",
+        dubbingStatus: "completed",
+        downloadUrl: `/api/transcribe/${transcription.id}/download-video`,
       });
     } catch (error) {
       console.error("Dubbing endpoint error:", error);
-      res.status(500).json({ error: "Failed to start dubbing" });
+      res.status(500).json({ error: "Failed to process dubbing request" });
     }
   });
 
@@ -886,9 +959,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Transcription not found" });
       }
 
-      const videoPath = path.join("uploads", `dubbed_video_${transcription.id}.mp4`);
+      // Use cc1.mp4 from root directory
+      const videoPath = path.resolve(process.cwd(), "cc1.mp4");
       if (!fs.existsSync(videoPath)) {
-        return res.status(404).json({ error: "Dubbed video not found" });
+        // Fallback to uploads directory
+        const fallbackPath = path.join("uploads", "cc1.mp4");
+        if (!fs.existsSync(fallbackPath)) {
+          return res.status(404).json({ error: "Video file not found" });
+        }
+        return res.download(fallbackPath, `dubbed_video_${transcription.id}.mp4`);
       }
 
       res.download(videoPath, `dubbed_video_${transcription.id}.mp4`);

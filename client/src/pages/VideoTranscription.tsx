@@ -92,8 +92,8 @@ export default function VideoTranscription() {
   });
 
   const translateMutation = useMutation({
-    mutationFn: async ({ id, targetLanguage }: { id: string; targetLanguage: string }) => {
-      return await apiRequest("POST", `/api/transcribe/${id}/translate`, { targetLanguage });
+    mutationFn: async ({ id }: { id: string }) => {
+      return await apiRequest("POST", `/api/transcribe/${id}/translate`, {});
     },
     onSuccess: () => {
       toast({
@@ -110,6 +110,79 @@ export default function VideoTranscription() {
       });
     },
   });
+
+  // Query to fetch translation for selected language - auto-fetch when language changes
+  const { data: translationData, refetch: refetchTranslation, isLoading: isLoadingTranslation, error: translationError } = useQuery<{ language: string; translatedText: string }>({
+    queryKey: ["/api/transcribe", transcriptionId, "translation", translationLanguage],
+    enabled: !!transcriptionId && !!translationLanguage && transcriptionData?.status === "completed",
+    queryFn: async () => {
+      const startTime = Date.now();
+      console.log(`\n[FRONTEND_TRANSLATION] ===== START FETCH =====`);
+      console.log(`[FRONTEND_TRANSLATION] Transcription ID: ${transcriptionId}`);
+      console.log(`[FRONTEND_TRANSLATION] Selected Language: ${translationLanguage}`);
+      console.log(`[FRONTEND_TRANSLATION] Transcription Status: ${transcriptionData?.status}`);
+      console.log(`[FRONTEND_TRANSLATION] Translation Status: ${transcriptionData?.translationStatus}`);
+      
+      try {
+        const url = `/api/transcribe/${transcriptionId}/translation/${translationLanguage}`;
+        console.log(`[FRONTEND_TRANSLATION] Fetching from: ${url}`);
+        
+        const result = await apiRequest("GET", url);
+        const duration = Date.now() - startTime;
+        
+        console.log(`[FRONTEND_TRANSLATION] ✓ Response received in ${duration}ms`);
+        console.log(`[FRONTEND_TRANSLATION] Response language: ${result?.language}`);
+        console.log(`[FRONTEND_TRANSLATION] Response text length: ${result?.translatedText?.length || 0}`);
+        console.log(`[FRONTEND_TRANSLATION] Response text preview: ${result?.translatedText?.substring(0, 100) || 'NO TEXT'}...`);
+        console.log(`[FRONTEND_TRANSLATION] Full response:`, JSON.stringify(result, null, 2));
+        console.log(`[FRONTEND_TRANSLATION] ===== END FETCH =====\n`);
+        
+        return result;
+      } catch (error) {
+        const duration = Date.now() - startTime;
+        console.error(`[FRONTEND_TRANSLATION] ✗ ERROR after ${duration}ms:`, error);
+        throw error;
+      }
+    },
+    retry: false,
+    staleTime: 0, // Always fetch fresh data
+    refetchOnMount: true, // Always refetch when component mounts or language changes
+  });
+
+  // Auto-fetch translation immediately when language changes
+  useEffect(() => {
+    console.log(`[FRONTEND_TRANSLATION] useEffect triggered`);
+    console.log(`[FRONTEND_TRANSLATION] transcriptionId: ${transcriptionId}`);
+    console.log(`[FRONTEND_TRANSLATION] translationLanguage: ${translationLanguage}`);
+    console.log(`[FRONTEND_TRANSLATION] transcriptionData?.status: ${transcriptionData?.status}`);
+    
+    if (transcriptionId && translationLanguage && transcriptionData?.status === "completed") {
+      console.log(`[FRONTEND_TRANSLATION] ✓ Conditions met - triggering refetch for language: ${translationLanguage}`);
+      refetchTranslation();
+    } else {
+      console.log(`[FRONTEND_TRANSLATION] ✗ Conditions not met - skipping refetch`);
+    }
+  }, [translationLanguage, transcriptionId, transcriptionData?.status, refetchTranslation]);
+
+  // Log translation data changes
+  useEffect(() => {
+    if (translationData) {
+      console.log(`[FRONTEND_TRANSLATION] Translation data updated:`);
+      console.log(`[FRONTEND_TRANSLATION] - Language: ${translationData.language}`);
+      console.log(`[FRONTEND_TRANSLATION] - Text length: ${translationData.translatedText?.length || 0}`);
+      console.log(`[FRONTEND_TRANSLATION] - Text preview: ${translationData.translatedText?.substring(0, 100) || 'NO TEXT'}...`);
+    }
+  }, [translationData]);
+
+  // Log loading and error states
+  useEffect(() => {
+    if (isLoadingTranslation) {
+      console.log(`[FRONTEND_TRANSLATION] ⏳ Loading translation for: ${translationLanguage}`);
+    }
+    if (translationError) {
+      console.error(`[FRONTEND_TRANSLATION] ✗ Error loading translation:`, translationError);
+    }
+  }, [isLoadingTranslation, translationError, translationLanguage]);
 
   const dubbingMutation = useMutation({
     mutationFn: async ({ id, targetLanguage }: { id: string; targetLanguage: string }) => {
@@ -389,7 +462,15 @@ export default function VideoTranscription() {
                         />
                       </div>
                       <Button
-                        onClick={() => translateMutation.mutate({ id: transcriptionData.id, targetLanguage: translationLanguage })}
+                        onClick={() => {
+                          // If translations already exist, just fetch and display
+                          if (transcriptionData.translationStatus === "completed") {
+                            refetchTranslation();
+                          } else {
+                            // Otherwise, trigger storage
+                            translateMutation.mutate({ id: transcriptionData.id });
+                          }
+                        }}
                         disabled={translateMutation.isPending || transcriptionData.translationStatus === "processing"}
                         data-testid="button-translate"
                       >
@@ -418,11 +499,53 @@ export default function VideoTranscription() {
                   </div>
                 )}
 
-                {transcriptionData.translationStatus === "completed" && transcriptionData.translatedTranscription && (
+                {transcriptionData.translationStatus === "completed" && (
                   <div className="bg-muted/30 rounded-lg p-4 max-h-96 overflow-y-auto">
-                    <pre className="text-sm whitespace-pre-wrap leading-relaxed" data-testid="text-translated-transcription">
-                      {transcriptionData.translatedTranscription}
-                    </pre>
+                    {(() => {
+                      console.log(`[FRONTEND_TRANSLATION] Rendering translation box`);
+                      console.log(`[FRONTEND_TRANSLATION] - translationData exists: ${!!translationData}`);
+                      console.log(`[FRONTEND_TRANSLATION] - translationData.translatedText exists: ${!!translationData?.translatedText}`);
+                      console.log(`[FRONTEND_TRANSLATION] - translationData.translatedText: ${translationData?.translatedText?.substring(0, 100) || 'NO TEXT'}...`);
+                      console.log(`[FRONTEND_TRANSLATION] - isLoadingTranslation: ${isLoadingTranslation}`);
+                      console.log(`[FRONTEND_TRANSLATION] - translationError: ${translationError}`);
+                      
+                      if (isLoadingTranslation) {
+                        return (
+                          <div className="flex items-center justify-center text-muted-foreground py-8">
+                            <Loader2 className="h-8 w-8 animate-spin mb-4" />
+                            <p className="text-sm" data-testid="text-translation-loading">
+                              Loading translation...
+                            </p>
+                          </div>
+                        );
+                      }
+                      
+                      if (translationError) {
+                        return (
+                          <div className="flex items-center justify-center text-muted-foreground py-8">
+                            <p className="text-sm text-destructive" data-testid="text-translation-error">
+                              Error: {translationError instanceof Error ? translationError.message : 'Failed to load translation'}
+                            </p>
+                          </div>
+                        );
+                      }
+                      
+                      if (translationData?.translatedText) {
+                        return (
+                          <pre className="text-sm whitespace-pre-wrap leading-relaxed" data-testid="text-translated-transcription">
+                            {translationData.translatedText}
+                          </pre>
+                        );
+                      }
+                      
+                      return (
+                        <div className="flex items-center justify-center text-muted-foreground py-8">
+                          <p className="text-sm" data-testid="text-translation-loading">
+                            {t("transcription.translation.selectLanguage")}
+                          </p>
+                        </div>
+                      );
+                    })()}
                   </div>
                 )}
 

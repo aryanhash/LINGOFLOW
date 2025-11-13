@@ -4,6 +4,7 @@ import {
   chatMessages,
   transcriptions,
   documentTranslations,
+  transcriptionTranslations,
   type User,
   type UpsertUser,
   type Transcription,
@@ -12,7 +13,7 @@ import {
   type PdfTranslation,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 
 export interface IStorage {
   // User operations (required for Replit Auth)
@@ -392,6 +393,52 @@ export class DatabaseStorage implements IStorage {
     }
 
     await db.update(documentTranslations).set(updates).where(eq(documentTranslations.id, id));
+  }
+
+  // Translation cache methods - optimized with single query upsert
+  async saveTranslation(transcriptionId: string, language: string, translatedText: string): Promise<void> {
+    // Use PostgreSQL's ON CONFLICT for efficient upsert (single query instead of SELECT + INSERT/UPDATE)
+    await db
+      .insert(transcriptionTranslations)
+      .values({
+        transcriptionId,
+        language,
+        translatedText,
+      })
+      .onConflictDoUpdate({
+        target: [transcriptionTranslations.transcriptionId, transcriptionTranslations.language],
+        set: {
+          translatedText,
+          createdAt: new Date(),
+        },
+      });
+  }
+
+  async getTranslation(transcriptionId: string, language: string): Promise<string | undefined> {
+    const [translation] = await db
+      .select()
+      .from(transcriptionTranslations)
+      .where(
+        and(
+          eq(transcriptionTranslations.transcriptionId, transcriptionId),
+          eq(transcriptionTranslations.language, language)
+        )
+      )
+      .limit(1);
+    return translation?.translatedText;
+  }
+
+  async getAllTranslations(transcriptionId: string): Promise<Record<string, string>> {
+    const translations = await db
+      .select()
+      .from(transcriptionTranslations)
+      .where(eq(transcriptionTranslations.transcriptionId, transcriptionId));
+    
+    const result: Record<string, string> = {};
+    for (const t of translations) {
+      result[t.language] = t.translatedText;
+    }
+    return result;
   }
 }
 

@@ -81,6 +81,17 @@ export const transcriptions = pgTable("transcriptions", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Translation cache table - stores translations for all languages
+export const transcriptionTranslations = pgTable("transcription_translations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  transcriptionId: varchar("transcription_id").references(() => transcriptions.id, { onDelete: 'cascade' }).notNull(),
+  language: varchar("language", { length: 50 }).notNull(), // Increased from 10 to 50 to support longer language codes
+  translatedText: text("translated_text").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => ({
+  uniqueTranscriptionLanguage: sql`UNIQUE (transcription_id, language)`,
+}));
+
 // Document translations table
 export const documentTranslations = pgTable("document_translations", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
