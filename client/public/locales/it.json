@@ -1,0 +1,326 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "Piattaforma di traduzione multilingue basata su IA"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Funzionalità",
+    "videoTranscription": "Trascrizione video",
+    "chat": "Guida per colloqui",
+    "documentTranslation": "Traduzione documenti",
+    "login": "Accedi",
+    "logout": "Esci"
+  },
+  "home": {
+    "hero": {
+      "title": "Abbatti le barriere linguistiche con la traduzione basata su IA",
+      "subtitle": "Trascrizione video professionale, chat multilingue e traduzione PDF. Tutto alimentato da tecnologia IA avanzata che supporta oltre 100 lingue.",
+      "ctaPrimary": "Inizia gratuitamente",
+      "ctaSecondary": "Scopri di più",
+      "trustedBy": "Utilizzato da oltre 50.000 utenti in tutto il mondo"
+    },
+    "features": {
+      "sectionTitle": "Potenti strumenti di traduzione",
+      "sectionSubtitle": "Tutto ciò di cui hai bisogno per tradurre e localizzare i tuoi contenuti in diverse lingue",
+      "videoTranscription": {
+        "title": "Trascrizione video",
+        "description": "Incolla qualsiasi URL di YouTube e ottieni trascrizioni istantanee con traduzione in tempo reale in oltre 100 lingue."
+      },
+      "chat": {
+        "title": "Guida per colloqui",
+        "description": "Assistente per la preparazione ai colloqui basato su IA con supporto multilingue. Ricevi aiuto con domande comportamentali, tecniche e specifiche del settore."
+      },
+      "documentTranslation": {
+        "title": "Traduzione documenti",
+        "description": "Traduci documenti PDF e Word (DOCX) mantenendo formattazione e struttura."
+      },
+      "tryNow": "Prova ora"
+    },
+    "howItWorks": {
+      "title": "Come funziona",
+      "subtitle": "Traduzione semplice, veloce e professionale in tre semplici passaggi",
+      "step1": {
+        "number": "01",
+        "title": "Scegli il tuo strumento",
+        "description": "Seleziona tra trascrizione video, chat o traduzione di documenti in base alle tue esigenze."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Carica o inserisci",
+        "description": "Fornisci il tuo contenuto - incolla un URL, carica un file o inizia a digitare il tuo messaggio."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Ottieni risultati",
+        "description": "Ricevi traduzioni di qualità professionale istantaneamente con output scaricabili."
+      }
+    },
+    "stats": {
+      "languages": "Oltre 100 lingue",
+      "translations": "Più di 1M di traduzioni",
+      "uptime": "99,9% di operatività",
+      "support": "Supporto 24/7"
+    },
+    "cta": {
+      "title": "Pronto a superare le barriere linguistiche?",
+      "subtitle": "Inizia oggi a tradurre i tuoi contenuti con la nostra piattaforma basata su intelligenza artificiale. Nessuna carta di credito richiesta per iniziare.",
+      "button": "Inizia la prova gratuita"
+    },
+    "footer": {
+      "company": {
+        "title": "Azienda",
+        "about": "Chi siamo",
+        "blog": "Blog",
+        "careers": "Lavora con noi"
+      },
+      "features": {
+        "title": "Funzionalità",
+        "transcription": "Trascrizione",
+        "dubbing": "Doppiaggio AI",
+        "chat": "Guida per interviste",
+        "documentTranslation": "Traduzione documenti"
+      },
+      "resources": {
+        "title": "Risorse",
+        "documentation": "Documentazione",
+        "apiReference": "Riferimento API",
+        "support": "Supporto"
+      },
+      "legal": {
+        "title": "Legale",
+        "privacy": "Privacy",
+        "terms": "Termini",
+        "security": "Sicurezza"
+      },
+      "copyright": "© 2024 LinguaFlow. Tutti i diritti riservati."
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "Abbatti le barriere linguistiche con la traduzione basata su IA",
+      "description": "Benvenuto nel futuro della comunicazione globale. Accedi per continuare o crea un account per iniziare."
+    },
+    "tabs": {
+      "signin": "Accedi",
+      "signup": "Registrati"
+    },
+    "signin": {
+      "title": "Bentornato",
+      "subtitle": "Accedi per continuare su LinguaFlow",
+      "emailLabel": "Indirizzo email",
+      "emailPlaceholder": "Inserisci la tua email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Inserisci la tua password",
+      "forgotPassword": "Password dimenticata?",
+      "button": "Accedi",
+      "or": "Oppure",
+      "continueWithReplit": "Continua con Replit",
+      "continueWithGoogle": "Continua con Google",
+      "continueWithMicrosoft": "Continua con Microsoft"
+    },
+    "signup": {
+      "title": "Crea account",
+      "subtitle": "Unisciti a LinguaFlow oggi",
+      "emailLabel": "Indirizzo email",
+      "emailPlaceholder": "Inserisci la tua email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Crea una password",
+      "confirmPasswordLabel": "Conferma password",
+      "confirmPasswordPlaceholder": "Conferma la tua password",
+      "button": "Registrati",
+      "or": "Oppure",
+      "signupWithReplit": "Registrati con Replit"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "Home",
+      "current": "Trascrizione video"
+    },
+    "pageTitle": "Trascrizione video",
+    "pageDescription": "Incolla un URL di YouTube qui sotto per ottenere una trascrizione istantanea e la traduzione nella tua lingua di destinazione. Scarica i risultati in formato TXT o SRT.",
+    "form": {
+      "urlLabel": "URL YouTube",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "Trascrivi video",
+      "transcribing": "Trascrizione in corso..."
+    },
+    "processing": {
+      "status": "Elaborazione del video...",
+      "message": "Potrebbe richiedere alcuni minuti a seconda della lunghezza del video"
+    },
+    "error": {
+      "title": "Trascrizione fallita",
+      "message": "Si è verificato un errore durante la trascrizione. Riprova.",
+      "tip": "Suggerimento: assicurati che il video abbia sottotitoli abilitati."
+    },
+    "videoPlayer": {
+      "title": "Lettore video"
+    },
+    "transcript": {
+      "title": "Trascrizione",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "Traduzione",
+      "translateButton": "Traduci",
+      "translating": "Traduzione in corso...",
+      "empty": "Clicca \"Traduci\" per tradurre questa trascrizione",
+      "processing": "Traduzione della trascrizione in corso...",
+      "error": "Traduzione fallita. Riprova."
+    },
+    "empty": {
+      "title": "Nessuna trascrizione disponibile",
+      "description": "Inserisci un URL di YouTube sopra e clicca \"Trascrivi video\" per iniziare."
+    },
+    "toast": {
+      "processingStarted": "Elaborazione avviata",
+      "processingDescription": "Il tuo video è in fase di trascrizione. Potrebbe richiedere alcuni minuti.",
+      "transcriptionCompleted": "Trascrizione completata",
+      "transcriptionCompletedDescription": "Il tuo video è stato trascritto con successo. Clicca 'Traduci' per tradurlo.",
+      "transcriptionFailed": "Trascrizione fallita",
+      "translationStarted": "Traduzione avviata",
+      "translationDescription": "La tua trascrizione è in fase di traduzione.",
+      "translationFailed": "Traduzione fallita"
+    },
+    "dubbing": {
+      "title": "Doppiaggio video",
+      "description": "Genera un video doppiato con voce generata dall'IA in",
+      "generateButton": "Genera video doppiato",
+      "processing": "Generazione del video doppiato in corso...",
+      "processingDetail": "Potrebbe richiedere diversi minuti. L'IA sta creando il voice-over e lo sta unendo al video.",
+      "success": "Doppiaggio completato con successo!",
+      "successDetail": "Il tuo video è stato doppiato con voce generata dall'IA. Scarica i file qui sotto.",
+      "downloadAudio": "Scarica audio",
+      "downloadVideo": "Scarica video",
+      "errorTitle": "Doppiaggio fallito",
+      "retryButton": "Riprova doppiaggio",
+      "toast": {
+        "dubbingStarted": "Doppiaggio avviato",
+        "dubbingDescription": "Il tuo video viene doppiato con voce AI. Potrebbe richiedere diversi minuti.",
+        "dubbingFailed": "Doppiaggio fallito",
+        "downloadStarted": "Download avviato",
+        "downloadDescription": "Il tuo video doppiato si sta scaricando automaticamente.",
+        "autoDownloadFailed": "Download automatico fallito",
+        "autoDownloadDescription": "Utilizza il pulsante di download per ottenere il tuo video."
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "Nuova preparazione colloquio",
+      "noConversations": "Nessuna preparazione colloquio ancora",
+      "messages": "msg"
+    },
+    "header": {
+      "activeConversation": "Sessione di preparazione colloquio",
+      "newConversation": "Nuova preparazione colloquio",
+      "subtitle": "Guida e pratica per colloqui basata su AI",
+      "language": "Lingua:"
+    },
+    "empty": {
+      "title": "Benvenuto nella guida per colloqui",
+      "description": "Fammi qualsiasi domanda sul colloquio! Posso aiutarti a prepararti per colloqui comportamentali, tecnici o specifici del settore. Fornirò risposte dettagliate, esempi e feedback in qualsiasi lingua."
+    },
+    "messages": {
+      "original": "Originale:"
+    },
+    "input": {
+      "placeholder": "Fai una domanda per il colloquio... (es., 'Parlami di te' o 'Quali sono i tuoi punti di forza?')",
+      "keyboardHint": "Premi Invio per inviare, Maiusc + Invio per nuova riga"
+    },
+    "toast": {
+      "error": "Errore nella chat"
+    }
+  },
+  "pdf": {
+    "pageTitle": "Traduci un nuovo documento",
+    "upload": {
+      "dragDrop": "Trascina e rilascia un file qui o clicca per sfogliare",
+      "supportedFormats": "Formati supportati: PDF, DOCX, TXT",
+      "browseFiles": "Sfoglia file"
+    },
+    "form": {
+      "sourceLanguageLabel": "Lingua di origine",
+      "targetLanguageLabel": "Lingua/e di destinazione",
+      "translateButton": "Traduci"
+    },
+    "history": {
+      "title": "Stato e cronologia delle traduzioni",
+      "inProgress": "In corso",
+      "completed": "Completato",
+      "translating": "Traduzione in corso",
+      "translatedTo": "Tradotto in",
+      "download": "Scarica",
+      "empty": {
+        "title": "Nessuna traduzione ancora",
+        "description": "Carica un documento per iniziare"
+      }
+    },
+    "toast": {
+      "processingStarted": "Elaborazione avviata",
+      "processingDescription": "Il tuo documento è in fase di traduzione.",
+      "translationCompleted": "Traduzione completata",
+      "translationCompletedDescription": "Il tuo documento è stato tradotto con successo.",
+      "translationFailed": "Traduzione fallita",
+      "noFileSelected": "Nessun file selezionato",
+      "noFileDescription": "Seleziona un documento da caricare.",
+      "invalidFile": "File non valido",
+      "invalidFileDescription": "Seleziona un file PDF o DOCX."
+    }
+  },
+  "common": {
+    "loading": "Caricamento in corso...",
+    "error": "Errore",
+    "success": "Successo",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "close": "Chiudi",
+    "confirm": "Conferma",
+    "back": "Indietro",
+    "next": "Avanti",
+    "previous": "Precedente",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "sort": "Ordina",
+    "clear": "Cancella",
+    "apply": "Applica",
+    "submit": "Invia",
+    "upload": "Carica",
+    "download": "Scarica",
+    "translate": "Traduci",
+    "processing": "Elaborazione in corso...",
+    "completed": "Completato",
+    "sourceLanguage": "Lingua di origine",
+    "targetLanguage": "Lingua di destinazione",
+    "selectLanguage": "Seleziona lingua"
+  },
+  "languages": {
+    "auto": "Rilevamento automatico",
+    "en": "Inglese",
+    "es": "Spagnolo",
+    "fr": "Francese",
+    "de": "Tedesco",
+    "it": "Italiano",
+    "pt": "Portoghese",
+    "ru": "Russo",
+    "zh": "Cinese",
+    "ja": "Giapponese",
+    "ko": "Coreano",
+    "ar": "Arabo",
+    "hi": "Hindi",
+    "bn": "Bengalese",
+    "pa": "Punjabi",
+    "tr": "Turco",
+    "vi": "Vietnamita",
+    "pl": "Polacco",
+    "uk": "Ucraino",
+    "nl": "Olandese",
+    "sv": "Svedese"
+  }
+}

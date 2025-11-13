@@ -1,0 +1,326 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "Yapay zeka destekli çok dilli çeviri platformu"
+  },
+  "nav": {
+    "home": "Ana sayfa",
+    "features": "Özellikler",
+    "videoTranscription": "Video transkripsiyon",
+    "chat": "Mülakat rehberi",
+    "documentTranslation": "Belge çevirisi",
+    "login": "Giriş yap",
+    "logout": "Çıkış yap"
+  },
+  "home": {
+    "hero": {
+      "title": "Yapay zeka destekli çeviri ile dil engellerini aşın",
+      "subtitle": "Profesyonel video transkripsiyon, çok dilli sohbet ve PDF çevirisi. Hepsi 100'den fazla dili destekleyen gelişmiş yapay zeka teknolojisi ile güçlendirilmiştir.",
+      "ctaPrimary": "Ücretsiz başlayın",
+      "ctaSecondary": "Daha fazla bilgi",
+      "trustedBy": "Dünya çapında 50.000'den fazla kullanıcı tarafından güvenilmektedir"
+    },
+    "features": {
+      "sectionTitle": "Güçlü çeviri araçları",
+      "sectionSubtitle": "İçeriğinizi diller arasında çevirmek ve yerelleştirmek için ihtiyacınız olan her şey",
+      "videoTranscription": {
+        "title": "Video transkripsiyon",
+        "description": "Herhangi bir YouTube URL'sini yapıştırın ve 100'den fazla dilde gerçek zamanlı çeviri ile anında transkripsiyon alın."
+      },
+      "chat": {
+        "title": "Mülakat rehberi",
+        "description": "Çok dilli destek sunan yapay zeka destekli mülakat hazırlık asistanı. Davranışsal, teknik ve sektöre özel mülakat soruları için yardım alın."
+      },
+      "documentTranslation": {
+        "title": "Belge çevirisi",
+        "description": "Biçimlendirme ve yapıyı koruyarak PDF ve Word belgelerini (DOCX) çevirin."
+      },
+      "tryNow": "Şimdi deneyin"
+    },
+    "howItWorks": {
+      "title": "Nasıl çalışır",
+      "subtitle": "Üç kolay adımda basit, hızlı ve profesyonel çeviri",
+      "step1": {
+        "number": "01",
+        "title": "Aracınızı seçin",
+        "description": "İhtiyaçlarınıza göre video transkripsiyon, sohbet veya belge çevirisi arasından seçim yapın."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Yükleyin veya giriş yapın",
+        "description": "İçeriğinizi sağlayın - bir URL yapıştırın, dosya yükleyin veya mesajınızı yazmaya başlayın."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Sonuçları alın",
+        "description": "İndirilebilir çıktılarla anında profesyonel kalitede çeviriler alın."
+      }
+    },
+    "stats": {
+      "languages": "100+ dil",
+      "translations": "1M+ çeviri",
+      "uptime": "%99,9 çalışma süresi",
+      "support": "7/24 destek"
+    },
+    "cta": {
+      "title": "Dil engellerini aşmaya hazır mısınız?",
+      "subtitle": "Yapay zeka destekli platformumuzla içeriğinizi bugün çevirmeye başlayın. Başlamak için kredi kartı gerekmez.",
+      "button": "Ücretsiz denemeyi başlat"
+    },
+    "footer": {
+      "company": {
+        "title": "Şirket",
+        "about": "Hakkında",
+        "blog": "Blog",
+        "careers": "Kariyer"
+      },
+      "features": {
+        "title": "Özellikler",
+        "transcription": "Transkripsiyon",
+        "dubbing": "Yapay zeka seslendirme",
+        "chat": "Görüşme rehberi",
+        "documentTranslation": "Belge çevirisi"
+      },
+      "resources": {
+        "title": "Kaynaklar",
+        "documentation": "Dokümantasyon",
+        "apiReference": "API referansı",
+        "support": "Destek"
+      },
+      "legal": {
+        "title": "Yasal",
+        "privacy": "Gizlilik",
+        "terms": "Şartlar",
+        "security": "Güvenlik"
+      },
+      "copyright": "© 2024 LinguaFlow. Tüm hakları saklıdır."
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "Yapay zeka destekli çeviri ile dil engellerini aşın",
+      "description": "Küresel iletişimin geleceğine hoş geldiniz. Devam etmek için giriş yapın veya başlamak için bir hesap oluşturun."
+    },
+    "tabs": {
+      "signin": "Giriş yap",
+      "signup": "Kaydol"
+    },
+    "signin": {
+      "title": "Tekrar hoş geldiniz",
+      "subtitle": "LinguaFlow'a devam etmek için giriş yapın",
+      "emailLabel": "E-posta adresi",
+      "emailPlaceholder": "E-postanızı girin",
+      "passwordLabel": "Şifre",
+      "passwordPlaceholder": "Şifrenizi girin",
+      "forgotPassword": "Şifrenizi mi unuttunuz?",
+      "button": "Giriş yap",
+      "or": "Veya",
+      "continueWithReplit": "Replit ile devam et",
+      "continueWithGoogle": "Google ile devam et",
+      "continueWithMicrosoft": "Microsoft ile devam et"
+    },
+    "signup": {
+      "title": "Hesap oluştur",
+      "subtitle": "Bugün LinguaFlow'a katılın",
+      "emailLabel": "E-posta adresi",
+      "emailPlaceholder": "E-postanızı girin",
+      "passwordLabel": "Şifre",
+      "passwordPlaceholder": "Bir şifre oluşturun",
+      "confirmPasswordLabel": "Şifreyi onayla",
+      "confirmPasswordPlaceholder": "Şifrenizi onaylayın",
+      "button": "Kaydol",
+      "or": "Veya",
+      "signupWithReplit": "Replit ile kaydol"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "Ana sayfa",
+      "current": "Video transkripsiyon"
+    },
+    "pageTitle": "Video transkripsiyon",
+    "pageDescription": "Hedef dilinizde anında transkripsiyon ve çeviri almak için aşağıya bir YouTube URL'si yapıştırın. Sonuçları TXT veya SRT formatında indirin.",
+    "form": {
+      "urlLabel": "YouTube URL",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "Videoyu transkript et",
+      "transcribing": "Transkript ediliyor..."
+    },
+    "processing": {
+      "status": "Video işleniyor...",
+      "message": "Video uzunluğuna bağlı olarak bu işlem birkaç dakika sürebilir"
+    },
+    "error": {
+      "title": "Transkripsiyon başarısız",
+      "message": "Transkripsiyon sırasında bir hata oluştu. Lütfen tekrar deneyin.",
+      "tip": "İpucu: Videonun altyazılarının etkin olduğundan emin olun."
+    },
+    "videoPlayer": {
+      "title": "Video oynatıcı"
+    },
+    "transcript": {
+      "title": "Transkript",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "Çeviri",
+      "translateButton": "Çevir",
+      "translating": "Çevriliyor...",
+      "empty": "Bu transkripti çevirmek için \"Çevir\" düğmesine tıklayın",
+      "processing": "Transkript çevriliyor...",
+      "error": "Çeviri başarısız oldu. Lütfen tekrar deneyin."
+    },
+    "empty": {
+      "title": "Henüz transkript yok",
+      "description": "Başlamak için yukarıya bir YouTube URL'si girin ve \"Videoyu Yazıya Dök\" düğmesine tıklayın."
+    },
+    "toast": {
+      "processingStarted": "İşlem başladı",
+      "processingDescription": "Videonuz yazıya dökülüyor. Bu işlem birkaç dakika sürebilir.",
+      "transcriptionCompleted": "Transkript tamamlandı",
+      "transcriptionCompletedDescription": "Videonuz başarıyla yazıya döküldü. Çevirmek için 'Çevir' düğmesine tıklayın.",
+      "transcriptionFailed": "Transkript başarısız oldu",
+      "translationStarted": "Çeviri başladı",
+      "translationDescription": "Transkriptiniz çevriliyor.",
+      "translationFailed": "Çeviri başarısız oldu"
+    },
+    "dubbing": {
+      "title": "Video Seslendirme",
+      "description": "Yapay zeka tarafından oluşturulan sesle seslendirilen video oluşturun",
+      "generateButton": "Seslendirilmiş Video Oluştur",
+      "processing": "Seslendirilmiş video oluşturuluyor...",
+      "processingDetail": "Bu işlem birkaç dakika sürebilir. Yapay zeka seslendirme oluşturuyor ve videoyla birleştiriyor.",
+      "success": "Seslendirme başarıyla tamamlandı!",
+      "successDetail": "Videonuz yapay zeka tarafından oluşturulan sesle seslendirildi. Dosyaları aşağıdan indirebilirsiniz.",
+      "downloadAudio": "Sesi İndir",
+      "downloadVideo": "Videoyu İndir",
+      "errorTitle": "Seslendirme başarısız oldu",
+      "retryButton": "Seslendirmeyi yeniden dene",
+      "toast": {
+        "dubbingStarted": "Seslendirme başladı",
+        "dubbingDescription": "Videonuz yapay zeka sesiyle seslendiriliyor. Bu işlem birkaç dakika sürebilir.",
+        "dubbingFailed": "Seslendirme başarısız oldu",
+        "downloadStarted": "İndirme başladı",
+        "downloadDescription": "Seslendirilmiş videonuz otomatik olarak indiriliyor.",
+        "autoDownloadFailed": "Otomatik indirme başarısız oldu",
+        "autoDownloadDescription": "Lütfen videonuzu indirmek için indirme düğmesini kullanın."
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "Yeni mülakat hazırlığı",
+      "noConversations": "Henüz mülakat hazırlığı yok",
+      "messages": "msj"
+    },
+    "header": {
+      "activeConversation": "Mülakat hazırlık oturumu",
+      "newConversation": "Yeni mülakat hazırlığı",
+      "subtitle": "Yapay zeka destekli mülakat rehberi ve pratiği",
+      "language": "Dil:"
+    },
+    "empty": {
+      "title": "Mülakat rehberine hoş geldiniz",
+      "description": "Bana herhangi bir mülakat sorusu sorabilirsiniz! Davranışsal, teknik veya sektöre özgü mülakatlar için hazırlanmanıza yardımcı olabilirim. Herhangi bir dilde detaylı cevaplar, örnekler ve geri bildirimler sunacağım."
+    },
+    "messages": {
+      "original": "Orijinal:"
+    },
+    "input": {
+      "placeholder": "Bir mülakat sorusu sorun... (örneğin, 'Bana kendinden bahset' veya 'Güçlü yönlerin nelerdir?')",
+      "keyboardHint": "Göndermek için Enter, yeni satır için Shift + Enter tuşlarına basın"
+    },
+    "toast": {
+      "error": "Sohbet hatası"
+    }
+  },
+  "pdf": {
+    "pageTitle": "Yeni bir belge çevir",
+    "upload": {
+      "dragDrop": "Buraya bir dosya sürükleyip bırakın veya göz atmak için tıklayın",
+      "supportedFormats": "Desteklenen formatlar: PDF, DOCX, TXT",
+      "browseFiles": "Dosyalara Göz At"
+    },
+    "form": {
+      "sourceLanguageLabel": "Kaynak Dil",
+      "targetLanguageLabel": "Hedef Dil(ler)",
+      "translateButton": "Çevir"
+    },
+    "history": {
+      "title": "Çeviri Durumu ve Geçmişi",
+      "inProgress": "Devam Ediyor",
+      "completed": "Tamamlandı",
+      "translating": "Çevriliyor",
+      "translatedTo": "Şu dile çevrildi",
+      "download": "İndir",
+      "empty": {
+        "title": "Henüz çeviri yok",
+        "description": "Başlamak için bir belge yükleyin"
+      }
+    },
+    "toast": {
+      "processingStarted": "İşlem başladı",
+      "processingDescription": "Belgeniz çevriliyor.",
+      "translationCompleted": "Çeviri tamamlandı",
+      "translationCompletedDescription": "Belgeniz başarıyla çevrildi.",
+      "translationFailed": "Çeviri başarısız oldu",
+      "noFileSelected": "Dosya seçilmedi",
+      "noFileDescription": "Lütfen yüklemek için bir belge seçin.",
+      "invalidFile": "Geçersiz dosya",
+      "invalidFileDescription": "Lütfen bir PDF veya DOCX dosyası seçin."
+    }
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "confirm": "Onayla",
+    "back": "Geri",
+    "next": "İleri",
+    "previous": "Önceki",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "sort": "Sırala",
+    "clear": "Temizle",
+    "apply": "Uygula",
+    "submit": "Gönder",
+    "upload": "Yükle",
+    "download": "İndir",
+    "translate": "Çevir",
+    "processing": "İşleniyor...",
+    "completed": "Tamamlandı",
+    "sourceLanguage": "Kaynak dil",
+    "targetLanguage": "Hedef dil",
+    "selectLanguage": "Dil seç"
+  },
+  "languages": {
+    "auto": "Otomatik algıla",
+    "en": "İngilizce",
+    "es": "İspanyolca",
+    "fr": "Fransızca",
+    "de": "Almanca",
+    "it": "İtalyanca",
+    "pt": "Portekizce",
+    "ru": "Rusça",
+    "zh": "Çince",
+    "ja": "Japonca",
+    "ko": "Korece",
+    "ar": "Arapça",
+    "hi": "Hintçe",
+    "bn": "Bengalce",
+    "pa": "Pencapça",
+    "tr": "Türkçe",
+    "vi": "Vietnamca",
+    "pl": "Lehçe",
+    "uk": "Ukraynaca",
+    "nl": "Hollandaca",
+    "sv": "İsveççe"
+  }
+}

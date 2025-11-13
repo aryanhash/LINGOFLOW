@@ -1,0 +1,326 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "Platform Terjemahan Multibahasa Bertenaga AI"
+  },
+  "nav": {
+    "home": "Beranda",
+    "features": "Fitur",
+    "videoTranscription": "Transkripsi Video",
+    "chat": "Panduan Wawancara",
+    "documentTranslation": "Terjemahan Dokumen",
+    "login": "Masuk",
+    "logout": "Keluar"
+  },
+  "home": {
+    "hero": {
+      "title": "Atasi Hambatan Bahasa dengan Terjemahan Bertenaga AI",
+      "subtitle": "Transkripsi video profesional, obrolan multibahasa, dan terjemahan PDF. Semuanya didukung oleh teknologi AI canggih yang mendukung lebih dari 100 bahasa.",
+      "ctaPrimary": "Mulai Gratis",
+      "ctaSecondary": "Pelajari Lebih Lanjut",
+      "trustedBy": "Dipercaya oleh lebih dari 50.000 pengguna di seluruh dunia"
+    },
+    "features": {
+      "sectionTitle": "Alat Terjemahan yang Canggih",
+      "sectionSubtitle": "Semua yang anda butuhkan untuk menerjemahkan dan melokalisasi konten anda dalam berbagai bahasa",
+      "videoTranscription": {
+        "title": "Transkripsi Video",
+        "description": "Tempelkan URL YouTube apa saja dan dapatkan transkripsi instan dengan terjemahan real-time dalam lebih dari 100 bahasa."
+      },
+      "chat": {
+        "title": "Panduan Wawancara",
+        "description": "Asisten persiapan wawancara bertenaga AI dengan dukungan multibahasa. Dapatkan bantuan untuk pertanyaan wawancara perilaku, teknis, dan spesifik industri."
+      },
+      "documentTranslation": {
+        "title": "Terjemahan Dokumen",
+        "description": "Terjemahkan dokumen PDF dan Word (DOCX) sambil mempertahankan format dan struktur."
+      },
+      "tryNow": "Coba Sekarang"
+    },
+    "howItWorks": {
+      "title": "Cara Kerjanya",
+      "subtitle": "Terjemahan yang sederhana, cepat, dan profesional dalam tiga langkah mudah",
+      "step1": {
+        "number": "01",
+        "title": "Pilih Alat Anda",
+        "description": "Pilih dari transkripsi video, obrolan, atau terjemahan dokumen berdasarkan kebutuhan Anda."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Unggah atau Masukkan",
+        "description": "Berikan konten Anda - tempel URL, unggah file, atau mulai ketik pesan Anda."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Dapatkan Hasil",
+        "description": "Terima terjemahan berkualitas profesional secara instan dengan output yang dapat diunduh."
+      }
+    },
+    "stats": {
+      "languages": "100+ Bahasa",
+      "translations": "1Juta+ Terjemahan",
+      "uptime": "99,9% Waktu Aktif",
+      "support": "Dukungan 24/7"
+    },
+    "cta": {
+      "title": "Siap Mengatasi Hambatan Bahasa?",
+      "subtitle": "Mulai terjemahkan konten Anda hari ini dengan platform bertenaga AI kami. Tidak perlu kartu kredit untuk memulai.",
+      "button": "Mulai Uji Coba Gratis"
+    },
+    "footer": {
+      "company": {
+        "title": "Perusahaan",
+        "about": "Tentang",
+        "blog": "Blog",
+        "careers": "Karir"
+      },
+      "features": {
+        "title": "Fitur",
+        "transcription": "Transkripsi",
+        "dubbing": "Sulih Suara AI",
+        "chat": "Panduan Wawancara",
+        "documentTranslation": "Terjemahan Dokumen"
+      },
+      "resources": {
+        "title": "Sumber Daya",
+        "documentation": "Dokumentasi",
+        "apiReference": "Referensi API",
+        "support": "Dukungan"
+      },
+      "legal": {
+        "title": "Hukum",
+        "privacy": "Privasi",
+        "terms": "Ketentuan",
+        "security": "Keamanan"
+      },
+      "copyright": "© 2024 LinguaFlow. Semua hak dilindungi."
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "Atasi Hambatan Bahasa dengan Terjemahan Bertenaga AI",
+      "description": "Selamat datang di masa depan komunikasi global. Masuk untuk melanjutkan atau buat akun untuk memulai."
+    },
+    "tabs": {
+      "signin": "Masuk",
+      "signup": "Daftar"
+    },
+    "signin": {
+      "title": "Selamat Datang Kembali",
+      "subtitle": "Masuk untuk melanjutkan ke LinguaFlow",
+      "emailLabel": "Alamat Email",
+      "emailPlaceholder": "Masukkan email anda",
+      "passwordLabel": "Kata Sandi",
+      "passwordPlaceholder": "Masukkan kata sandi anda",
+      "forgotPassword": "Lupa Kata Sandi?",
+      "button": "Masuk",
+      "or": "Atau",
+      "continueWithReplit": "Lanjutkan dengan Replit",
+      "continueWithGoogle": "Lanjutkan dengan Google",
+      "continueWithMicrosoft": "Lanjutkan dengan Microsoft"
+    },
+    "signup": {
+      "title": "Buat Akun",
+      "subtitle": "Bergabunglah dengan LinguaFlow hari ini",
+      "emailLabel": "Alamat Email",
+      "emailPlaceholder": "Masukkan email anda",
+      "passwordLabel": "Kata Sandi",
+      "passwordPlaceholder": "Buat kata sandi",
+      "confirmPasswordLabel": "Konfirmasi Kata Sandi",
+      "confirmPasswordPlaceholder": "Konfirmasi kata sandi anda",
+      "button": "Daftar",
+      "or": "Atau",
+      "signupWithReplit": "Daftar dengan Replit"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "Beranda",
+      "current": "Transkripsi Video"
+    },
+    "pageTitle": "Transkripsi Video",
+    "pageDescription": "Tempel URL YouTube di bawah untuk mendapatkan transkripsi instan dan terjemahan dalam bahasa target anda. Unduh hasil dalam format TXT atau SRT.",
+    "form": {
+      "urlLabel": "URL YouTube",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "Transkripsi Video",
+      "transcribing": "Mentranskripsikan..."
+    },
+    "processing": {
+      "status": "Memproses video...",
+      "message": "Ini mungkin memerlukan beberapa menit tergantung panjang video"
+    },
+    "error": {
+      "title": "Transkripsi Gagal",
+      "message": "Terjadi kesalahan selama transkripsi. Silakan coba lagi.",
+      "tip": "Tip: Pastikan video memiliki teks atau subtitle yang diaktifkan."
+    },
+    "videoPlayer": {
+      "title": "Pemutar Video"
+    },
+    "transcript": {
+      "title": "Transkrip",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "Terjemahan",
+      "translateButton": "Terjemahkan",
+      "translating": "Menerjemahkan...",
+      "empty": "Klik \"Terjemahkan\" untuk menerjemahkan transkrip ini",
+      "processing": "Menerjemahkan transkrip...",
+      "error": "Terjemahan gagal. Silakan coba lagi."
+    },
+    "empty": {
+      "title": "Belum ada transkrip",
+      "description": "Masukkan URL YouTube di atas dan klik \"Transkripsi Video\" untuk memulai."
+    },
+    "toast": {
+      "processingStarted": "Pemrosesan dimulai",
+      "processingDescription": "Video Anda sedang ditranskripsi. Ini mungkin memerlukan beberapa menit.",
+      "transcriptionCompleted": "Transkripsi selesai",
+      "transcriptionCompletedDescription": "Video Anda telah berhasil ditranskripsi. Klik 'Terjemahkan' untuk menerjemahkannya.",
+      "transcriptionFailed": "Transkripsi gagal",
+      "translationStarted": "Terjemahan dimulai",
+      "translationDescription": "Transkrip Anda sedang diterjemahkan.",
+      "translationFailed": "Terjemahan gagal"
+    },
+    "dubbing": {
+      "title": "Sulih Suara Video",
+      "description": "Hasilkan video dengan sulih suara yang dihasilkan AI dalam",
+      "generateButton": "Hasilkan Video Sulih Suara",
+      "processing": "Menghasilkan video sulih suara...",
+      "processingDetail": "Ini mungkin memerlukan beberapa menit. AI sedang membuat suara dan menggabungkannya dengan video.",
+      "success": "Sulih suara berhasil diselesaikan!",
+      "successDetail": "Video Anda telah disulih suara dengan suara yang dihasilkan AI. Unduh file di bawah ini.",
+      "downloadAudio": "Unduh Audio",
+      "downloadVideo": "Unduh Video",
+      "errorTitle": "Dubbing gagal",
+      "retryButton": "Coba Dubbing Lagi",
+      "toast": {
+        "dubbingStarted": "Dubbing dimulai",
+        "dubbingDescription": "Video Anda sedang didubbing dengan suara AI. Ini mungkin memerlukan waktu beberapa menit.",
+        "dubbingFailed": "Dubbing gagal",
+        "downloadStarted": "Unduhan dimulai",
+        "downloadDescription": "Video dubbing Anda sedang diunduh secara otomatis.",
+        "autoDownloadFailed": "Unduhan otomatis gagal",
+        "autoDownloadDescription": "Silakan gunakan tombol unduh untuk mendapatkan video Anda."
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "Persiapan Wawancara Baru",
+      "noConversations": "Belum ada persiapan wawancara",
+      "messages": "pesan"
+    },
+    "header": {
+      "activeConversation": "Sesi Persiapan Wawancara",
+      "newConversation": "Persiapan Wawancara Baru",
+      "subtitle": "Panduan wawancara & latihan berbasis AI",
+      "language": "Bahasa:"
+    },
+    "empty": {
+      "title": "Selamat datang di Panduan Wawancara",
+      "description": "Tanyakan saya pertanyaan wawancara apa pun! Saya dapat membantu Anda mempersiapkan wawancara perilaku, teknis, atau khusus industri. Saya akan memberikan jawaban terperinci, contoh, dan umpan balik dalam bahasa apa pun."
+    },
+    "messages": {
+      "original": "Asli:"
+    },
+    "input": {
+      "placeholder": "Ajukan pertanyaan wawancara... (misalnya, 'Ceritakan tentang diri Anda' atau 'Apa kekuatan Anda?')",
+      "keyboardHint": "Tekan Enter untuk mengirim, Shift + Enter untuk baris baru"
+    },
+    "toast": {
+      "error": "Kesalahan chat"
+    }
+  },
+  "pdf": {
+    "pageTitle": "Terjemahkan Dokumen Baru",
+    "upload": {
+      "dragDrop": "Seret & Jatuhkan file di sini atau klik untuk menjelajah",
+      "supportedFormats": "Format yang didukung: PDF, DOCX, TXT",
+      "browseFiles": "Telusuri berkas"
+    },
+    "form": {
+      "sourceLanguageLabel": "Bahasa sumber",
+      "targetLanguageLabel": "Bahasa target",
+      "translateButton": "Terjemahkan"
+    },
+    "history": {
+      "title": "Status & riwayat terjemahan",
+      "inProgress": "Sedang berlangsung",
+      "completed": "Selesai",
+      "translating": "Menerjemahkan",
+      "translatedTo": "Diterjemahkan ke",
+      "download": "Unduh",
+      "empty": {
+        "title": "Belum ada terjemahan",
+        "description": "Unggah dokumen untuk memulai"
+      }
+    },
+    "toast": {
+      "processingStarted": "Pemrosesan dimulai",
+      "processingDescription": "Dokumen Anda sedang diterjemahkan.",
+      "translationCompleted": "Terjemahan selesai",
+      "translationCompletedDescription": "Dokumen Anda telah berhasil diterjemahkan.",
+      "translationFailed": "Terjemahan gagal",
+      "noFileSelected": "Tidak ada berkas yang dipilih",
+      "noFileDescription": "Silakan pilih dokumen untuk diunggah.",
+      "invalidFile": "Berkas tidak valid",
+      "invalidFileDescription": "Silakan pilih berkas PDF atau DOCX."
+    }
+  },
+  "common": {
+    "loading": "Memuat...",
+    "error": "Kesalahan",
+    "success": "Berhasil",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "close": "Tutup",
+    "confirm": "Konfirmasi",
+    "back": "Kembali",
+    "next": "Selanjutnya",
+    "previous": "Sebelumnya",
+    "search": "Cari",
+    "filter": "Filter",
+    "sort": "Urutkan",
+    "clear": "Bersihkan",
+    "apply": "Terapkan",
+    "submit": "Kirim",
+    "upload": "Unggah",
+    "download": "Unduh",
+    "translate": "Terjemahkan",
+    "processing": "Memproses...",
+    "completed": "Selesai",
+    "sourceLanguage": "Bahasa sumber",
+    "targetLanguage": "Bahasa target",
+    "selectLanguage": "Pilih bahasa"
+  },
+  "languages": {
+    "auto": "Deteksi otomatis",
+    "en": "Bahasa Inggris",
+    "es": "Bahasa Spanyol",
+    "fr": "Prancis",
+    "de": "Jerman",
+    "it": "Italia",
+    "pt": "Portugis",
+    "ru": "Rusia",
+    "zh": "Mandarin",
+    "ja": "Jepang",
+    "ko": "Korea",
+    "ar": "Arab",
+    "hi": "Hindi",
+    "bn": "Bengali",
+    "pa": "Punjab",
+    "tr": "Turki",
+    "vi": "Vietnam",
+    "pl": "Polandia",
+    "uk": "Ukraina",
+    "nl": "Belanda",
+    "sv": "Swedia"
+  }
+}

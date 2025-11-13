@@ -1,0 +1,326 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "Nền tảng dịch thuật đa ngôn ngữ được hỗ trợ bởi AI"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "features": "Tính năng",
+    "videoTranscription": "Phiên âm video",
+    "chat": "Hướng dẫn phỏng vấn",
+    "documentTranslation": "Dịch tài liệu",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất"
+  },
+  "home": {
+    "hero": {
+      "title": "Phá vỡ rào cản ngôn ngữ với dịch thuật được hỗ trợ bởi AI",
+      "subtitle": "Phiên âm video chuyên nghiệp, trò chuyện đa ngôn ngữ và dịch PDF. Tất cả được hỗ trợ bởi công nghệ AI tiên tiến hỗ trợ hơn 100 ngôn ngữ.",
+      "ctaPrimary": "Bắt đầu miễn phí",
+      "ctaSecondary": "Tìm hiểu thêm",
+      "trustedBy": "Được tin dùng bởi hơn 50.000 người dùng trên toàn thế giới"
+    },
+    "features": {
+      "sectionTitle": "Công cụ dịch thuật mạnh mẽ",
+      "sectionSubtitle": "Tất cả những gì bạn cần để dịch và bản địa hóa nội dung của bạn qua các ngôn ngữ",
+      "videoTranscription": {
+        "title": "Phiên âm video",
+        "description": "Dán bất kỳ URL YouTube nào và nhận phiên âm tức thì với dịch thuật thời gian thực bằng hơn 100 ngôn ngữ."
+      },
+      "chat": {
+        "title": "Hướng dẫn phỏng vấn",
+        "description": "Trợ lý chuẩn bị phỏng vấn được hỗ trợ bởi AI với hỗ trợ đa ngôn ngữ. Nhận trợ giúp với các câu hỏi phỏng vấn về hành vi, kỹ thuật và chuyên ngành."
+      },
+      "documentTranslation": {
+        "title": "Dịch tài liệu",
+        "description": "Dịch tài liệu PDF và Word (DOCX) trong khi vẫn giữ nguyên định dạng và cấu trúc."
+      },
+      "tryNow": "Dùng thử ngay"
+    },
+    "howItWorks": {
+      "title": "Cách thức hoạt động",
+      "subtitle": "Dịch thuật đơn giản, nhanh chóng và chuyên nghiệp trong ba bước đơn giản",
+      "step1": {
+        "number": "01",
+        "title": "Chọn công cụ của bạn",
+        "description": "Lựa chọn giữa phiên âm video, trò chuyện, hoặc dịch tài liệu dựa trên nhu cầu của bạn."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Tải lên hoặc nhập vào",
+        "description": "Cung cấp nội dung của bạn - dán URL, tải lên tệp, hoặc bắt đầu nhập tin nhắn của bạn."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Nhận kết quả",
+        "description": "Nhận bản dịch chất lượng chuyên nghiệp ngay lập tức với đầu ra có thể tải xuống."
+      }
+    },
+    "stats": {
+      "languages": "Hơn 100 ngôn ngữ",
+      "translations": "Hơn 1 triệu bản dịch",
+      "uptime": "99.9% thời gian hoạt động",
+      "support": "Hỗ trợ 24/7"
+    },
+    "cta": {
+      "title": "Sẵn sàng phá vỡ rào cản ngôn ngữ?",
+      "subtitle": "Bắt đầu dịch nội dung của bạn ngay hôm nay với nền tảng được hỗ trợ bởi AI của chúng tôi. Không cần thẻ tín dụng để bắt đầu.",
+      "button": "Bắt đầu dùng thử miễn phí"
+    },
+    "footer": {
+      "company": {
+        "title": "Công ty",
+        "about": "Giới thiệu",
+        "blog": "Blog",
+        "careers": "Cơ hội nghề nghiệp"
+      },
+      "features": {
+        "title": "Tính năng",
+        "transcription": "Phiên âm",
+        "dubbing": "Lồng tiếng AI",
+        "chat": "Hướng dẫn phỏng vấn",
+        "documentTranslation": "Dịch tài liệu"
+      },
+      "resources": {
+        "title": "Tài nguyên",
+        "documentation": "Tài liệu hướng dẫn",
+        "apiReference": "Tham khảo API",
+        "support": "Hỗ trợ"
+      },
+      "legal": {
+        "title": "Pháp lý",
+        "privacy": "Quyền riêng tư",
+        "terms": "Điều khoản",
+        "security": "Bảo mật"
+      },
+      "copyright": "© 2024 LinguaFlow. Đã đăng ký bản quyền."
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "Phá vỡ rào cản ngôn ngữ với dịch thuật được hỗ trợ bởi AI",
+      "description": "Chào mừng đến với tương lai của giao tiếp toàn cầu. Đăng nhập để tiếp tục hoặc tạo tài khoản để bắt đầu."
+    },
+    "tabs": {
+      "signin": "Đăng nhập",
+      "signup": "Đăng ký"
+    },
+    "signin": {
+      "title": "Chào mừng trở lại",
+      "subtitle": "Đăng nhập để tiếp tục sử dụng LinguaFlow",
+      "emailLabel": "Địa chỉ email",
+      "emailPlaceholder": "Nhập email của bạn",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu của bạn",
+      "forgotPassword": "Quên mật khẩu?",
+      "button": "Đăng nhập",
+      "or": "Hoặc",
+      "continueWithReplit": "Tiếp tục với Replit",
+      "continueWithGoogle": "Tiếp tục với Google",
+      "continueWithMicrosoft": "Tiếp tục với Microsoft"
+    },
+    "signup": {
+      "title": "Tạo tài khoản",
+      "subtitle": "Tham gia LinguaFlow ngay hôm nay",
+      "emailLabel": "Địa chỉ email",
+      "emailPlaceholder": "Nhập email của bạn",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Tạo mật khẩu",
+      "confirmPasswordLabel": "Xác nhận mật khẩu",
+      "confirmPasswordPlaceholder": "Xác nhận mật khẩu của bạn",
+      "button": "Đăng ký",
+      "or": "Hoặc",
+      "signupWithReplit": "Đăng ký với Replit"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "current": "Phiên âm video"
+    },
+    "pageTitle": "Phiên âm video",
+    "pageDescription": "Dán URL YouTube bên dưới để nhận phiên âm và bản dịch tức thì bằng ngôn ngữ mục tiêu của bạn. Tải kết quả dưới dạng TXT hoặc SRT.",
+    "form": {
+      "urlLabel": "URL YouTube",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "Phiên âm video",
+      "transcribing": "Đang phiên âm..."
+    },
+    "processing": {
+      "status": "Đang xử lý video...",
+      "message": "Quá trình này có thể mất vài phút tùy thuộc vào độ dài video"
+    },
+    "error": {
+      "title": "Phiên âm thất bại",
+      "message": "Đã xảy ra lỗi trong quá trình phiên âm. Vui lòng thử lại.",
+      "tip": "Mẹo: Đảm bảo video có bật phụ đề hoặc phụ đề."
+    },
+    "videoPlayer": {
+      "title": "Trình phát video"
+    },
+    "transcript": {
+      "title": "Bản phiên âm",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "Bản dịch",
+      "translateButton": "Dịch",
+      "translating": "Đang dịch...",
+      "empty": "Nhấp \"Dịch\" để dịch bản ghi này",
+      "processing": "Đang dịch bản ghi...",
+      "error": "Dịch thất bại. Vui lòng thử lại."
+    },
+    "empty": {
+      "title": "Chưa có bản ghi",
+      "description": "Nhập URL YouTube ở trên và nhấp \"Phiên âm Video\" để bắt đầu."
+    },
+    "toast": {
+      "processingStarted": "Đã bắt đầu xử lý",
+      "processingDescription": "Video của bạn đang được phiên âm. Quá trình này có thể mất vài phút.",
+      "transcriptionCompleted": "Phiên âm hoàn tất",
+      "transcriptionCompletedDescription": "Video của bạn đã được phiên âm thành công. Nhấp 'Dịch' để dịch nó.",
+      "transcriptionFailed": "Phiên âm thất bại",
+      "translationStarted": "Bắt đầu dịch",
+      "translationDescription": "Bản ghi của bạn đang được dịch.",
+      "translationFailed": "Dịch thất bại"
+    },
+    "dubbing": {
+      "title": "Lồng tiếng Video",
+      "description": "Tạo video lồng tiếng với giọng nói tạo bởi AI bằng",
+      "generateButton": "Tạo Video Lồng tiếng",
+      "processing": "Đang tạo video lồng tiếng...",
+      "processingDetail": "Quá trình này có thể mất vài phút. AI đang tạo giọng nói và kết hợp với video.",
+      "success": "Lồng tiếng hoàn tất thành công!",
+      "successDetail": "Video của bạn đã được lồng tiếng với giọng nói tạo bởi AI. Tải xuống các tệp bên dưới.",
+      "downloadAudio": "Tải xuống Audio",
+      "downloadVideo": "Tải xuống Video",
+      "errorTitle": "Lồng tiếng thất bại",
+      "retryButton": "Thử lồng tiếng lại",
+      "toast": {
+        "dubbingStarted": "Đã bắt đầu lồng tiếng",
+        "dubbingDescription": "Video của bạn đang được lồng tiếng bằng giọng nói AI. Quá trình này có thể mất vài phút.",
+        "dubbingFailed": "Lồng tiếng thất bại",
+        "downloadStarted": "Đã bắt đầu tải xuống",
+        "downloadDescription": "Video đã lồng tiếng của bạn đang được tải xuống tự động.",
+        "autoDownloadFailed": "Tự động tải xuống thất bại",
+        "autoDownloadDescription": "Vui lòng sử dụng nút tải xuống để lấy video của bạn."
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "Chuẩn bị phỏng vấn mới",
+      "noConversations": "Chưa có buổi chuẩn bị phỏng vấn nào",
+      "messages": "tin nhắn"
+    },
+    "header": {
+      "activeConversation": "Buổi chuẩn bị phỏng vấn",
+      "newConversation": "Chuẩn bị phỏng vấn mới",
+      "subtitle": "Hướng dẫn phỏng vấn và luyện tập với trí tuệ nhân tạo",
+      "language": "Ngôn ngữ:"
+    },
+    "empty": {
+      "title": "Chào mừng đến với Hướng dẫn phỏng vấn",
+      "description": "Hãy hỏi tôi bất kỳ câu hỏi phỏng vấn nào! Tôi có thể giúp bạn chuẩn bị cho các cuộc phỏng vấn về hành vi, kỹ thuật hoặc chuyên ngành cụ thể. Tôi sẽ cung cấp câu trả lời chi tiết, ví dụ và phản hồi bằng bất kỳ ngôn ngữ nào."
+    },
+    "messages": {
+      "original": "Bản gốc:"
+    },
+    "input": {
+      "placeholder": "Đặt câu hỏi phỏng vấn... (ví dụ: 'Hãy cho tôi biết về bản thân bạn' hoặc 'Điểm mạnh của bạn là gì?')",
+      "keyboardHint": "Nhấn Enter để gửi, Shift + Enter để xuống dòng"
+    },
+    "toast": {
+      "error": "Lỗi trò chuyện"
+    }
+  },
+  "pdf": {
+    "pageTitle": "Dịch tài liệu mới",
+    "upload": {
+      "dragDrop": "Kéo & thả tệp vào đây hoặc nhấp để duyệt",
+      "supportedFormats": "Định dạng được hỗ trợ: PDF, DOCX, TXT",
+      "browseFiles": "Duyệt tệp"
+    },
+    "form": {
+      "sourceLanguageLabel": "Ngôn ngữ nguồn",
+      "targetLanguageLabel": "Ngôn ngữ đích",
+      "translateButton": "Dịch"
+    },
+    "history": {
+      "title": "Trạng thái & lịch sử dịch",
+      "inProgress": "Đang tiến hành",
+      "completed": "Đã hoàn thành",
+      "translating": "Đang dịch",
+      "translatedTo": "Đã dịch sang",
+      "download": "Tải xuống",
+      "empty": {
+        "title": "Chưa có bản dịch nào",
+        "description": "Tải lên tài liệu để bắt đầu"
+      }
+    },
+    "toast": {
+      "processingStarted": "Đã bắt đầu xử lý",
+      "processingDescription": "Tài liệu của bạn đang được dịch.",
+      "translationCompleted": "Dịch hoàn tất",
+      "translationCompletedDescription": "Tài liệu của bạn đã được dịch thành công.",
+      "translationFailed": "Dịch thất bại",
+      "noFileSelected": "Chưa chọn tệp nào",
+      "noFileDescription": "Vui lòng chọn tài liệu để tải lên.",
+      "invalidFile": "Tệp không hợp lệ",
+      "invalidFileDescription": "Vui lòng chọn tệp PDF hoặc DOCX."
+    }
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "close": "Đóng",
+    "confirm": "Xác nhận",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "previous": "Trước đó",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "sort": "Sắp xếp",
+    "clear": "Xóa",
+    "apply": "Áp dụng",
+    "submit": "Gửi",
+    "upload": "Tải lên",
+    "download": "Tải xuống",
+    "translate": "Dịch",
+    "processing": "Đang xử lý...",
+    "completed": "Hoàn thành",
+    "sourceLanguage": "Ngôn ngữ nguồn",
+    "targetLanguage": "Ngôn ngữ đích",
+    "selectLanguage": "Chọn ngôn ngữ"
+  },
+  "languages": {
+    "auto": "Tự động nhận diện",
+    "en": "Tiếng Anh",
+    "es": "Tiếng Tây Ban Nha",
+    "fr": "Tiếng Pháp",
+    "de": "Tiếng Đức",
+    "it": "Tiếng Ý",
+    "pt": "Tiếng Bồ Đào Nha",
+    "ru": "Tiếng Nga",
+    "zh": "Tiếng Trung",
+    "ja": "Tiếng Nhật",
+    "ko": "Tiếng Hàn",
+    "ar": "Tiếng Ả Rập",
+    "hi": "Tiếng Hindi",
+    "bn": "Tiếng Bengal",
+    "pa": "Tiếng Punjab",
+    "tr": "Tiếng Thổ Nhĩ Kỳ",
+    "vi": "Tiếng Việt",
+    "pl": "Tiếng Ba Lan",
+    "uk": "Tiếng Ukraine",
+    "nl": "Tiếng Hà Lan",
+    "sv": "Tiếng Thụy Điển"
+  }
+}

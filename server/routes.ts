@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
+import { setupAuth, isAuthenticated } from "./googleAuth";
 import multer from "multer";
 import { GoogleGenAI } from "@google/genai";
 import axios from "axios";
@@ -415,13 +415,29 @@ async function fetchYoutubeTranscript(url: string): Promise<{
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Setup authentication middleware (Replit Auth)
+  // Setup authentication middleware (Google Auth)
   await setupAuth(app);
 
+  // Development authentication middleware - must be defined before use
+  const devAuth = async (req: any, res: any, next: any) => {
+    if (req.session.mockUser) {
+      // Set req.user for compatibility with existing code
+      req.user = req.session.mockUser;
+      return next();
+    }
+    // Bypass authentication if not using mock user
+    if (process.env.NODE_ENV === 'development' && !req.user) {
+      req.user = { id: 'dev-user-123', claims: { sub: 'dev-user-123' } }; // Mock user for dev
+      req.session.mockUser = req.user; // Store in session for consistency
+      return next();
+    }
+    return isAuthenticated(req, res, next);
+  };
+
   // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+  app.get('/api/auth/user', devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const user = await storage.getUser(userId);
       res.json(user);
     } catch (error) {
@@ -431,7 +447,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // POST /api/translate - General purpose translation endpoint (requires authentication)
-  app.post("/api/translate", isAuthenticated, async (req, res) => {
+  app.post("/api/translate", devAuth, async (req, res) => {
     try {
       const { text, sourceLanguage, targetLanguage } = req.body;
       
@@ -453,11 +469,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }
 
   // POST /api/transcribe - Video transcription (only fetches transcript, no translation)
-  app.post("/api/transcribe", isAuthenticated, async (req: any, res) => {
+  app.post("/api/transcribe", devAuth, async (req: any, res) => {
     try {
       const validatedData = transcriptionRequestSchema.parse(req.body);
       const { url } = validatedData;
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
 
       // Create transcription record with explicit defaults
       const transcription = await storage.createTranscription({
@@ -520,9 +536,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // GET /api/transcribe/:id - Get transcription status
-  app.get("/api/transcribe/:id", isAuthenticated, async (req: any, res) => {
+  app.get("/api/transcribe/:id", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const transcription = await storage.getTranscription(req.params.id);
       if (!transcription || transcription.userId !== userId) {
         return res.status(404).json({ error: "Transcription not found" });
@@ -538,9 +554,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // POST /api/transcribe/:id/translate - Translate transcript
-  app.post("/api/transcribe/:id/translate", isAuthenticated, async (req: any, res) => {
+  app.post("/api/transcribe/:id/translate", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const transcription = await storage.getTranscription(req.params.id);
       if (!transcription || transcription.userId !== userId) {
         return res.status(404).json({ error: "Transcription not found" });
@@ -594,9 +610,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // POST /api/transcribe/:id/dub - Generate dubbed video with AI voice
-  app.post("/api/transcribe/:id/dub", isAuthenticated, async (req: any, res) => {
+  app.post("/api/transcribe/:id/dub", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const transcription = await storage.getTranscription(req.params.id);
       if (!transcription || transcription.userId !== userId) {
         return res.status(404).json({ error: "Transcription not found" });
@@ -682,9 +698,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // GET /api/transcribe/:id/download-audio - Download dubbed audio
-  app.get("/api/transcribe/:id/download-audio", isAuthenticated, async (req: any, res) => {
+  app.get("/api/transcribe/:id/download-audio", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const transcription = await storage.getTranscription(req.params.id);
       if (!transcription || transcription.userId !== userId) {
         return res.status(404).json({ error: "Transcription not found" });
@@ -703,9 +719,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // GET /api/transcribe/:id/download-video - Download dubbed video
-  app.get("/api/transcribe/:id/download-video", isAuthenticated, async (req: any, res) => {
+  app.get("/api/transcribe/:id/download-video", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const transcription = await storage.getTranscription(req.params.id);
       if (!transcription || transcription.userId !== userId) {
         return res.status(404).json({ error: "Transcription not found" });
@@ -724,9 +740,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // GET /api/conversations - Get user conversations
-  app.get("/api/conversations", isAuthenticated, async (req: any, res) => {
+  app.get("/api/conversations", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const conversations = await storage.getUserConversations(userId);
       res.json(conversations);
     } catch (error) {
@@ -736,7 +752,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // POST /api/chat - Multilingual chat
-  app.post("/api/chat", isAuthenticated, async (req: any, res) => {
+  app.post("/api/chat", devAuth, async (req: any, res) => {
     try {
       console.log("[CHAT] Received request:", { message: req.body.message, language: req.body.language });
       
@@ -756,7 +772,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       if (!conversation) {
-        const userId = req.user.claims.sub;
+        const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
         conversation = await storage.createConversation(language, userId);
         console.log("[CHAT] Created new conversation:", conversation.id);
       }
@@ -874,9 +890,9 @@ Always be encouraging, professional, and provide actionable advice. Format your 
   }
 
   // GET /api/document-translations - Get user document translations
-  app.get("/api/document-translations", isAuthenticated, async (req: any, res) => {
+  app.get("/api/document-translations", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const translations = await storage.getUserDocumentTranslations(userId);
       res.json(translations);
     } catch (error) {
@@ -886,7 +902,7 @@ Always be encouraging, professional, and provide actionable advice. Format your 
   });
 
   // POST /api/translate-pdf - Document translation (PDF, DOC, DOCX)
-  app.post("/api/translate-pdf", isAuthenticated, upload.single("pdf"), async (req: any, res) => {
+  app.post("/api/translate-pdf", devAuth, upload.single("pdf"), async (req: any, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: "No document file uploaded" });
@@ -919,7 +935,7 @@ Always be encouraging, professional, and provide actionable advice. Format your 
       console.log("[DOCUMENT_TRANSLATION] Starting translation for:", req.file.originalname, "Type:", fileType);
 
       // Create translation record immediately
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const translation = await storage.createPdfTranslation({
         fileName: req.file.originalname,
         fileType,
@@ -1010,9 +1026,9 @@ Always be encouraging, professional, and provide actionable advice. Format your 
   });
 
   // GET /api/translate-pdf/:id - Get PDF translation status
-  app.get("/api/translate-pdf/:id", isAuthenticated, async (req: any, res) => {
+  app.get("/api/translate-pdf/:id", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const translation = await storage.getPdfTranslation(req.params.id);
       if (!translation || translation.userId !== userId) {
         return res.status(404).json({ error: "Translation not found" });
@@ -1024,9 +1040,9 @@ Always be encouraging, professional, and provide actionable advice. Format your 
   });
 
   // Authenticated file download endpoint
-  app.get("/uploads/:filename", isAuthenticated, async (req: any, res) => {
+  app.get("/uploads/:filename", devAuth, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
       const filename = req.params.filename;
       const filePath = path.join("uploads", filename);
 

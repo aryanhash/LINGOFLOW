@@ -1,0 +1,326 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "AI-gestuurde meertalige vertaalplatform"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Functies",
+    "videoTranscription": "Videotranscriptie",
+    "chat": "Interviewgids",
+    "documentTranslation": "Documentvertaling",
+    "login": "Inloggen",
+    "logout": "Uitloggen"
+  },
+  "home": {
+    "hero": {
+      "title": "Doorbreek taalbarrières met AI-gestuurde vertaling",
+      "subtitle": "Professionele videotranscriptie, meertalige chat en PDF-vertaling. Allemaal aangedreven door geavanceerde AI-technologie die meer dan 100 talen ondersteunt.",
+      "ctaPrimary": "Gratis beginnen",
+      "ctaSecondary": "Meer informatie",
+      "trustedBy": "Vertrouwd door meer dan 50.000 gebruikers wereldwijd"
+    },
+    "features": {
+      "sectionTitle": "Krachtige vertaaltools",
+      "sectionSubtitle": "Alles wat je nodig hebt om je content te vertalen en te lokaliseren in verschillende talen",
+      "videoTranscription": {
+        "title": "Videotranscriptie",
+        "description": "Plak een YouTube-URL en krijg direct transcripties met realtime vertaling in meer dan 100 talen."
+      },
+      "chat": {
+        "title": "Interviewgids",
+        "description": "AI-gestuurde interviewvoorbereiding assistent met meertalige ondersteuning. Krijg hulp bij gedragsmatige, technische en branchespecifieke interviewvragen."
+      },
+      "documentTranslation": {
+        "title": "Documentvertaling",
+        "description": "Vertaal PDF- en Word-documenten (DOCX) met behoud van opmaak en structuur."
+      },
+      "tryNow": "Probeer nu"
+    },
+    "howItWorks": {
+      "title": "Hoe het werkt",
+      "subtitle": "Eenvoudige, snelle en professionele vertaling in drie gemakkelijke stappen",
+      "step1": {
+        "number": "01",
+        "title": "Kies je tool",
+        "description": "Selecteer videotranscriptie, chat of documentvertaling op basis van je behoeften."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Upload of voer in",
+        "description": "Lever je content aan - plak een URL, upload een bestand of begin met het typen van je bericht."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Ontvang resultaten",
+        "description": "Ontvang direct vertalingen van professionele kwaliteit met downloadbare uitvoer."
+      }
+    },
+    "stats": {
+      "languages": "100+ talen",
+      "translations": "1M+ vertalingen",
+      "uptime": "99,9% uptime",
+      "support": "24/7 ondersteuning"
+    },
+    "cta": {
+      "title": "Klaar om taalbarrières te doorbreken?",
+      "subtitle": "Begin vandaag nog met het vertalen van je content met ons AI-gestuurde platform. Geen creditcard nodig om te beginnen.",
+      "button": "Start gratis proefversie"
+    },
+    "footer": {
+      "company": {
+        "title": "Bedrijf",
+        "about": "Over ons",
+        "blog": "Blog",
+        "careers": "Vacatures"
+      },
+      "features": {
+        "title": "Functies",
+        "transcription": "Transcriptie",
+        "dubbing": "AI-nasynchronisatie",
+        "chat": "Interviewgids",
+        "documentTranslation": "Documentvertaling"
+      },
+      "resources": {
+        "title": "Bronnen",
+        "documentation": "Documentatie",
+        "apiReference": "API-referentie",
+        "support": "Ondersteuning"
+      },
+      "legal": {
+        "title": "Juridisch",
+        "privacy": "Privacy",
+        "terms": "Voorwaarden",
+        "security": "Beveiliging"
+      },
+      "copyright": "© 2024 LinguaFlow. Alle rechten voorbehouden."
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "Doorbreek taalbarrières met AI-gestuurde vertaling",
+      "description": "Welkom bij de toekomst van wereldwijde communicatie. Log in om door te gaan of maak een account aan om te beginnen."
+    },
+    "tabs": {
+      "signin": "Inloggen",
+      "signup": "Registreren"
+    },
+    "signin": {
+      "title": "Welkom terug",
+      "subtitle": "Log in om door te gaan naar LinguaFlow",
+      "emailLabel": "E-mailadres",
+      "emailPlaceholder": "Voer je e-mailadres in",
+      "passwordLabel": "Wachtwoord",
+      "passwordPlaceholder": "Voer je wachtwoord in",
+      "forgotPassword": "Wachtwoord vergeten?",
+      "button": "Inloggen",
+      "or": "Of",
+      "continueWithReplit": "Doorgaan met Replit",
+      "continueWithGoogle": "Doorgaan met Google",
+      "continueWithMicrosoft": "Doorgaan met Microsoft"
+    },
+    "signup": {
+      "title": "Account aanmaken",
+      "subtitle": "Word vandaag nog lid van LinguaFlow",
+      "emailLabel": "E-mailadres",
+      "emailPlaceholder": "Voer je e-mailadres in",
+      "passwordLabel": "Wachtwoord",
+      "passwordPlaceholder": "Maak een wachtwoord aan",
+      "confirmPasswordLabel": "Bevestig wachtwoord",
+      "confirmPasswordPlaceholder": "Bevestig je wachtwoord",
+      "button": "Registreren",
+      "or": "Of",
+      "signupWithReplit": "Registreer met Replit"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "Home",
+      "current": "Videotranscriptie"
+    },
+    "pageTitle": "Videotranscriptie",
+    "pageDescription": "Plak een YouTube-URL hieronder om direct transcriptie en vertaling in je doeltaal te krijgen. Download resultaten als TXT- of SRT-formaat.",
+    "form": {
+      "urlLabel": "YouTube-URL",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "Video transcriberen",
+      "transcribing": "Transcriberen..."
+    },
+    "processing": {
+      "status": "Video verwerken...",
+      "message": "Dit kan enkele minuten duren, afhankelijk van de lengte van de video"
+    },
+    "error": {
+      "title": "Transcriptie mislukt",
+      "message": "Er is een fout opgetreden tijdens de transcriptie. Probeer het opnieuw.",
+      "tip": "Tip: zorg ervoor dat de video ondertiteling heeft ingeschakeld."
+    },
+    "videoPlayer": {
+      "title": "Videospeler"
+    },
+    "transcript": {
+      "title": "Transcript",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "Vertaling",
+      "translateButton": "Vertalen",
+      "translating": "Bezig met vertalen...",
+      "empty": "Klik op \"Vertalen\" om deze transcriptie te vertalen",
+      "processing": "Transcriptie wordt vertaald...",
+      "error": "Vertaling mislukt. Probeer het opnieuw."
+    },
+    "empty": {
+      "title": "Nog geen transcriptie",
+      "description": "Voer hierboven een YouTube URL in en klik op \"Video transcriberen\" om te beginnen."
+    },
+    "toast": {
+      "processingStarted": "Verwerking gestart",
+      "processingDescription": "Je video wordt getranscribeerd. Dit kan enkele minuten duren.",
+      "transcriptionCompleted": "Transcriptie voltooid",
+      "transcriptionCompletedDescription": "Je video is succesvol getranscribeerd. Klik op 'Vertalen' om het te vertalen.",
+      "transcriptionFailed": "Transcriptie mislukt",
+      "translationStarted": "Vertaling gestart",
+      "translationDescription": "Je transcriptie wordt vertaald.",
+      "translationFailed": "Vertaling mislukt"
+    },
+    "dubbing": {
+      "title": "Video nasynchronisatie",
+      "description": "Genereer een nagesynchroniseerde video met door AI gegenereerde stem in",
+      "generateButton": "Nagesynchroniseerde video genereren",
+      "processing": "Bezig met genereren van nagesynchroniseerde video...",
+      "processingDetail": "Dit kan enkele minuten duren. AI creëert voice-over en voegt deze samen met de video.",
+      "success": "Nasynchronisatie succesvol voltooid!",
+      "successDetail": "Je video is nagesynchroniseerd met door AI gegenereerde stem. Download de bestanden hieronder.",
+      "downloadAudio": "Audio downloaden",
+      "downloadVideo": "Video downloaden",
+      "errorTitle": "Nasynchronisatie mislukt",
+      "retryButton": "Nasynchronisatie opnieuw proberen",
+      "toast": {
+        "dubbingStarted": "Nasynchronisatie gestart",
+        "dubbingDescription": "Je video wordt voorzien van AI-stem. Dit kan enkele minuten duren.",
+        "dubbingFailed": "Nasynchronisatie mislukt",
+        "downloadStarted": "Download gestart",
+        "downloadDescription": "Je nagesynchroniseerde video wordt automatisch gedownload.",
+        "autoDownloadFailed": "Automatisch downloaden mislukt",
+        "autoDownloadDescription": "Gebruik de downloadknop om je video te downloaden."
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "Nieuwe interviewvoorbereiding",
+      "noConversations": "Nog geen interviewvoorbereidingen",
+      "messages": "berichten"
+    },
+    "header": {
+      "activeConversation": "Interviewvoorbereidingssessie",
+      "newConversation": "Nieuwe interviewvoorbereiding",
+      "subtitle": "AI-gestuurde interviewgids & oefening",
+      "language": "Taal:"
+    },
+    "empty": {
+      "title": "Welkom bij de interviewgids",
+      "description": "Stel me interviewvragen! Ik kan je helpen voorbereiden op gedragsmatige, technische of branchespecifieke interviews. Ik geef gedetailleerde antwoorden, voorbeelden en feedback in elke taal."
+    },
+    "messages": {
+      "original": "Origineel:"
+    },
+    "input": {
+      "placeholder": "Stel een interviewvraag... (bijv. 'Vertel eens over jezelf' of 'Wat zijn je sterke punten?')",
+      "keyboardHint": "Druk op Enter om te verzenden, Shift + Enter voor een nieuwe regel"
+    },
+    "toast": {
+      "error": "Chatfout"
+    }
+  },
+  "pdf": {
+    "pageTitle": "Vertaal een nieuw document",
+    "upload": {
+      "dragDrop": "Sleep een bestand hierheen of klik om te bladeren",
+      "supportedFormats": "Ondersteunde formaten: PDF, DOCX, TXT",
+      "browseFiles": "Bestanden bekijken"
+    },
+    "form": {
+      "sourceLanguageLabel": "Brontaal",
+      "targetLanguageLabel": "Doeltaal/talen",
+      "translateButton": "Vertalen"
+    },
+    "history": {
+      "title": "Vertaalstatus & geschiedenis",
+      "inProgress": "In uitvoering",
+      "completed": "Voltooid",
+      "translating": "Bezig met vertalen",
+      "translatedTo": "Vertaald naar",
+      "download": "Downloaden",
+      "empty": {
+        "title": "Nog geen vertalingen",
+        "description": "Upload een document om te beginnen"
+      }
+    },
+    "toast": {
+      "processingStarted": "Verwerking gestart",
+      "processingDescription": "Je document wordt vertaald.",
+      "translationCompleted": "Vertaling voltooid",
+      "translationCompletedDescription": "Je document is succesvol vertaald.",
+      "translationFailed": "Vertaling mislukt",
+      "noFileSelected": "Geen bestand geselecteerd",
+      "noFileDescription": "Selecteer een document om te uploaden.",
+      "invalidFile": "Ongeldig bestand",
+      "invalidFileDescription": "Selecteer een PDF of DOCX bestand."
+    }
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fout",
+    "success": "Succes",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "close": "Sluiten",
+    "confirm": "Bevestigen",
+    "back": "Terug",
+    "next": "Volgende",
+    "previous": "Vorige",
+    "search": "Zoeken",
+    "filter": "Filteren",
+    "sort": "Sorteren",
+    "clear": "Wissen",
+    "apply": "Toepassen",
+    "submit": "Verzenden",
+    "upload": "Uploaden",
+    "download": "Downloaden",
+    "translate": "Vertalen",
+    "processing": "Bezig met verwerken...",
+    "completed": "Voltooid",
+    "sourceLanguage": "Brontaal",
+    "targetLanguage": "Doeltaal",
+    "selectLanguage": "Selecteer taal"
+  },
+  "languages": {
+    "auto": "Automatisch detecteren",
+    "en": "Engels",
+    "es": "Spaans",
+    "fr": "Frans",
+    "de": "Duits",
+    "it": "Italiaans",
+    "pt": "Portugees",
+    "ru": "Russisch",
+    "zh": "Chinees",
+    "ja": "Japans",
+    "ko": "Koreaans",
+    "ar": "Arabisch",
+    "hi": "Hindi",
+    "bn": "Bengaals",
+    "pa": "Punjabi",
+    "tr": "Turks",
+    "vi": "Vietnamees",
+    "pl": "Pools",
+    "uk": "Oekraïens",
+    "nl": "Nederlands",
+    "sv": "Zweeds"
+  }
+}
