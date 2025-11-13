@@ -1,0 +1,55 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "AI 驱动的多语言翻译平台"
+  },
+  "nav": {
+    "home": "首页",
+    "features": "功能",
+    "videoTranscription": "视频转录",
+    "videoDubbing": "AI 视频配音",
+    "chat": "多语言聊天",
+    "documentTranslation": "文档翻译"
+  },
+  "home": {
+    "hero": {
+      "title": "用 AI 打破语言障碍",
+      "subtitle": "通过尖端的 AI 翻译技术，轻松转换视频、文档和对话",
+      "cta": "立即开始"
+    },
+    "features": {
+      "videoTranscription": {
+        "title": "视频转录",
+        "description": "利用 AI 驱动的高精度技术，从 YouTube 视频中提取并翻译转录内容。"
+      },
+      "videoDubbing": {
+        "title": "AI 视频配音",
+        "description": "克隆声音并使用自然流畅的 AI 声音为视频配音，支持多种语言。"
+      },
+      "chat": {
+        "title": "多语言聊天",
+        "description": "与 AI 进行任何语言的聊天，并获得实时翻译以实现即时沟通。"
+      },
+      "documentTranslation": {
+        "title": "文档翻译",
+        "description": "翻译 PDF 和 Word 文档（DOCX），同时保留格式和结构。"
+      }
+    },
+    "stats": {
+      "languages": "50+ 种语言",
+      "accuracy": "99% 准确率",
+      "speed": "速度提升 10 倍"
+    }
+  },
+  "common": {
+    "upload": "上传",
+    "download": "下载",
+    "translate": "翻译",
+    "processing": "处理中...",
+    "completed": "已完成",
+    "error": "错误",
+    "sourceLanguage": "源语言",
+    "targetLanguage": "目标语言",
+    "selectLanguage": "选择语言"
+  }
+}

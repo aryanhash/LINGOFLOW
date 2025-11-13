@@ -1,0 +1,55 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "Plataforma de tradução multilíngue com tecnologia de IA"
+  },
+  "nav": {
+    "home": "Início",
+    "features": "Recursos",
+    "videoTranscription": "Transcrição de vídeo",
+    "videoDubbing": "Dublagem de vídeo com IA",
+    "chat": "Chat multilíngue",
+    "documentTranslation": "Tradução de documentos"
+  },
+  "home": {
+    "hero": {
+      "title": "Quebre barreiras linguísticas com IA",
+      "subtitle": "Transforme vídeos, documentos e conversas com tecnologia de tradução de IA de ponta",
+      "cta": "Começar"
+    },
+    "features": {
+      "videoTranscription": {
+        "title": "Transcrição de vídeo",
+        "description": "Extraia e traduza transcrições de vídeos do YouTube com precisão potencializada por IA."
+      },
+      "videoDubbing": {
+        "title": "Dublagem de vídeo com IA",
+        "description": "Clone vozes e duble vídeos em vários idiomas com vozes de IA de som natural."
+      },
+      "chat": {
+        "title": "Chat multilíngue",
+        "description": "Converse com IA em qualquer idioma e obtenha traduções instantâneas para comunicação em tempo real."
+      },
+      "documentTranslation": {
+        "title": "Tradução de documentos",
+        "description": "Traduza documentos PDF e Word (DOCX) preservando a formatação e estrutura."
+      }
+    },
+    "stats": {
+      "languages": "Mais de 50 idiomas",
+      "accuracy": "99% de precisão",
+      "speed": "10x mais rápido"
+    }
+  },
+  "common": {
+    "upload": "Carregar",
+    "download": "Baixar",
+    "translate": "Traduzir",
+    "processing": "Processando...",
+    "completed": "Concluído",
+    "error": "Erro",
+    "sourceLanguage": "Idioma de origem",
+    "targetLanguage": "Idioma de destino",
+    "selectLanguage": "Selecionar idioma"
+  }
+}

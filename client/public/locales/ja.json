@@ -1,0 +1,49 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "AI搭載多言語翻訳プラットフォーム"
+  },
+  "nav": {
+    "home": "ホーム",
+    "features": "機能",
+    "videoTranscription": "動画文字起こし",
+    "videoDubbing": "AI動画吹き替え",
+    "chat": "多言語チャット",
+    "documentTranslation": "文書翻訳"
+  },
+  "home": {
+    "hero": {
+      "title": "AIで言語の壁を打ち破る",
+      "subtitle": "最先端のAI翻訳技術で動画、文書、会話を変革",
+      "cta": "今すぐ始める"
+    },
+    "features": {
+      "videoTranscription": {
+        "title": "動画文字起こし",
+        "description": "AI搭載の精度でYouTube動画から文字起こしを抽出し翻訳します。"
+      },
+      "videoDubbing": {
+        "title": "AI動画吹き替え",
+        "description": "自然な音質のAI音声で声をクローンし、複数の言語で動画を吹き替えます。"
+      },
+      "chat": {
+        "title": "多言語チャット",
+        "description": "あらゆる言語でAIとチャットし、リアルタイムコミュニケーションのための即時翻訳を取得します。"
+      },
+      "documentTranslation": {
+        "title": "文書翻訳",
+        "description": "PDFやWord文書（DOCX）の書式や構造を保持したまま翻訳します。"
+      }
+    },
+    "stats": {
+      "languages": "50以上の言語",
+      "accuracy": "99%の精度",
+      "speed": "10倍速い"
+    }
+  },
+  "common": {
+    "upload": "アップロード",
+    "download": "ダウンロード",
+    "translate": "翻訳"
+  }
+}

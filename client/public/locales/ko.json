@@ -1,0 +1,55 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "AI 기반 다국어 번역 플랫폼"
+  },
+  "nav": {
+    "home": "홈",
+    "features": "기능",
+    "videoTranscription": "비디오 자막 생성",
+    "videoDubbing": "AI 비디오 더빙",
+    "chat": "다국어 채팅",
+    "documentTranslation": "문서 번역"
+  },
+  "home": {
+    "hero": {
+      "title": "AI로 언어 장벽을 허물다",
+      "subtitle": "최첨단 AI 번역 기술로 비디오, 문서 및 대화를 변환하세요",
+      "cta": "시작하기"
+    },
+    "features": {
+      "videoTranscription": {
+        "title": "비디오 자막 생성",
+        "description": "AI 기반 정확도로 유튜브 비디오에서 자막을 추출하고 번역합니다."
+      },
+      "videoDubbing": {
+        "title": "AI 비디오 더빙",
+        "description": "자연스러운 AI 음성으로 목소리를 복제하고 여러 언어로 비디오를 더빙합니다."
+      },
+      "chat": {
+        "title": "다국어 채팅",
+        "description": "어떤 언어로든 AI와 채팅하고 실시간 의사소통을 위한 즉각적인 번역을 받으세요."
+      },
+      "documentTranslation": {
+        "title": "문서 번역",
+        "description": "서식과 구조를 유지하면서 PDF 및 워드 문서(DOCX)를 번역합니다."
+      }
+    },
+    "stats": {
+      "languages": "50개 이상의 언어",
+      "accuracy": "99% 정확도",
+      "speed": "10배 빠른 속도"
+    }
+  },
+  "common": {
+    "upload": "업로드",
+    "download": "다운로드",
+    "translate": "번역",
+    "processing": "처리 중...",
+    "completed": "완료됨",
+    "error": "오류",
+    "sourceLanguage": "원본 언어",
+    "targetLanguage": "대상 언어",
+    "selectLanguage": "언어 선택"
+  }
+}

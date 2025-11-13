@@ -1,0 +1,326 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "AI-Powered Multilingual Translation Platform"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "videoTranscription": "Video Transcription",
+    "chat": "Interview Guide",
+    "documentTranslation": "Document Translation",
+    "login": "Log in",
+    "logout": "Log out"
+  },
+  "home": {
+    "hero": {
+      "title": "Break Language Barriers with AI-Powered Translation",
+      "subtitle": "Professional video transcription, multilingual chat, and PDF translation. All powered by advanced AI technology supporting 100+ languages.",
+      "ctaPrimary": "Get Started Free",
+      "ctaSecondary": "Learn More",
+      "trustedBy": "Trusted by 50,000+ users worldwide"
+    },
+    "features": {
+      "sectionTitle": "Powerful Translation Tools",
+      "sectionSubtitle": "Everything you need to translate and localize your content across languages",
+      "videoTranscription": {
+        "title": "Video Transcription",
+        "description": "Paste any YouTube URL and get instant transcriptions with real-time translation in 100+ languages."
+      },
+      "chat": {
+        "title": "Interview Guide",
+        "description": "AI-powered interview preparation assistant with multilingual support. Get help with behavioral, technical, and industry-specific interview questions."
+      },
+      "documentTranslation": {
+        "title": "Document Translation",
+        "description": "Translate PDF and Word documents (DOCX) while preserving formatting and structure."
+      },
+      "tryNow": "Try Now"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Simple, fast, and professional translation in three easy steps",
+      "step1": {
+        "number": "01",
+        "title": "Choose Your Tool",
+        "description": "Select from video transcription, chat, or document translation based on your needs."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Upload or Input",
+        "description": "Provide your content - paste a URL, upload a file, or start typing your message."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Get Results",
+        "description": "Receive professional-quality translations instantly with downloadable outputs."
+      }
+    },
+    "stats": {
+      "languages": "100+ Languages",
+      "translations": "1M+ Translations",
+      "uptime": "99.9% Uptime",
+      "support": "24/7 Support"
+    },
+    "cta": {
+      "title": "Ready to Break Language Barriers?",
+      "subtitle": "Start translating your content today with our AI-powered platform. No credit card required to get started.",
+      "button": "Start Free Trial"
+    },
+    "footer": {
+      "company": {
+        "title": "Company",
+        "about": "About",
+        "blog": "Blog",
+        "careers": "Careers"
+      },
+      "features": {
+        "title": "Features",
+        "transcription": "Transcription",
+        "dubbing": "AI Dubbing",
+        "chat": "Interview Guide",
+        "documentTranslation": "Document Translation"
+      },
+      "resources": {
+        "title": "Resources",
+        "documentation": "Documentation",
+        "apiReference": "API Reference",
+        "support": "Support"
+      },
+      "legal": {
+        "title": "Legal",
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "security": "Security"
+      },
+      "copyright": "© 2024 LinguaFlow. All rights reserved."
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "Break Language Barriers with AI-Powered Translation",
+      "description": "Welcome to the future of global communication. Sign in to continue or create an account to get started."
+    },
+    "tabs": {
+      "signin": "Sign In",
+      "signup": "Sign Up"
+    },
+    "signin": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to continue to LinguaFlow",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot Password?",
+      "button": "Sign In",
+      "or": "Or",
+      "continueWithReplit": "Continue with Replit",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithMicrosoft": "Continue with Microsoft"
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Join LinguaFlow today",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create a password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "button": "Sign Up",
+      "or": "Or",
+      "signupWithReplit": "Sign up with Replit"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "Home",
+      "current": "Video Transcription"
+    },
+    "pageTitle": "Video Transcription",
+    "pageDescription": "Paste a YouTube URL below to get instant transcription and translation in your target language. Download results as TXT or SRT format.",
+    "form": {
+      "urlLabel": "YouTube URL",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "Transcribe Video",
+      "transcribing": "Transcribing..."
+    },
+    "processing": {
+      "status": "Processing video...",
+      "message": "This may take a few minutes depending on video length"
+    },
+    "error": {
+      "title": "Transcription Failed",
+      "message": "An error occurred during transcription. Please try again.",
+      "tip": "Tip: Make sure the video has captions or subtitles enabled."
+    },
+    "videoPlayer": {
+      "title": "Video Player"
+    },
+    "transcript": {
+      "title": "Transcript",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "Translation",
+      "translateButton": "Translate",
+      "translating": "Translating...",
+      "empty": "Click \"Translate\" to translate this transcript",
+      "processing": "Translating transcript...",
+      "error": "Translation failed. Please try again."
+    },
+    "empty": {
+      "title": "No transcription yet",
+      "description": "Enter a YouTube URL above and click \"Transcribe Video\" to get started."
+    },
+    "toast": {
+      "processingStarted": "Processing started",
+      "processingDescription": "Your video is being transcribed. This may take a few minutes.",
+      "transcriptionCompleted": "Transcription completed",
+      "transcriptionCompletedDescription": "Your video has been successfully transcribed. Click 'Translate' to translate it.",
+      "transcriptionFailed": "Transcription failed",
+      "translationStarted": "Translation started",
+      "translationDescription": "Your transcript is being translated.",
+      "translationFailed": "Translation failed"
+    },
+    "dubbing": {
+      "title": "Video Dubbing",
+      "description": "Generate a dubbed video with AI-generated voice in",
+      "generateButton": "Generate Dubbed Video",
+      "processing": "Generating dubbed video...",
+      "processingDetail": "This may take several minutes. AI is creating voice-over and merging it with the video.",
+      "success": "Dubbing completed successfully!",
+      "successDetail": "Your video has been dubbed with AI-generated voice. Download the files below.",
+      "downloadAudio": "Download Audio",
+      "downloadVideo": "Download Video",
+      "errorTitle": "Dubbing failed",
+      "retryButton": "Retry Dubbing",
+      "toast": {
+        "dubbingStarted": "Dubbing started",
+        "dubbingDescription": "Your video is being dubbed with AI voice. This may take several minutes.",
+        "dubbingFailed": "Dubbing failed",
+        "downloadStarted": "Download started",
+        "downloadDescription": "Your dubbed video is downloading automatically.",
+        "autoDownloadFailed": "Auto-download failed",
+        "autoDownloadDescription": "Please use the download button to get your video."
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "New Interview Prep",
+      "noConversations": "No interview preps yet",
+      "messages": "msgs"
+    },
+    "header": {
+      "activeConversation": "Interview Prep Session",
+      "newConversation": "New Interview Prep",
+      "subtitle": "AI-powered interview guide & practice",
+      "language": "Language:"
+    },
+    "empty": {
+      "title": "Welcome to Interview Guide",
+      "description": "Ask me any interview questions! I can help you prepare for behavioral, technical, or industry-specific interviews. I'll provide detailed answers, examples, and feedback in any language."
+    },
+    "messages": {
+      "original": "Original:"
+    },
+    "input": {
+      "placeholder": "Ask an interview question... (e.g., 'Tell me about yourself' or 'What are your strengths?')",
+      "keyboardHint": "Press Enter to send, Shift + Enter for new line"
+    },
+    "toast": {
+      "error": "Chat error"
+    }
+  },
+  "pdf": {
+    "pageTitle": "Translate a New Document",
+    "upload": {
+      "dragDrop": "Drag & Drop a file here or click to browse",
+      "supportedFormats": "Supported formats: PDF, DOCX, TXT",
+      "browseFiles": "Browse Files"
+    },
+    "form": {
+      "sourceLanguageLabel": "Source Language",
+      "targetLanguageLabel": "Target Language(s)",
+      "translateButton": "Translate"
+    },
+    "history": {
+      "title": "Translation Status & History",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "translating": "Translating",
+      "translatedTo": "Translated to",
+      "download": "Download",
+      "empty": {
+        "title": "No translations yet",
+        "description": "Upload a document to get started"
+      }
+    },
+    "toast": {
+      "processingStarted": "Processing started",
+      "processingDescription": "Your document is being translated.",
+      "translationCompleted": "Translation completed",
+      "translationCompletedDescription": "Your document has been successfully translated.",
+      "translationFailed": "Translation failed",
+      "noFileSelected": "No file selected",
+      "noFileDescription": "Please select a document to upload.",
+      "invalidFile": "Invalid file",
+      "invalidFileDescription": "Please select a PDF or DOCX file."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "clear": "Clear",
+    "apply": "Apply",
+    "submit": "Submit",
+    "upload": "Upload",
+    "download": "Download",
+    "translate": "Translate",
+    "processing": "Processing...",
+    "completed": "Completed",
+    "sourceLanguage": "Source Language",
+    "targetLanguage": "Target Language",
+    "selectLanguage": "Select Language"
+  },
+  "languages": {
+    "auto": "Auto-Detect",
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "de": "German",
+    "it": "Italian",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "zh": "Chinese",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "ar": "Arabic",
+    "hi": "Hindi",
+    "bn": "Bengali",
+    "pa": "Punjabi",
+    "tr": "Turkish",
+    "vi": "Vietnamese",
+    "pl": "Polish",
+    "uk": "Ukrainian",
+    "nl": "Dutch",
+    "sv": "Swedish"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "app": {
+    "name": "LingoFlow",
+    "tagline": "KI-gestützte mehrsprachige Übersetzungsplattform"
+  },
+  "nav": {
+    "home": "Startseite",
+    "features": "Funktionen",
+    "videoTranscription": "Videotranskription",
+    "videoDubbing": "KI-Videosynchronisation",
+    "chat": "Mehrsprachiger Chat",
+    "documentTranslation": "Dokumentenübersetzung"
+  },
+  "home": {
+    "hero": {
+      "title": "Überwinde Sprachbarrieren mit KI",
+      "subtitle": "Transformiere Videos, Dokumente und Gespräche mit modernster KI-Übersetzungstechnologie",
+      "cta": "Jetzt starten"
+    },
+    "features": {
+      "videoTranscription": {
+        "title": "Videotranskription",
+        "description": "Extrahiere und übersetze Transkripte aus YouTube-Videos mit KI-gestützter Präzision."
+      },
+      "videoDubbing": {
+        "title": "KI-Videosynchronisation",
+        "description": "Klone Stimmen und synchronisiere Videos in mehreren Sprachen mit natürlich klingenden KI-Stimmen."
+      },
+      "chat": {
+        "title": "Mehrsprachiger Chat",
+        "description": "Chatte mit KI in jeder Sprache und erhalte sofortige Übersetzungen für Echtzeit-Kommunikation."
+      },
+      "documentTranslation": {
+        "title": "Dokumentenübersetzung",
+        "description": "Übersetze PDF- und Word-Dokumente (DOCX) unter Beibehaltung von Formatierung und Struktur."
+      }
+    },
+    "stats": {
+      "languages": "50+ Sprachen",
+      "accuracy": "99% Genauigkeit",
+      "speed": "10x schneller"
+    }
+  },
+  "common": {
+    "upload": "Hochladen",
+    "download": "Herunterladen",
+    "translate": "Übersetzen"
+  }
+}

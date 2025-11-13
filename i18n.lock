@@ -1,0 +1,34 @@
+version: 1
+checksums:
+  56dff6dafeb960c6136bc8f6a10413f6:
+    app/name: f2dc6b332bc2e3cd08f2300d8e6823ce
+    app/tagline: 8de19cf21bd768d8dac2da9f8491dbbe
+    nav/home: 104a3db3b671c04e167eafbe21e57881
+    nav/features: 341ff316a339b106a178f0b8d362951b
+    nav/videoTranscription: 32ecbdde7fa501a4ab8e3098adc453b9
+    nav/videoDubbing: 26f35c7e3904210c621ebe3bace22c90
+    nav/chat: e5550820abde6ccf362881b71cd64618
+    nav/documentTranslation: 3a8eec112fcc904321e8d5628c629220
+    home/hero/title: 11f014feb3576fb6558cfd2cab8142ba
+    home/hero/subtitle: f12dd77479813e21f24659d08da332ba
+    home/hero/cta: 1d5f030c4ec9c869e647ae060518b948
+    home/features/videoTranscription/title: 32ecbdde7fa501a4ab8e3098adc453b9
+    home/features/videoTranscription/description: e428ca15b6a15bcdf778d57c4787a4eb
+    home/features/videoDubbing/title: 26f35c7e3904210c621ebe3bace22c90
+    home/features/videoDubbing/description: cb8dfff05ad5dc5eed488c380b93d625
+    home/features/chat/title: e5550820abde6ccf362881b71cd64618
+    home/features/chat/description: 32eeb380e7e83fc4b2d9082bb45af9e4
+    home/features/documentTranslation/title: 3a8eec112fcc904321e8d5628c629220
+    home/features/documentTranslation/description: 03672ddee4234eed4a1743fd37d8515e
+    home/stats/languages: b9db4439f4cb823243f693fcc8261686
+    home/stats/accuracy: 5eb476fd4ee756ed3a6c2ed8448c79b3
+    home/stats/speed: 6f6afca3a3a7a4b94b6c3362109421d8
+    common/upload: 4a6c84aa16db0f4e5697f49b45257bc7
+    common/download: 56b7d0834952b39ee394b44bd8179178
+    common/translate: 59f9803b27e2030ba7323ed239116cf7
+    common/processing: 4d21e725093ba79328dcedc0f092ab3f
+    common/completed: 0e4bbce9985f25eb673d9a054c8d5334
+    common/error: 3c95bcb32c2104b99a46f5b3dd015248
+    common/sourceLanguage: d4ca63c8aa50e8a3f98b76cb333d32cd
+    common/targetLanguage: 45a1743dd17b6689c1e8ec417f7ed6bf
+    common/selectLanguage: d75cf5fbce8a4c7a9055e2210af74480
