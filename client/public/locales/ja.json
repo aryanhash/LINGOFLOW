@@ -7,43 +7,320 @@
     "home": "ホーム",
     "features": "機能",
     "videoTranscription": "動画文字起こし",
-    "videoDubbing": "AI動画吹き替え",
-    "chat": "多言語チャット",
-    "documentTranslation": "文書翻訳"
+    "chat": "インタビューガイド",
+    "documentTranslation": "文書翻訳",
+    "login": "ログイン",
+    "logout": "ログアウト"
   },
   "home": {
     "hero": {
-      "title": "AIで言語の壁を打ち破る",
-      "subtitle": "最先端のAI翻訳技術で動画、文書、会話を変革",
-      "cta": "今すぐ始める"
+      "title": "AIを活用した翻訳で言語の壁を打ち破る",
+      "subtitle": "プロフェッショナルな動画文字起こしと吹き替え、多言語インタビューチャット、そしてPDF翻訳。すべて100以上の言語をサポートする先進的なAI技術を活用しています。",
+      "ctaPrimary": "無料で始める",
+      "ctaSecondary": "詳細を見る",
+      "trustedBy": "世界中の50,000人以上のユーザーに信頼されています"
     },
     "features": {
+      "sectionTitle": "パワフルな翻訳ツール",
+      "sectionSubtitle": "言語を超えてコンテンツを翻訳・ローカライズするために必要なすべてのツール",
       "videoTranscription": {
         "title": "動画文字起こし",
-        "description": "AI搭載の精度でYouTube動画から文字起こしを抽出し翻訳します。"
-      },
-      "videoDubbing": {
-        "title": "AI動画吹き替え",
-        "description": "自然な音質のAI音声で声をクローンし、複数の言語で動画を吹き替えます。"
+        "description": "YouTubeのURLを貼り付けるだけで、100以上の言語でリアルタイム翻訳付きの即時文字起こしが得られます。"
       },
       "chat": {
-        "title": "多言語チャット",
-        "description": "あらゆる言語でAIとチャットし、リアルタイムコミュニケーションのための即時翻訳を取得します。"
+        "title": "インタビューガイド",
+        "description": "多言語対応のAI搭載インタビュー準備アシスタント。行動面、技術面、業界特有のインタビュー質問に関するサポートを受けられます。"
       },
       "documentTranslation": {
         "title": "文書翻訳",
         "description": "PDFやWord文書（DOCX）の書式や構造を保持したまま翻訳します。"
+      },
+      "tryNow": "今すぐ試す"
+    },
+    "howItWorks": {
+      "title": "使い方",
+      "subtitle": "シンプル、迅速、そしてプロフェッショナルな翻訳を3つの簡単なステップで",
+      "step1": {
+        "number": "01",
+        "title": "ツールを選ぶ",
+        "description": "ニーズに合わせて、動画文字起こし、チャット、または文書翻訳から選択します。"
+      },
+      "step2": {
+        "number": "02",
+        "title": "アップロードまたは入力",
+        "description": "URLの貼り付け、ファイルのアップロード、またはメッセージの入力でコンテンツを提供します。"
+      },
+      "step3": {
+        "number": "03",
+        "title": "結果を取得",
+        "description": "ダウンロード可能な出力を含む、プロフェッショナル品質の翻訳を即座に受け取ります。"
       }
     },
     "stats": {
-      "languages": "50以上の言語",
-      "accuracy": "99%の精度",
-      "speed": "10倍速い"
+      "languages": "100以上の言語",
+      "translations": "100万件以上の翻訳",
+      "uptime": "99.9% 稼働率",
+      "support": "24時間365日サポート"
+    },
+    "cta": {
+      "title": "言語の壁を打ち破る準備はできていますか？",
+      "subtitle": "AIを活用したプラットフォームで今日からコンテンツの翻訳を始めましょう。開始にクレジットカードは必要ありません。",
+      "button": "無料トライアルを開始"
+    },
+    "footer": {
+      "company": {
+        "title": "会社情報",
+        "about": "会社概要",
+        "blog": "ブログ",
+        "careers": "採用情報"
+      },
+      "features": {
+        "title": "機能",
+        "transcription": "文字起こし",
+        "dubbing": "AI吹き替え",
+        "chat": "インタビューガイド",
+        "documentTranslation": "文書翻訳"
+      },
+      "resources": {
+        "title": "リソース",
+        "documentation": "ドキュメント",
+        "apiReference": "APIリファレンス",
+        "support": "サポート"
+      },
+      "legal": {
+        "title": "法的情報",
+        "privacy": "プライバシー",
+        "terms": "利用規約",
+        "security": "セキュリティ"
+      },
+      "copyright": "© 2025 LinguaFlow. All rights reserved."
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "AIを活用した翻訳で言語の壁を打ち破る",
+      "description": "グローバルコミュニケーションの未来へようこそ。続けるにはサインインするか、アカウントを作成して始めましょう。"
+    },
+    "tabs": {
+      "signin": "サインイン",
+      "signup": "サインアップ"
+    },
+    "signin": {
+      "title": "おかえりなさい",
+      "subtitle": "LinguaFlowに続けるにはサインインしてください",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "passwordLabel": "パスワード",
+      "passwordPlaceholder": "パスワードを入力",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "button": "サインイン",
+      "or": "または",
+      "continueWithReplit": "Replitで続ける",
+      "continueWithGoogle": "Googleで続ける",
+      "continueWithMicrosoft": "Microsoftで続ける"
+    },
+    "signup": {
+      "title": "アカウント作成",
+      "subtitle": "今日からLinguaFlowに参加しましょう",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "passwordLabel": "パスワード",
+      "passwordPlaceholder": "パスワードを作成",
+      "confirmPasswordLabel": "パスワード確認",
+      "confirmPasswordPlaceholder": "パスワードを確認",
+      "button": "登録する",
+      "or": "または",
+      "signupWithReplit": "Replitで登録"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "ホーム",
+      "current": "動画文字起こし"
+    },
+    "pageTitle": "動画文字起こし",
+    "pageDescription": "YouTubeのURLを貼り付けると、即座に文字起こしと目標言語への翻訳が得られます。結果をTXTまたはSRT形式でダウンロードできます。",
+    "form": {
+      "urlLabel": "YouTube URL",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "動画を文字起こし",
+      "transcribing": "文字起こし中..."
+    },
+    "processing": {
+      "status": "動画を処理中...",
+      "message": "動画の長さによっては数分かかる場合があります"
+    },
+    "error": {
+      "title": "文字起こし失敗",
+      "message": "文字起こし中にエラーが発生しました。もう一度お試しください。",
+      "tip": "ヒント：動画に字幕が有効になっていることを確認してください。"
+    },
+    "videoPlayer": {
+      "title": "動画プレーヤー"
+    },
+    "transcript": {
+      "title": "文字起こし",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "翻訳",
+      "translateButton": "翻訳する",
+      "translating": "翻訳中...",
+      "empty": "「翻訳する」をクリックして文字起こしを翻訳してください",
+      "processing": "文字起こしを翻訳中...",
+      "error": "翻訳に失敗しました。もう一度お試しください。"
+    },
+    "empty": {
+      "title": "文字起こしはまだありません",
+      "description": "上にYouTube URLを入力し、「動画を文字起こしする」をクリックして始めましょう。"
+    },
+    "toast": {
+      "processingStarted": "処理を開始しました",
+      "processingDescription": "動画の文字起こしを行っています。数分かかる場合があります。",
+      "transcriptionCompleted": "文字起こしが完了しました",
+      "transcriptionCompletedDescription": "動画の文字起こしが正常に完了しました。「翻訳する」をクリックして翻訳してください。",
+      "transcriptionFailed": "文字起こしに失敗しました",
+      "translationStarted": "翻訳を開始しました",
+      "translationDescription": "文字起こしを翻訳しています。",
+      "translationFailed": "翻訳に失敗しました"
+    },
+    "dubbing": {
+      "title": "動画吹き替え",
+      "description": "AIが生成した音声で吹き替え動画を作成",
+      "generateButton": "吹き替え動画を生成する",
+      "processing": "吹き替え動画を生成中...",
+      "processingDetail": "数分かかる場合があります。AIが音声を作成し、動画と結合しています。",
+      "success": "吹き替えが正常に完了しました！",
+      "successDetail": "動画がAIが生成した音声で吹き替えられました。以下からファイルをダウンロードしてください。",
+      "downloadAudio": "音声をダウンロード",
+      "downloadVideo": "動画をダウンロード",
+      "errorTitle": "吹き替えに失敗しました",
+      "retryButton": "吹き替えを再試行",
+      "toast": {
+        "dubbingStarted": "吹き替えを開始しました",
+        "dubbingDescription": "あなたの動画はAI音声で吹き替えられています。これには数分かかる場合があります。",
+        "dubbingFailed": "吹き替えに失敗しました",
+        "downloadStarted": "ダウンロードを開始しました",
+        "downloadDescription": "吹き替えられた動画が自動的にダウンロードされています。",
+        "autoDownloadFailed": "自動ダウンロードに失敗しました",
+        "autoDownloadDescription": "動画を取得するにはダウンロードボタンをご使用ください。"
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "新しい面接準備",
+      "noConversations": "まだ面接準備がありません",
+      "messages": "メッセージ"
+    },
+    "header": {
+      "activeConversation": "面接準備セッション",
+      "newConversation": "新しい面接準備",
+      "subtitle": "AI搭載の面接ガイド＆練習",
+      "language": "言語："
+    },
+    "empty": {
+      "title": "面接ガイドへようこそ",
+      "description": "どんな面接の質問でも聞いてください！行動面、技術面、または業界特有の面接の準備をお手伝いします。詳細な回答、例、そしてあらゆる言語でのフィードバックを提供します。"
+    },
+    "messages": {
+      "original": "原文："
+    },
+    "input": {
+      "placeholder": "面接の質問を入力してください...（例：「自己紹介をしてください」または「あなたの強みは何ですか？」）",
+      "keyboardHint": "Enterキーで送信、Shift + Enterで改行"
+    },
+    "toast": {
+      "error": "チャットエラー"
+    }
+  },
+  "pdf": {
+    "pageTitle": "新しい文書を翻訳する",
+    "upload": {
+      "dragDrop": "ここにファイルをドラッグ＆ドロップするか、クリックして参照",
+      "supportedFormats": "対応フォーマット：PDF、DOCX、TXT",
+      "browseFiles": "ファイルを参照"
+    },
+    "form": {
+      "sourceLanguageLabel": "原文の言語",
+      "targetLanguageLabel": "翻訳先の言語",
+      "translateButton": "翻訳"
+    },
+    "history": {
+      "title": "翻訳状況と履歴",
+      "inProgress": "進行中",
+      "completed": "完了",
+      "translating": "翻訳中",
+      "translatedTo": "翻訳先：",
+      "download": "ダウンロード",
+      "empty": {
+        "title": "まだ翻訳がありません",
+        "description": "文書をアップロードして始めましょう"
+      }
+    },
+    "toast": {
+      "processingStarted": "処理を開始しました",
+      "processingDescription": "文書を翻訳中です。",
+      "translationCompleted": "翻訳が完了しました",
+      "translationCompletedDescription": "文書の翻訳が正常に完了しました。",
+      "translationFailed": "翻訳に失敗しました",
+      "noFileSelected": "ファイルが選択されていません",
+      "noFileDescription": "アップロードする文書を選択してください。",
+      "invalidFile": "無効なファイル",
+      "invalidFileDescription": "PDFまたはDOCXファイルを選択してください。"
     }
   },
   "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "close": "閉じる",
+    "confirm": "確認",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "search": "検索",
+    "filter": "フィルター",
+    "sort": "並べ替え",
+    "clear": "クリア",
+    "apply": "適用",
+    "submit": "送信",
     "upload": "アップロード",
     "download": "ダウンロード",
-    "translate": "翻訳"
+    "translate": "翻訳",
+    "processing": "処理中...",
+    "completed": "完了",
+    "sourceLanguage": "原文言語",
+    "targetLanguage": "翻訳先言語",
+    "selectLanguage": "言語を選択"
+  },
+  "languages": {
+    "auto": "自動検出",
+    "en": "英語",
+    "es": "スペイン語",
+    "fr": "フランス語",
+    "de": "ドイツ語",
+    "it": "イタリア語",
+    "pt": "ポルトガル語",
+    "ru": "ロシア語",
+    "zh": "中国語",
+    "ja": "日本語",
+    "ko": "韓国語",
+    "ar": "アラビア語",
+    "hi": "ヒンディー語",
+    "bn": "ベンガル語",
+    "pa": "パンジャブ語",
+    "tr": "トルコ語",
+    "vi": "ベトナム語",
+    "pl": "ポーランド語",
+    "uk": "ウクライナ語",
+    "nl": "オランダ語",
+    "sv": "スウェーデン語"
   }
 }

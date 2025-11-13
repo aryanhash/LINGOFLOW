@@ -7,49 +7,320 @@
     "home": "首页",
     "features": "功能",
     "videoTranscription": "视频转录",
-    "videoDubbing": "AI 视频配音",
     "chat": "多语言聊天",
-    "documentTranslation": "文档翻译"
+    "documentTranslation": "文档翻译",
+    "login": "登录",
+    "logout": "登出"
   },
   "home": {
     "hero": {
       "title": "用 AI 打破语言障碍",
-      "subtitle": "通过尖端的 AI 翻译技术，轻松转换视频、文档和对话",
-      "cta": "立即开始"
+      "subtitle": "专业的视频转录与配音、多语言面试聊天以及 PDF 翻译。由支持 100 多种语言的先进 AI 技术驱动。",
+      "ctaPrimary": "免费开始",
+      "ctaSecondary": "了解更多",
+      "trustedBy": "受到全球 50,000+ 用户的信赖"
     },
     "features": {
+      "sectionTitle": "强大的翻译工具",
+      "sectionSubtitle": "满足您跨语言翻译和本地化内容的所有需求",
       "videoTranscription": {
         "title": "视频转录",
-        "description": "利用 AI 驱动的高精度技术，从 YouTube 视频中提取并翻译转录内容。"
-      },
-      "videoDubbing": {
-        "title": "AI 视频配音",
-        "description": "克隆声音并使用自然流畅的 AI 声音为视频配音，支持多种语言。"
+        "description": "粘贴任意 YouTube URL，即可获得即时转录，并实时翻译成 100 多种语言。"
       },
       "chat": {
         "title": "多语言聊天",
-        "description": "与 AI 进行任何语言的聊天，并获得实时翻译以实现即时沟通。"
+        "description": "支持多语言的 AI 面试准备助手。提供行为、技术和行业特定的面试问题帮助。"
       },
       "documentTranslation": {
         "title": "文档翻译",
         "description": "翻译 PDF 和 Word 文档（DOCX），同时保留格式和结构。"
+      },
+      "tryNow": "立即试用"
+    },
+    "howItWorks": {
+      "title": "操作方式",
+      "subtitle": "简单、快速、专业的翻译，只需三步",
+      "step1": {
+        "number": "01",
+        "title": "选择工具",
+        "description": "根据您的需求，从视频转录、聊天或文档翻译中选择。"
+      },
+      "step2": {
+        "number": "02",
+        "title": "上传或输入",
+        "description": "提供您的内容——粘贴 URL、上传文件或开始输入消息。"
+      },
+      "step3": {
+        "number": "03",
+        "title": "获取结果",
+        "description": "即时获得专业质量的翻译结果，并支持下载输出。"
       }
     },
     "stats": {
-      "languages": "50+ 种语言",
-      "accuracy": "99% 准确率",
-      "speed": "速度提升 10 倍"
+      "languages": "100+ 种语言",
+      "translations": "100 万+ 次翻译",
+      "uptime": "99.9% 正常运行时间",
+      "support": "全天候支持"
+    },
+    "cta": {
+      "title": "准备好打破语言障碍了吗？",
+      "subtitle": "使用我们的 AI 驱动平台，今天就开始翻译您的内容。无需信用卡即可开始。",
+      "button": "开始免费试用"
+    },
+    "footer": {
+      "company": {
+        "title": "公司",
+        "about": "关于我们",
+        "blog": "博客",
+        "careers": "招聘"
+      },
+      "features": {
+        "title": "功能",
+        "transcription": "转录",
+        "dubbing": "AI 配音",
+        "chat": "多语言聊天",
+        "documentTranslation": "文档翻译"
+      },
+      "resources": {
+        "title": "资源",
+        "documentation": "文档",
+        "apiReference": "API 参考",
+        "support": "支持"
+      },
+      "legal": {
+        "title": "法律",
+        "privacy": "隐私",
+        "terms": "条款",
+        "security": "安全"
+      },
+      "copyright": "© 2025 LinguaFlow。保留所有权利。"
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "用 AI 打破语言障碍",
+      "description": "欢迎来到全球通信的未来。请登录以继续，或创建一个账户以开始使用。"
+    },
+    "tabs": {
+      "signin": "登录",
+      "signup": "注册"
+    },
+    "signin": {
+      "title": "欢迎回来",
+      "subtitle": "登录以继续使用 LinguaFlow",
+      "emailLabel": "电子邮件地址",
+      "emailPlaceholder": "输入您的电子邮件",
+      "passwordLabel": "密码",
+      "passwordPlaceholder": "输入您的密码",
+      "forgotPassword": "忘记密码？",
+      "button": "登录",
+      "or": "或",
+      "continueWithReplit": "通过 Replit 继续",
+      "continueWithGoogle": "通过 Google 继续",
+      "continueWithMicrosoft": "通过 Microsoft 继续"
+    },
+    "signup": {
+      "title": "创建账户",
+      "subtitle": "立即加入 LinguaFlow",
+      "emailLabel": "电子邮件地址",
+      "emailPlaceholder": "输入您的电子邮件",
+      "passwordLabel": "密码",
+      "passwordPlaceholder": "创建一个密码",
+      "confirmPasswordLabel": "确认密码",
+      "confirmPasswordPlaceholder": "确认您的密码",
+      "button": "注册",
+      "or": "或",
+      "signupWithReplit": "通过 Replit 注册"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "首页",
+      "current": "视频转录"
+    },
+    "pageTitle": "视频转录",
+    "pageDescription": "在下方粘贴 YouTube URL，即可获得目标语言的即时转录和翻译。可将结果下载为 TXT 或 SRT 格式。",
+    "form": {
+      "urlLabel": "YouTube URL",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "转录视频",
+      "transcribing": "正在转录..."
+    },
+    "processing": {
+      "status": "正在处理视频...",
+      "message": "根据视频长度，这可能需要几分钟时间"
+    },
+    "error": {
+      "title": "转录失败",
+      "message": "转录过程中发生错误。请重试。",
+      "tip": "提示：请确保视频已启用字幕或隐藏式字幕。"
+    },
+    "videoPlayer": {
+      "title": "视频播放器"
+    },
+    "transcript": {
+      "title": "转录文本",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "翻译",
+      "translateButton": "翻译",
+      "translating": "正在翻译...",
+      "empty": "点击“翻译”以翻译此转录内容",
+      "processing": "正在翻译转录内容...",
+      "error": "翻译失败，请重试。"
+    },
+    "empty": {
+      "title": "尚无转录内容",
+      "description": "在上方输入 YouTube URL 并点击“转录视频”以开始。"
+    },
+    "toast": {
+      "processingStarted": "处理已开始",
+      "processingDescription": "您的视频正在转录。这可能需要几分钟。",
+      "transcriptionCompleted": "转录完成",
+      "transcriptionCompletedDescription": "您的视频已成功转录。点击“翻译”以翻译内容。",
+      "transcriptionFailed": "转录失败",
+      "translationStarted": "翻译已开始",
+      "translationDescription": "您的转录内容正在翻译中。",
+      "translationFailed": "翻译失败"
+    },
+    "dubbing": {
+      "title": "视频配音",
+      "description": "使用 AI 生成的语音生成配音视频",
+      "generateButton": "生成配音视频",
+      "processing": "正在生成配音视频...",
+      "processingDetail": "这可能需要几分钟。AI 正在创建语音并将其与视频合成。",
+      "success": "配音成功完成！",
+      "successDetail": "您的视频已使用 AI 生成的语音完成配音。下载以下文件。",
+      "downloadAudio": "下载音频",
+      "downloadVideo": "下载视频",
+      "errorTitle": "配音失败",
+      "retryButton": "重试配音",
+      "toast": {
+        "dubbingStarted": "配音已开始",
+        "dubbingDescription": "您的视频正在使用 AI 语音进行配音。这可能需要几分钟。",
+        "dubbingFailed": "配音失败",
+        "downloadStarted": "下载已开始",
+        "downloadDescription": "您的配音视频正在自动下载。",
+        "autoDownloadFailed": "自动下载失败",
+        "autoDownloadDescription": "请使用下载按钮获取您的视频。"
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "新的面试准备",
+      "noConversations": "尚无面试准备",
+      "messages": "消息"
+    },
+    "header": {
+      "activeConversation": "面试准备会话",
+      "newConversation": "新的面试准备",
+      "subtitle": "AI 驱动的面试指南与练习",
+      "language": "语言："
+    },
+    "empty": {
+      "title": "欢迎使用面试指南",
+      "description": "问我任何面试问题！我可以帮助您准备行为、技术或行业特定的面试。我会用任何语言提供详细的答案、示例和反馈。"
+    },
+    "messages": {
+      "original": "原文："
+    },
+    "input": {
+      "placeholder": "提出一个面试问题……（例如，“介绍一下你自己”或“你的优势是什么？”）",
+      "keyboardHint": "按 Enter 发送，Shift + Enter 换行"
+    },
+    "toast": {
+      "error": "聊天错误"
+    }
+  },
+  "pdf": {
+    "pageTitle": "翻译新文档",
+    "upload": {
+      "dragDrop": "拖放文件到此处或点击浏览",
+      "supportedFormats": "支持的格式：PDF、DOCX、TXT",
+      "browseFiles": "浏览文件"
+    },
+    "form": {
+      "sourceLanguageLabel": "源语言",
+      "targetLanguageLabel": "目标语言",
+      "translateButton": "翻译"
+    },
+    "history": {
+      "title": "翻译状态与历史",
+      "inProgress": "进行中",
+      "completed": "已完成",
+      "translating": "翻译中",
+      "translatedTo": "翻译为",
+      "download": "下载",
+      "empty": {
+        "title": "尚无翻译",
+        "description": "上传文档以开始"
+      }
+    },
+    "toast": {
+      "processingStarted": "处理已开始",
+      "processingDescription": "您的文档正在翻译中。",
+      "translationCompleted": "翻译完成",
+      "translationCompletedDescription": "您的文档已成功翻译。",
+      "translationFailed": "翻译失败",
+      "noFileSelected": "未选择文件",
+      "noFileDescription": "请选择一个文档上传。",
+      "invalidFile": "无效的文件",
+      "invalidFileDescription": "请选择一个 PDF 或 DOCX 文件。"
     }
   },
   "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "close": "关闭",
+    "confirm": "确认",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "clear": "清除",
+    "apply": "应用",
+    "submit": "提交",
     "upload": "上传",
     "download": "下载",
     "translate": "翻译",
     "processing": "处理中...",
     "completed": "已完成",
-    "error": "错误",
     "sourceLanguage": "源语言",
     "targetLanguage": "目标语言",
     "selectLanguage": "选择语言"
+  },
+  "languages": {
+    "auto": "自动检测",
+    "en": "英语",
+    "es": "西班牙语",
+    "fr": "法语",
+    "de": "德语",
+    "it": "意大利语",
+    "pt": "葡萄牙语",
+    "ru": "俄语",
+    "zh": "中文",
+    "ja": "日语",
+    "ko": "韩语",
+    "ar": "阿拉伯语",
+    "hi": "印地语",
+    "bn": "孟加拉语",
+    "pa": "旁遮普语",
+    "tr": "土耳其语",
+    "vi": "越南语",
+    "pl": "波兰语",
+    "uk": "乌克兰语",
+    "nl": "荷兰语",
+    "sv": "瑞典语"
   }
 }

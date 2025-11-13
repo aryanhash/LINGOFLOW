@@ -1425,12 +1425,20 @@ Always be encouraging, professional, and provide actionable advice. Format your 
           // Extract text based on file type
           const { text, pageCount } = await extractDocumentText(filePath, fileType);
           
+          console.log("[DOCUMENT_TRANSLATION] ✓ Extracted", text.length, "characters from", pageCount, "pages");
+          console.log("[DOCUMENT_TRANSLATION] Extracted text preview (first 200 chars):", text.substring(0, 200));
+          
           if (!text || text.trim().length === 0) {
             console.error("[DOCUMENT_TRANSLATION] ✗ No text content found in document");
-            throw new Error("No text content found in document");
+            console.error("[DOCUMENT_TRANSLATION] File path:", filePath);
+            console.error("[DOCUMENT_TRANSLATION] File type:", fileType);
+            throw new Error("No text content found in document. The document may be empty, image-based, or corrupted.");
           }
 
-          console.log("[DOCUMENT_TRANSLATION] ✓ Extracted", text.length, "characters from", pageCount, "pages");
+          if (text.trim().length < 10) {
+            console.warn("[DOCUMENT_TRANSLATION] ⚠️ WARNING: Extracted text is very short (less than 10 characters)");
+            console.warn("[DOCUMENT_TRANSLATION] This might indicate an extraction issue");
+          }
 
           // Translate text
           await storage.updatePdfTranslationStatus(translation.id, {
@@ -1451,6 +1459,18 @@ Always be encouraging, professional, and provide actionable advice. Format your 
           console.log(`[DOCUMENT_TRANSLATION] Translated text length: ${translatedText.length} characters`);
           console.log(`[DOCUMENT_TRANSLATION] Translated text preview: ${translatedText.substring(0, 100)}...`);
           console.log(`[DOCUMENT_TRANSLATION] ===== END TRANSLATION =====`);
+          
+          // Validate translated text is not empty
+          if (!translatedText || translatedText.trim().length === 0) {
+            console.error(`[DOCUMENT_TRANSLATION] ✗ ERROR: Translated text is empty!`);
+            console.error(`[DOCUMENT_TRANSLATION] Original text length: ${text.length}`);
+            console.error(`[DOCUMENT_TRANSLATION] Original text preview: ${text.substring(0, 200)}...`);
+            throw new Error("Translation returned empty text. Please check the source language and try again.");
+          }
+          
+          if (translatedText.length < text.length * 0.1) {
+            console.warn(`[DOCUMENT_TRANSLATION] ⚠️ WARNING: Translated text is suspiciously short (${translatedText.length} vs ${text.length} original)`);
+          }
 
           // Create new text file with translated text (instead of PDF)
           await storage.updatePdfTranslationStatus(translation.id, {

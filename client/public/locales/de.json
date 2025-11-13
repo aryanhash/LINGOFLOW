@@ -7,43 +7,320 @@
     "home": "Startseite",
     "features": "Funktionen",
     "videoTranscription": "Videotranskription",
-    "videoDubbing": "KI-Videosynchronisation",
-    "chat": "Mehrsprachiger Chat",
-    "documentTranslation": "Dokumentenübersetzung"
+    "chat": "Interview-Leitfaden",
+    "documentTranslation": "Dokumentenübersetzung",
+    "login": "Anmelden",
+    "logout": "Abmelden"
   },
   "home": {
     "hero": {
-      "title": "Überwinde Sprachbarrieren mit KI",
-      "subtitle": "Transformiere Videos, Dokumente und Gespräche mit modernster KI-Übersetzungstechnologie",
-      "cta": "Jetzt starten"
+      "title": "Überwinden Sie Sprachbarrieren mit KI-gestützter Übersetzung",
+      "subtitle": "Professionelle Videotranskription und Synchronisation, mehrsprachiger Interview-Chat und PDF-Übersetzung. Alles unterstützt durch fortschrittliche KI-Technologie für über 100 Sprachen.",
+      "ctaPrimary": "Kostenlos starten",
+      "ctaSecondary": "Mehr erfahren",
+      "trustedBy": "Vertrauen von über 50.000 Nutzern weltweit"
     },
     "features": {
+      "sectionTitle": "Leistungsstarke Übersetzungstools",
+      "sectionSubtitle": "Alles, was Sie brauchen, um Ihre Inhalte über verschiedene Sprachen hinweg zu übersetzen und zu lokalisieren",
       "videoTranscription": {
         "title": "Videotranskription",
-        "description": "Extrahiere und übersetze Transkripte aus YouTube-Videos mit KI-gestützter Präzision."
-      },
-      "videoDubbing": {
-        "title": "KI-Videosynchronisation",
-        "description": "Klone Stimmen und synchronisiere Videos in mehreren Sprachen mit natürlich klingenden KI-Stimmen."
+        "description": "Fügen Sie eine beliebige YouTube-URL ein und erhalten Sie sofortige Transkriptionen mit Echtzeit-Übersetzung in über 100 Sprachen."
       },
       "chat": {
-        "title": "Mehrsprachiger Chat",
-        "description": "Chatte mit KI in jeder Sprache und erhalte sofortige Übersetzungen für Echtzeit-Kommunikation."
+        "title": "Interview-Leitfaden",
+        "description": "KI-gestützter Interviewvorbereitungsassistent mit mehrsprachiger Unterstützung. Erhalten Sie Hilfe bei Verhaltens-, technischen und branchenspezifischen Interviewfragen."
       },
       "documentTranslation": {
         "title": "Dokumentenübersetzung",
         "description": "Übersetze PDF- und Word-Dokumente (DOCX) unter Beibehaltung von Formatierung und Struktur."
+      },
+      "tryNow": "Jetzt ausprobieren"
+    },
+    "howItWorks": {
+      "title": "So funktioniert es",
+      "subtitle": "Einfache, schnelle und professionelle Übersetzung in drei einfachen Schritten",
+      "step1": {
+        "number": "01",
+        "title": "Wählen Sie Ihr Tool",
+        "description": "Wählen Sie je nach Bedarf zwischen Videotranskription, Chat oder Dokumentenübersetzung."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Hochladen oder eingeben",
+        "description": "Stellen Sie Ihre Inhalte bereit - fügen Sie eine URL ein, laden Sie eine Datei hoch oder beginnen Sie mit der Eingabe Ihrer Nachricht."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Ergebnisse erhalten",
+        "description": "Erhalten Sie sofort Übersetzungen in professioneller Qualität mit herunterladbaren Ausgaben."
       }
     },
     "stats": {
-      "languages": "50+ Sprachen",
-      "accuracy": "99% Genauigkeit",
-      "speed": "10x schneller"
+      "languages": "Über 100 Sprachen",
+      "translations": "Über 1 Mio. Übersetzungen",
+      "uptime": "99,9% Verfügbarkeit",
+      "support": "24/7 Support"
+    },
+    "cta": {
+      "title": "Bereit, Sprachbarrieren zu überwinden?",
+      "subtitle": "Beginnen Sie noch heute mit der Übersetzung Ihrer Inhalte auf unserer KI-gestützten Plattform. Keine Kreditkarte erforderlich, um zu starten.",
+      "button": "Kostenlose Testversion starten"
+    },
+    "footer": {
+      "company": {
+        "title": "Unternehmen",
+        "about": "Über uns",
+        "blog": "Blog",
+        "careers": "Karriere"
+      },
+      "features": {
+        "title": "Funktionen",
+        "transcription": "Transkription",
+        "dubbing": "KI-Synchronisation",
+        "chat": "Interview-Leitfaden",
+        "documentTranslation": "Dokumentenübersetzung"
+      },
+      "resources": {
+        "title": "Ressourcen",
+        "documentation": "Dokumentation",
+        "apiReference": "API-Referenz",
+        "support": "Support"
+      },
+      "legal": {
+        "title": "Rechtliches",
+        "privacy": "Datenschutz",
+        "terms": "Nutzungsbedingungen",
+        "security": "Sicherheit"
+      },
+      "copyright": "© 2025 LinguaFlow. Alle Rechte vorbehalten."
+    }
+  },
+  "login": {
+    "branding": {
+      "title": "LinguaFlow",
+      "subtitle": "Überwinden Sie Sprachbarrieren mit KI-gestützter Übersetzung",
+      "description": "Willkommen in der Zukunft der globalen Kommunikation. Melden Sie sich an, um fortzufahren, oder erstellen Sie ein Konto, um zu beginnen."
+    },
+    "tabs": {
+      "signin": "Anmelden",
+      "signup": "Registrieren"
+    },
+    "signin": {
+      "title": "Willkommen zurück",
+      "subtitle": "Melden Sie sich an, um zu LinguaFlow fortzufahren",
+      "emailLabel": "E-Mail-Adresse",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+      "passwordLabel": "Passwort",
+      "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+      "forgotPassword": "Passwort vergessen?",
+      "button": "Anmelden",
+      "or": "Oder",
+      "continueWithReplit": "Mit Replit fortfahren",
+      "continueWithGoogle": "Mit Google fortfahren",
+      "continueWithMicrosoft": "Mit Microsoft fortfahren"
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "subtitle": "Treten Sie LinguaFlow noch heute bei",
+      "emailLabel": "E-Mail-Adresse",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+      "passwordLabel": "Passwort",
+      "passwordPlaceholder": "Erstellen Sie ein Passwort",
+      "confirmPasswordLabel": "Passwort bestätigen",
+      "confirmPasswordPlaceholder": "Bestätigen Sie Ihr Passwort",
+      "button": "Registrieren",
+      "or": "Oder",
+      "signupWithReplit": "Mit Replit registrieren"
+    }
+  },
+  "transcription": {
+    "breadcrumb": {
+      "home": "Startseite",
+      "current": "Videotranskription"
+    },
+    "pageTitle": "Videotranskription",
+    "pageDescription": "Fügen Sie unten eine YouTube-URL ein, um sofortige Transkription und Übersetzung in Ihrer Zielsprache zu erhalten. Laden Sie die Ergebnisse im TXT- oder SRT-Format herunter.",
+    "form": {
+      "urlLabel": "YouTube-URL",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+      "transcribeButton": "Video transkribieren",
+      "transcribing": "Transkribiere..."
+    },
+    "processing": {
+      "status": "Video wird verarbeitet...",
+      "message": "Dies kann je nach Videolänge einige Minuten dauern"
+    },
+    "error": {
+      "title": "Transkription fehlgeschlagen",
+      "message": "Bei der Transkription ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+      "tip": "Tipp: Stellen Sie sicher, dass das Video Untertitel aktiviert hat."
+    },
+    "videoPlayer": {
+      "title": "Videoplayer"
+    },
+    "transcript": {
+      "title": "Transkript",
+      "downloadTxt": "TXT",
+      "downloadSrt": "SRT"
+    },
+    "translation": {
+      "title": "Übersetzung",
+      "translateButton": "Übersetzen",
+      "translating": "Übersetzung läuft...",
+      "empty": "Klicken Sie auf \"Übersetzen\", um dieses Transkript zu übersetzen",
+      "processing": "Transkript wird übersetzt...",
+      "error": "Übersetzung fehlgeschlagen. Bitte versuchen Sie es erneut."
+    },
+    "empty": {
+      "title": "Noch keine Transkription",
+      "description": "Geben Sie oben eine YouTube-URL ein und klicken Sie auf \"Video transkribieren\", um zu beginnen."
+    },
+    "toast": {
+      "processingStarted": "Verarbeitung gestartet",
+      "processingDescription": "Ihr Video wird transkribiert. Dies kann einige Minuten dauern.",
+      "transcriptionCompleted": "Transkription abgeschlossen",
+      "transcriptionCompletedDescription": "Ihr Video wurde erfolgreich transkribiert. Klicken Sie auf 'Übersetzen', um es zu übersetzen.",
+      "transcriptionFailed": "Transkription fehlgeschlagen",
+      "translationStarted": "Übersetzung gestartet",
+      "translationDescription": "Ihr Transkript wird übersetzt.",
+      "translationFailed": "Übersetzung fehlgeschlagen"
+    },
+    "dubbing": {
+      "title": "Video-Synchronisation",
+      "description": "Erstellen Sie ein synchronisiertes Video mit KI-generierter Stimme in",
+      "generateButton": "Synchronisiertes Video erstellen",
+      "processing": "Synchronisiertes Video wird erstellt...",
+      "processingDetail": "Dies kann mehrere Minuten dauern. Die KI erstellt die Sprachausgabe und fügt sie mit dem Video zusammen.",
+      "success": "Synchronisation erfolgreich abgeschlossen!",
+      "successDetail": "Ihr Video wurde mit KI-generierter Stimme synchronisiert. Laden Sie die Dateien unten herunter.",
+      "downloadAudio": "Audio herunterladen",
+      "downloadVideo": "Video herunterladen",
+      "errorTitle": "Synchronisation fehlgeschlagen",
+      "retryButton": "Synchronisation wiederholen",
+      "toast": {
+        "dubbingStarted": "Synchronisation gestartet",
+        "dubbingDescription": "Dein Video wird mit KI-Stimme synchronisiert. Dies kann einige Minuten dauern.",
+        "dubbingFailed": "Synchronisation fehlgeschlagen",
+        "downloadStarted": "Download gestartet",
+        "downloadDescription": "Dein synchronisiertes Video wird automatisch heruntergeladen.",
+        "autoDownloadFailed": "Automatischer Download fehlgeschlagen",
+        "autoDownloadDescription": "Bitte nutze den Download-Button, um dein Video zu erhalten."
+      }
+    }
+  },
+  "chat": {
+    "sidebar": {
+      "newChat": "Neue Interview-Vorbereitung",
+      "noConversations": "Noch keine Interview-Vorbereitungen",
+      "messages": "Nachr."
+    },
+    "header": {
+      "activeConversation": "Interview-Vorbereitungssitzung",
+      "newConversation": "Neue Interview-Vorbereitung",
+      "subtitle": "KI-gestützter Interview-Leitfaden & Übung",
+      "language": "Sprache:"
+    },
+    "empty": {
+      "title": "Willkommen beim Interview-Leitfaden",
+      "description": "Stelle mir beliebige Interviewfragen! Ich kann dir bei der Vorbereitung auf Verhaltens-, technische oder branchenspezifische Interviews helfen. Ich biete detaillierte Antworten, Beispiele und Feedback in jeder Sprache."
+    },
+    "messages": {
+      "original": "Original:"
+    },
+    "input": {
+      "placeholder": "Stelle eine Interviewfrage... (z.B. \"Erzähle etwas über dich\" oder \"Was sind deine Stärken?\")",
+      "keyboardHint": "Drücke Enter zum Senden, Umschalt + Enter für neue Zeile"
+    },
+    "toast": {
+      "error": "Chat-Fehler"
+    }
+  },
+  "pdf": {
+    "pageTitle": "Neues Dokument übersetzen",
+    "upload": {
+      "dragDrop": "Datei hier per Drag & Drop ablegen oder zum Durchsuchen klicken",
+      "supportedFormats": "Unterstützte Formate: PDF, DOCX, TXT",
+      "browseFiles": "Dateien durchsuchen"
+    },
+    "form": {
+      "sourceLanguageLabel": "Quellsprache",
+      "targetLanguageLabel": "Zielsprache(n)",
+      "translateButton": "Übersetzen"
+    },
+    "history": {
+      "title": "Übersetzungsstatus & Verlauf",
+      "inProgress": "In Bearbeitung",
+      "completed": "Abgeschlossen",
+      "translating": "Wird übersetzt",
+      "translatedTo": "Übersetzt nach",
+      "download": "Herunterladen",
+      "empty": {
+        "title": "Noch keine Übersetzungen",
+        "description": "Laden Sie ein Dokument hoch, um zu beginnen"
+      }
+    },
+    "toast": {
+      "processingStarted": "Verarbeitung gestartet",
+      "processingDescription": "Ihr Dokument wird übersetzt.",
+      "translationCompleted": "Übersetzung abgeschlossen",
+      "translationCompletedDescription": "Ihr Dokument wurde erfolgreich übersetzt.",
+      "translationFailed": "Übersetzung fehlgeschlagen",
+      "noFileSelected": "Keine Datei ausgewählt",
+      "noFileDescription": "Bitte wählen Sie ein Dokument zum Hochladen aus.",
+      "invalidFile": "Ungültige Datei",
+      "invalidFileDescription": "Bitte wählen Sie eine PDF- oder DOCX-Datei aus."
     }
   },
   "common": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "clear": "Löschen",
+    "apply": "Anwenden",
+    "submit": "Absenden",
     "upload": "Hochladen",
     "download": "Herunterladen",
-    "translate": "Übersetzen"
+    "translate": "Übersetzen",
+    "processing": "Wird verarbeitet...",
+    "completed": "Abgeschlossen",
+    "sourceLanguage": "Ausgangssprache",
+    "targetLanguage": "Zielsprache",
+    "selectLanguage": "Sprache auswählen"
+  },
+  "languages": {
+    "auto": "Automatisch erkennen",
+    "en": "Englisch",
+    "es": "Spanisch",
+    "fr": "Französisch",
+    "de": "Deutsch",
+    "it": "Italienisch",
+    "pt": "Portugiesisch",
+    "ru": "Russisch",
+    "zh": "Chinesisch",
+    "ja": "Japanisch",
+    "ko": "Koreanisch",
+    "ar": "Arabisch",
+    "hi": "Hindi",
+    "bn": "Bengalisch",
+    "pa": "Punjabi",
+    "tr": "Türkisch",
+    "vi": "Vietnamesisch",
+    "pl": "Polnisch",
+    "uk": "Ukrainisch",
+    "nl": "Niederländisch",
+    "sv": "Schwedisch"
   }
 }
