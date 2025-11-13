@@ -90,54 +90,60 @@
 ### Frontend Stack
 | Technology | Version | Purpose |
 |-----------|---------|---------|
-| **React** | 18.x | UI framework for building interactive components |
-| **TypeScript** | 5.x | Type-safe development and better code quality |
-| **Wouter** | Latest | Lightweight routing library (3KB vs React Router 50KB) |
-| **TanStack Query** | v5 | Data fetching, caching, and state management |
-| **Tailwind CSS** | 3.x | Utility-first CSS framework for responsive design |
-| **Shadcn UI** | Latest | Beautiful, accessible component library |
-| **Lucide Icons** | Latest | Modern icon system with 1000+ icons |
+| **React** | 18.3.1 | UI framework for building interactive components |
+| **TypeScript** | 5.6.3 | Type-safe development and better code quality |
+| **Wouter** | 3.3.5 | Lightweight routing library (3KB vs React Router 50KB) |
+| **TanStack Query** | 5.60.5 | Data fetching, caching, and state management |
+| **Tailwind CSS** | 3.4.17 | Utility-first CSS framework for responsive design |
+| **Shadcn UI** | Latest | Beautiful, accessible component library (Radix UI components) |
+| **Lucide Icons** | 0.453.0 | Modern icon system with 1000+ icons |
+| **Vite** | 5.4.20 | Lightning-fast frontend build tool and dev server |
 
 ### Backend Stack
 | Technology | Version | Purpose |
 |-----------|---------|---------|
 | **Node.js** | 20.x | JavaScript runtime environment |
-| **Express.js** | 4.x | Web application framework for API endpoints |
-| **TypeScript** | 5.x | Type-safe backend development |
-| **PostgreSQL** | Latest | Relational database (via Neon cloud) |
-| **Drizzle ORM** | Latest | TypeScript ORM for database operations |
-| **Passport.js** | Latest | Authentication middleware |
+| **Express.js** | 4.21.2 | Web application framework for API endpoints |
+| **TypeScript** | 5.6.3 | Type-safe backend development |
+| **PostgreSQL** | 15-alpine | Relational database (via Docker or cloud) |
+| **Drizzle ORM** | 0.39.1 | TypeScript ORM for database operations |
+| **Drizzle Kit** | 0.31.4 | Database schema migrations and management |
+| **Passport.js** | 0.7.0 | Authentication middleware |
+| **Passport Google OAuth20** | 2.0.0 | Google OAuth 2.0 authentication strategy |
+| **pg** | 8.16.3 | PostgreSQL client for Node.js |
+| **connect-pg-simple** | 10.0.0 | PostgreSQL session store for Express |
 
 ### AI & Translation Services
-| Service | Purpose | Languages |
-|---------|---------|-----------|
-| **Lingo.dev SDK** | Runtime translation API + CI/CD | 83 languages |
-| **Groq API** | AI chat with Llama 3.3 70B model | N/A |
-| **ElevenLabs** | Text-to-speech voice generation with multilingual support | 40+ languages |
-| **TranscriptAPI.com** | YouTube video transcription | Auto-detect |
+| Service | Purpose | Languages | API Key Variable |
+|---------|---------|-----------|------------------|
+| **Lingo.dev SDK** | Runtime translation API + CI/CD | 83 languages | `LINGO_API_KEY` or `LINGODOTDEV_API_KEY` |
+| **Google Gemini** | AI chat with Gemini 2.5 Flash model | N/A | `GEMINI_API_KEY` |
+| **TranscriptAPI.com** | YouTube video transcription | Auto-detect | `TRANSCRIPT_API_KEY` |
 
 ### Media Processing
-| Tool | Purpose |
-|------|---------|
-| **FFmpeg** | Audio/video manipulation and merging |
-| **ytdl-core** | YouTube video download (secure alternative to yt-dlp) |
-| **pdf-parse** | PDF text extraction |
-| **Mammoth** | DOCX file parsing |
+| Tool | Version | Purpose |
+|------|---------|---------|
+| **FFmpeg** | Latest | Audio/video manipulation and merging |
+| **@ybd-project/ytdl-core** | 6.0.8 | YouTube video download (secure alternative) |
+| **pdf-parse** | 2.4.5 | PDF text extraction (class-based API) |
+| **Mammoth** | 1.11.0 | DOCX file parsing and text extraction |
 
 ### Authentication & Security
-| Service | Purpose |
-|---------|---------|
-| **Replit Auth (OIDC)** | Secure user authentication with OAuth 2.0 |
-| **Express Session** | Secure session management |
-| **PostgreSQL Row-Level Security** | Resource ownership verification |
+| Service | Purpose | Configuration |
+|---------|---------|---------------|
+| **Google OAuth 2.0** | User authentication via Google | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` |
+| **Express Session** | Secure session management | `SESSION_SECRET` |
+| **PostgreSQL Session Store** | Persistent session storage | Uses `DATABASE_URL` |
+| **Development Auth Bypass** | Auto-login for development | Mock user: `aryanav8349@gmail.com` |
 
 ### Development Tools
-| Tool | Purpose |
-|------|---------|
-| **Vite** | Lightning-fast frontend build tool |
-| **Drizzle Kit** | Database schema migrations |
-| **ESBuild** | TypeScript compilation |
-| **Playwright** | End-to-end testing automation |
+| Tool | Version | Purpose |
+|------|---------|---------|
+| **Vite** | 5.4.20 | Lightning-fast frontend build tool |
+| **Drizzle Kit** | 0.31.4 | Database schema migrations |
+| **ESBuild** | 0.25.0 | TypeScript compilation |
+| **tsx** | 4.20.5 | TypeScript execution for development |
+| **Docker & Docker Compose** | Latest | PostgreSQL containerization |
 
 ---
 
@@ -156,37 +162,51 @@ Click: "Transcribe Video" button
 **Step 2: Transcription Processing**
 - Backend fetches transcript using TranscriptAPI.com
 - Progress bar shows: 0% → 50% → 100%
-- Auto-detects source language (e.g., "en" for English)
+- Auto-detects source language (e.g., "en" for English, "hi" for Hindi)
+- Source language detection: Checks for Hindi characters (`[\u0900-\u097F]`) in transcription text
 - Displays transcript with timestamps:
 ```
-[00:00] We're no strangers to love
-[00:03] You know the rules and so do I
-[00:07] A full commitment's what I'm thinking of
+[00:00:00] We're no strangers to love
+[00:00:03] You know the rules and so do I
+[00:00:07] A full commitment's what I'm thinking of
 ```
 
-**Step 3: Translation**
+**Step 3: Translation (On-Demand)**
 ```
 Select Target Language: Spanish (es)
-Click: "Translate" button
+Click: "Translate" button (first time only - marks translation as ready)
 ```
 
-Translation appears in right panel:
+**Translation Flow:**
+- Translations are performed **on-demand** when a language is selected
+- First checks cache (`transcriptionTranslations` table) for existing translation
+- If not cached, translates using Lingo.dev SDK (preserves timestamps)
+- Caches translation for future requests
+- Translation appears instantly in right panel:
 ```
-[00:00] No somos extraños al amor
-[00:03] Conoces las reglas y yo también
-[00:07] Un compromiso total es en lo que estoy pensando
+[00:00:00] No somos extraños al amor
+[00:00:03] Conoces las reglas y yo también
+[00:00:07] Un compromiso total es en lo que estoy pensando
 ```
 
-**Step 4: Generate Dubbed Video**
+**Special Handling:**
+- Hindi to English: Uses mock translation for specific text patterns
+- Language normalization: Converts language codes (e.g., "en-US" → "en")
+- Timestamp preservation: Maintains `[HH:MM:SS]` format during translation
+
+**Step 4: Generate Dubbed Video **
 ```
 Click: "Generate Dubbed Video" button
 Backend Process:
-1. Translates transcript using Lingo.dev
-2. Generates Spanish audio using Google TTS (es-ES-Standard-A voice)
-3. Downloads original YouTube video using ytdl-core
-4. Merges Spanish audio with video using FFmpeg
-5. Saves dubbed video to server
+1. Marks dubbing status as "completed"
+2. Sets dubbedVideoUrl to download endpoint
+3. Serves static cc1.mp4 file for download
 ```
+
+**Note**: Currently uses a mock implementation that serves a static video file instead of actual dubbing. This can be extended to use:
+- Google Cloud Text-to-Speech for voice generation
+- FFmpeg for audio/video merging
+- ytdl-core for YouTube video download
 
 **Step 5: Download**
 ```
@@ -235,11 +255,12 @@ User types: "¿Cómo puedo aprender programación?"
 **Step 2: AI Translation & Response**
 ```
 Backend Process:
-1. Detects user language: Spanish
+1. Detects user language: Spanish (from global language selector)
 2. Translates to English for AI: "How can I learn programming?"
-3. Sends to Groq API (Llama 3.3 70B)
+3. Sends to Google Gemini API (Gemini 2.5 Flash model)
 4. Receives English response
-5. Translates back to Spanish using Lingo.dev
+5. Translates back to Spanish using Lingo.dev SDK
+6. Saves conversation to database
 ```
 
 **Step 3: Display Translated Response**
@@ -291,11 +312,18 @@ Security: File extension validation, MIME type checking
 Backend Process:
 1. Validates file (extension normalization, whitelist check)
 2. Extracts text:
-   - PDF: Uses pdf-parse library
-   - DOCX: Uses mammoth library
+   - PDF: Uses pdf-parse v2.4.5 library (PDFParse class with getText() method)
+   - DOCX: Uses mammoth library (extractRawText)
 3. Detects empty content (rejects 0-byte files)
 4. Stores original file with user ownership
+5. Processes in background (async) to avoid blocking request
 ```
+
+**PDF Parsing Logic:**
+- Uses `pdf-parse@2.4.5` which exports `PDFParse` class
+- Instantiates with `new PDFParse({ data: fileBuffer })`
+- Calls `getText()` method to extract text and page count
+- Handles cleanup with `destroy()` method
 
 **Step 3: Translation**
 ```
@@ -303,12 +331,15 @@ Select Target Language: French (fr)
 Click: "Translate Document"
 
 Backend Process:
-1. Reads extracted text
+1. Reads extracted text from document
 2. Sends to Lingo.dev SDK for translation
-3. Generates new PDF with translated content
-4. Preserves original formatting (headers, paragraphs)
-5. Stores translated file with secure download URL
+3. Creates translated .txt file (plain text, not PDF)
+4. Normalizes text encoding (UTF-8, removes BOM, normalizes line endings)
+5. Stores translated file in uploads/ directory
+6. Sets translatedFileUrl to download endpoint
 ```
+
+**Note**: Currently outputs plain text files (`.txt`) instead of PDFs for easier viewing and downloading. The translated text is saved with UTF-8 encoding.
 
 **Step 4: Download**
 ```
@@ -321,17 +352,19 @@ Returns: PDF file with French translation
 ```
 File Upload → Multer (uploads/) → POST /api/translate-pdf
                                 ↓
-                          File Validation
+                          File Validation (extension, MIME type)
                                 ↓
-                          Text Extraction
+                          Background Processing (async)
                                 ↓
-                          Lingo.dev SDK
+                          Text Extraction (pdf-parse or mammoth)
                                 ↓
-                          PDF Generation (pdfkit)
+                          Lingo.dev SDK Translation
                                 ↓
-                          Database (translatedPdfUrl)
+                          Text File Creation (.txt with UTF-8)
                                 ↓
-GET /api/download/:id → Security Check → File Download
+                          Database (translatedFileUrl)
+                                ↓
+GET /api/translate-pdf/:id/download → Security Check → Text File Download
 ```
 
 ---
@@ -366,15 +399,17 @@ Before running LingoFlow, ensure you have:
 1. Click **"Secrets"** tab in left sidebar (🔒 icon)
 2. Add the following secrets:
 
-| Secret Name | How to Get It |
-|-------------|---------------|
-| `LINGO_API_KEY` | Sign up at lingo.dev → Dashboard → API Keys |
-| `GROQ_API_KEY` | Sign up at console.groq.com → Create API key |
-| `TRANSCRIPT_API_KEY` | Sign up at transcriptapi.com → Get API key |
-| `ELEVENLABS_API_KEY` | Sign up at elevenlabs.io → Profile → API Keys |
-| `SESSION_SECRET` | Generate random string: `openssl rand -base64 32` |
+| Secret Name | How to Get It | Required |
+|-------------|---------------|----------|
+| `LINGO_API_KEY` or `LINGODOTDEV_API_KEY` | Sign up at https://lingo.dev → Dashboard → API Keys | ✅ Yes |
+| `GEMINI_API_KEY` | Sign up at https://aistudio.google.com → Get API key | ✅ Yes |
+| `TRANSCRIPT_API_KEY` | Sign up at https://transcriptapi.com → Get API key | ✅ Yes |
+| `GOOGLE_CLIENT_ID` | Google Cloud Console → OAuth 2.0 credentials | ✅ Yes |
+| `GOOGLE_CLIENT_SECRET` | Google Cloud Console → OAuth 2.0 credentials | ✅ Yes |
+| `DATABASE_URL` | PostgreSQL connection string | ✅ Yes |
+| `SESSION_SECRET` | Generate random string: `openssl rand -base64 32` | ✅ Yes |
 
-**Important**: The `DATABASE_URL` is auto-configured by Replit's PostgreSQL addon.
+**Note**: The application supports both `LINGO_API_KEY` and `LINGODOTDEV_API_KEY` for Lingo.dev integration.
 
 #### Step 3: Run the Application
 
@@ -411,14 +446,29 @@ npm install
 
 #### Step 3: Set Up PostgreSQL Database
 
-**Option A: Use Neon (Recommended)**
+**Option A: Use Docker Compose (Recommended for Local Development)**
 ```bash
-# Sign up at https://neon.tech
-# Create a new project
-# Copy the connection string
+# Start PostgreSQL container
+docker-compose up -d
+
+# Verify it's running
+docker ps | grep lingoflow-postgres
+
+# Database credentials (from docker-compose.yml):
+# User: meal_user
+# Password: meal_password
+# Database: lingoflow
+# Port: 5432
 ```
 
-**Option B: Use Local PostgreSQL**
+**Option B: Use Cloud PostgreSQL (Neon, Supabase, etc.)**
+```bash
+# Sign up at https://neon.tech or https://supabase.com
+# Create a new project
+# Copy the connection string to DATABASE_URL in .env
+```
+
+**Option C: Use Local PostgreSQL**
 ```bash
 # Install PostgreSQL
 brew install postgresql  # macOS
@@ -433,27 +483,36 @@ createdb lingoflow
 Create a `.env` file in the root directory:
 
 ```env
-# Database
-DATABASE_URL=postgresql://user:password@host:5432/lingoflow
-PGHOST=host
-PGPORT=5432
-PGUSER=user
-PGPASSWORD=password
-PGDATABASE=lingoflow
+# Database (PostgreSQL)
+DATABASE_URL=postgresql://meal_user:meal_password@localhost:5432/lingoflow
 
-# AI Services
+# AI & Translation Services
 LINGO_API_KEY=your_lingo_api_key_here
-GROQ_API_KEY=your_groq_api_key_here
+# OR use LINGODOTDEV_API_KEY (both are supported)
+LINGODOTDEV_API_KEY=your_lingo_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 TRANSCRIPT_API_KEY=your_transcript_api_key_here
 
-# ElevenLabs (for voice generation)
-ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
+# Google OAuth 2.0 (for authentication)
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
 
-# Authentication
+# Session Management
 SESSION_SECRET=your_random_secret_here
 
-# Optional: Replit Auth (if using Replit)
-REPLIT_DEPLOYMENT=production
+# Environment
+NODE_ENV=development
+PORT=5000
+```
+
+**For Local PostgreSQL with Docker:**
+```env
+DATABASE_URL=postgresql://meal_user:meal_password@localhost:5432/lingoflow
+```
+
+**For Cloud PostgreSQL (Neon, Supabase, etc.):**
+```env
+DATABASE_URL=postgresql://user:password@host:5432/database?sslmode=require
 ```
 
 #### Step 5: Initialize Database
@@ -535,24 +594,39 @@ npm install lingo.dev
 ```typescript
 import { LingoDotDevEngine } from "lingo.dev/sdk";
 
-// Initialize SDK
+// Initialize SDK - Supports both LINGO_API_KEY and LINGODOTDEV_API_KEY
+const lingoApiKey = process.env.LINGO_API_KEY || process.env.LINGODOTDEV_API_KEY;
 const lingoDotDev = new LingoDotDevEngine({
-  apiKey: process.env.LINGO_API_KEY,
+  apiKey: lingoApiKey || "",
 });
 
-// Translate chat messages
-const translatedMessage = await lingoDotDev.localizeText(
-  userMessage,
-  userLanguage,
-  "en"  // Target language for AI
-);
+// Helper function to normalize language codes
+function normalizeLanguageCode(code: string): string {
+  const baseCode = code.toLowerCase().split('-')[0].split('_')[0];
+  // Maps common language codes to Lingo.dev format
+  const languageMap: Record<string, string> = {
+    'en': 'en', 'es': 'es', 'fr': 'fr', 'de': 'de', 'hi': 'hi', // etc.
+  };
+  return languageMap[baseCode] || 'en';
+}
 
-// Translate AI responses back to user's language
-const translatedResponse = await lingoDotDev.localizeText(
-  aiResponse,
-  "en",  // Source language
-  userLanguage  // User's preferred language
-);
+// Translate text using Lingo.dev
+async function translateText(
+  text: string, 
+  targetLanguage: string, 
+  sourceLanguage: string = "en"
+): Promise<string> {
+  const normalizedSource = normalizeLanguageCode(sourceLanguage);
+  const normalizedTarget = normalizeLanguageCode(targetLanguage);
+  
+  const translated = await lingoDotDev.localizeText(
+    text,
+    normalizedSource,
+    normalizedTarget
+  );
+  
+  return translated;
+}
 ```
 
 **Use Cases in LingoFlow:**
@@ -952,97 +1026,10 @@ cat client/public/locales/es.json
 └────────────────────────────────────────────────────────────────┘
 ```
 
-### Database Schema
 
-**File**: `shared/schema.ts`
-
-```typescript
-// Users table
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey(),  // Replit Auth sub
-  email: varchar("email").notNull(),
-  firstName: varchar("first_name"),
-  lastName: varchar("last_name"),
-});
-
-// Transcriptions table
-export const transcriptions = pgTable("transcriptions", {
-  id: serial("id").primaryKey(),
-  url: text("url").notNull(),
-  transcription: text("transcription"),
-  originalTranscription: text("original_transcription"),
-  translatedTranscription: text("translated_transcription"),
-  sourceLanguage: varchar("source_language", { length: 10 }),
-  targetLanguage: varchar("target_language", { length: 10 }),
-  status: varchar("status").notNull().default("pending"),
-  progress: integer("progress").default(0),
-  translationStatus: varchar("translation_status").default("idle"),
-  dubbingStatus: varchar("dubbing_status").default("idle"),
-  dubbedAudioUrl: text("dubbed_audio_url"),
-  dubbedVideoUrl: text("dubbed_video_url"),
-  error: text("error"),
-  userId: varchar("user_id").notNull().references(() => users.id),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-// Conversations table
-export const conversations = pgTable("conversations", {
-  id: serial("id").primaryKey(),
-  title: text("title"),
-  userId: varchar("user_id").notNull().references(() => users.id),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
-});
-
-// Messages table
-export const messages = pgTable("messages", {
-  id: serial("id").primaryKey(),
-  conversationId: integer("conversation_id").references(() => conversations.id),
-  role: varchar("role").notNull(),  // "user" or "assistant"
-  content: text("content").notNull(),
-  userId: varchar("user_id").notNull().references(() => users.id),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-// PDF Translations table
-export const pdfTranslations = pgTable("pdf_translations", {
-  id: serial("id").primaryKey(),
-  originalFilename: text("original_filename").notNull(),
-  targetLanguage: varchar("target_language", { length: 10 }).notNull(),
-  status: varchar("status").notNull().default("pending"),
-  originalPdfUrl: text("original_pdf_url"),
-  translatedPdfUrl: text("translated_pdf_url"),
-  error: text("error"),
-  userId: varchar("user_id").notNull().references(() => users.id),
-  createdAt: timestamp("created_at").defaultNow(),
-});
 ```
 
-### Security Architecture
 
-#### 1. Authentication Flow
-```
-User → Replit Auth → OAuth 2.0 → OIDC Token → Session Cookie → Database
-```
-
-#### 2. Authorization Middleware
-```typescript
-// Verify user is authenticated
-function isAuthenticated(req, res, next) {
-  if (!req.user) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-  next();
-}
-
-// Verify user owns the resource
-async function checkOwnership(userId, resourceId) {
-  const resource = await storage.getResource(resourceId);
-  if (resource.userId !== userId) {
-    throw new Error("Forbidden");
-  }
-}
-```
 
 #### 3. Input Validation
 ```typescript
@@ -1292,12 +1279,30 @@ Response: PDF file (application/pdf)
 ```
 Error: Connection to database failed
 ECONNREFUSED localhost:5432
+Error: DATABASE_URL must be set
 ```
 
 **Solution:**
-1. Check `DATABASE_URL` in Secrets tab
-2. Verify PostgreSQL is running on Replit
-3. Run `npm run db:push` to initialize schema
+1. **For Docker**: Ensure PostgreSQL container is running:
+   ```bash
+   docker-compose up -d
+   docker ps | grep lingoflow-postgres
+   ```
+
+2. **Check DATABASE_URL** in `.env` file:
+   ```env
+   DATABASE_URL=postgresql://meal_user:meal_password@localhost:5432/lingoflow
+   ```
+
+3. **Initialize database schema**:
+   ```bash
+   npm run db:push
+   ```
+
+4. **For Cloud PostgreSQL**: Verify connection string includes SSL if required:
+   ```env
+   DATABASE_URL=postgresql://user:pass@host:5432/db?sslmode=require
+   ```
 
 #### Issue 2: "Lingo.dev API key invalid"
 
@@ -1305,12 +1310,14 @@ ECONNREFUSED localhost:5432
 ```
 Error: Invalid API key
 Status: 401 Unauthorized
+Error: LINGO_API_KEY or LINGODOTDEV_API_KEY is not configured
 ```
 
 **Solution:**
-1. Verify `LINGO_API_KEY` in Secrets
-2. Check API key is active at lingo.dev dashboard
+1. Verify either `LINGO_API_KEY` or `LINGODOTDEV_API_KEY` is set in `.env`
+2. Check API key is active at https://lingo.dev dashboard
 3. Ensure no extra spaces in the secret value
+4. The application supports both variable names for compatibility
 
 #### Issue 3: "Transcription stuck at 50%"
 
@@ -1327,23 +1334,41 @@ Status: 401 Unauthorized
 tail -f /tmp/logs/Start_application_*.log | grep TRANSCRIPTION
 ```
 
-#### Issue 4: "Dubbing fails with FFmpeg error"
+#### Issue 4: "PDF parsing fails with 'Class constructors cannot be invoked without 'new'"
 
 **Symptoms:**
 ```
-Error: FFmpeg command failed
-Could not find codec
+Error: Failed to parse PDF: Class constructors cannot be invoked without 'new'
+TypeError: Class constructors cannot be invoked without 'new'
 ```
 
 **Solution:**
-1. FFmpeg is pre-installed on Replit
-2. Check video download succeeded:
-```bash
-ls uploads/videos/
-```
-3. Verify Google Cloud credentials are valid
+1. **Check pdf-parse version**: Should be `^2.4.5`
+   ```bash
+   npm list pdf-parse
+   ```
 
-#### Issue 5: "CI/CD workflow not running"
+2. **Verify correct usage**: The code uses `new PDFParse({ data: fileBuffer })` and calls `getText()` method
+
+3. **If issue persists**: Reinstall pdf-parse:
+   ```bash
+   npm uninstall pdf-parse
+   npm install pdf-parse@^2.4.5
+   ```
+
+#### Issue 5: "Translation not working for Hindi to English"
+
+**Symptoms:**
+- Selecting English shows Hindi text instead of English translation
+- Logs show: `Translating from en to en` (incorrect source language)
+
+**Solution:**
+1. **Source language detection**: The system automatically detects Hindi by checking for Hindi characters (`[\u0900-\u097F]`)
+2. **Check database**: Verify `transcription.sourceLanguage` is set correctly
+3. **Mock translation**: For specific Hindi text patterns, a mock English translation is used
+4. **Language normalization**: Both source and target languages are normalized before comparison
+
+#### Issue 6: "CI/CD workflow not running"
 
 **Symptoms:**
 - Push to main branch
@@ -1365,9 +1390,10 @@ ls uploads/videos/
 |-----------|--------------|-------|
 | Video transcription (5 min video) | 30-45 seconds | TranscriptAPI.com latency |
 | Translation (1000 words) | 2-3 seconds | Lingo.dev API |
-| Dubbing audio generation | 15-20 seconds | Google TTS + FFmpeg |
-| Document translation (10 pages) | 5-7 seconds | PDF extraction + Lingo.dev |
-| Chat response | 1-2 seconds | Groq API (Llama 3.3) |
+| On-demand translation (cached) | <100ms | From database cache |
+| Document translation (10 pages) | 5-7 seconds | PDF/DOCX extraction + Lingo.dev |
+| PDF text extraction | 1-2 seconds | pdf-parse v2.4.5 |
+| Chat response | 1-2 seconds | Google Gemini 2.5 Flash |
 
 ### Scalability
 
