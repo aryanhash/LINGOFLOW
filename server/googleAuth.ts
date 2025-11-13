@@ -138,9 +138,9 @@ export async function setupAuth(app: Express) {
 
   // Google OAuth routes - Development bypass: just redirect to home
   app.get("/api/auth/google", async (req, res) => {
-    // Development bypass - create user in database and session
+    // Development bypass - automatically log in with mock user
     try {
-      const userId = 'dev-user-123';
+      const userId = 'aryanav8349@gmail.com';
       let user = await storage.getUser(userId);
       
       if (!user) {
@@ -160,7 +160,14 @@ export async function setupAuth(app: Express) {
         lastName: user.lastName,
         profileImageUrl: user.profileImageUrl,
       };
-      console.log("[GOOGLE_AUTH] Development bypass - redirecting to home");
+      
+      // Set req.user for passport compatibility
+      req.user = req.session.mockUser;
+      if (req.login) {
+        req.login(req.user, () => {});
+      }
+      
+      console.log("[GOOGLE_AUTH] Development bypass - user logged in:", user.email);
       return res.redirect("/");
     } catch (error: any) {
       console.error("[GOOGLE_AUTH] Error:", error);
@@ -171,9 +178,9 @@ export async function setupAuth(app: Express) {
   app.get(
     "/api/auth/google/callback",
     async (req, res, next) => {
-      // Development bypass - create user in database and redirect to home
+      // Development bypass - automatically log in with mock user
       try {
-        const userId = 'dev-user-123';
+        const userId = 'aryanav8349@gmail.com';
         let user = await storage.getUser(userId);
         
         if (!user) {
@@ -193,7 +200,14 @@ export async function setupAuth(app: Express) {
           lastName: user.lastName,
           profileImageUrl: user.profileImageUrl,
         };
-        console.log("[GOOGLE_AUTH] Development bypass - redirecting to home");
+        
+        // Set req.user for passport compatibility
+        req.user = req.session.mockUser;
+        if (req.login) {
+          req.login(req.user, () => {});
+        }
+        
+        console.log("[GOOGLE_AUTH] Development bypass - user logged in:", user.email);
         return res.redirect("/");
       } catch (error: any) {
         console.error("[GOOGLE_AUTH] Error:", error);

@@ -103,7 +103,18 @@ export const documentTranslations = pgTable("document_translations", {
 
 // Video Transcription Schema
 export const transcriptionRequestSchema = z.object({
-  url: z.string().url("Please enter a valid YouTube URL"),
+  url: z.string().min(1, "URL is required").refine(
+    (val) => {
+      try {
+        const url = new URL(val);
+        // Accept YouTube URLs (youtube.com, youtu.be, m.youtube.com, etc.)
+        return url.hostname.includes('youtube.com') || url.hostname.includes('youtu.be');
+      } catch {
+        return false;
+      }
+    },
+    { message: "Please enter a valid YouTube URL (e.g., https://www.youtube.com/watch?v=...)" }
+  ),
 });
 
 export const transcriptionSchema = z.object({

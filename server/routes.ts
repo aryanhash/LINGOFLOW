@@ -340,7 +340,8 @@ async function fetchYoutubeTranscript(url: string): Promise<{
   try {
     const apiKey = process.env.TRANSCRIPT_API_KEY;
     if (!apiKey) {
-      throw new Error("TRANSCRIPT_API_KEY is not configured");
+      console.error("[TRANSCRIPT_API] TRANSCRIPT_API_KEY is not set in environment variables");
+      throw new Error("TRANSCRIPT_API_KEY is not configured. Please set it in your .env file.");
     }
 
     // Extract video ID from URL if needed
@@ -418,31 +419,123 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Setup authentication middleware (Google Auth)
   await setupAuth(app);
 
-  // Development authentication middleware - must be defined before use
+  // Development authentication middleware - always bypasses authentication
   const devAuth = async (req: any, res: any, next: any) => {
-    if (req.session.mockUser) {
-      // Set req.user for compatibility with existing code
+    // Always create a mock user for development
+    if (!req.user && !req.session.mockUser) {
+      req.user = { 
+        id: 'aryanav8349@gmail.com', 
+        claims: { sub: 'aryanav8349@gmail.com' },
+        email: 'aryanav8349@gmail.com',
+        firstName: 'Aryan',
+        lastName: 'Raj'
+      };
+      req.session.mockUser = req.user;
+      // Also set isAuthenticated for passport compatibility
+      if (req.login) {
+        req.login(req.user, () => {});
+      }
+    } else if (req.session.mockUser && !req.user) {
       req.user = req.session.mockUser;
-      return next();
     }
-    // Bypass authentication if not using mock user
-    if (process.env.NODE_ENV === 'development' && !req.user) {
-      req.user = { id: 'dev-user-123', claims: { sub: 'dev-user-123' } }; // Mock user for dev
-      req.session.mockUser = req.user; // Store in session for consistency
-      return next();
-    }
-    return isAuthenticated(req, res, next);
+    return next();
   };
 
   // Auth routes
+  app.post('/api/login', async (req: any, res) => {
+    try {
+      // Auto-login with mock user regardless of credentials
+      const userId = 'aryanav8349@gmail.com';
+      let user = await storage.getUser(userId);
+      
+      if (!user) {
+        user = await storage.upsertUser({
+          id: userId,
+          email: 'aryanav8349@gmail.com',
+          firstName: 'Aryan',
+          lastName: 'Raj',
+          profileImageUrl: null,
+        });
+      }
+      
+      req.session.mockUser = {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        profileImageUrl: user.profileImageUrl,
+      };
+      
+      // Set req.user for passport compatibility
+      req.user = req.session.mockUser;
+      if (req.login) {
+        req.login(req.user, () => {});
+      }
+      
+      res.json({ success: true, user });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
+
   app.get('/api/auth/user', devAuth, async (req: any, res) => {
     try {
       const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
-      const user = await storage.getUser(userId);
-      res.json(user);
+      if (!userId) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      
+      // Default mock user
+      const defaultUser = {
+        id: 'aryanav8349@gmail.com',
+        email: 'aryanav8349@gmail.com',
+        firstName: 'Aryan',
+        lastName: 'Raj',
+        profileImageUrl: null,
+      };
+      
+      // Try to get user from database
+      try {
+        let user = await storage.getUser(userId);
+        
+        // If user doesn't exist, create it
+        if (!user) {
+          const mockUser = {
+            id: userId,
+            email: req.user?.email || req.session.mockUser?.email || defaultUser.email,
+            firstName: req.user?.firstName || req.session.mockUser?.firstName || defaultUser.firstName,
+            lastName: req.user?.lastName || req.session.mockUser?.lastName || defaultUser.lastName,
+            profileImageUrl: null,
+          };
+          try {
+            user = await storage.upsertUser(mockUser);
+          } catch (upsertError) {
+            console.error("Error upserting user:", upsertError);
+            // If upsert fails, return mock user object
+            return res.json(mockUser);
+          }
+        }
+        
+        return res.json(user);
+      } catch (dbError) {
+        console.error("Database error, returning mock user:", dbError);
+        // If database fails, return mock user
+        return res.json({
+          ...defaultUser,
+          id: userId,
+        });
+      }
     } catch (error) {
       console.error("Error fetching user:", error);
-      res.status(500).json({ message: "Failed to fetch user" });
+      // Return mock user even on error
+      return res.json({
+        id: 'aryanav8349@gmail.com',
+        email: 'aryanav8349@gmail.com',
+        firstName: 'Aryan',
+        lastName: 'Raj',
+        profileImageUrl: null,
+      });
     }
   });
 
@@ -471,24 +564,84 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // POST /api/transcribe - Video transcription (only fetches transcript, no translation)
   app.post("/api/transcribe", devAuth, async (req: any, res) => {
     try {
-      const validatedData = transcriptionRequestSchema.parse(req.body);
+      console.log("[TRANSCRIPTION] Received request body:", req.body);
+      
+      // Validate request body
+      let validatedData;
+      try {
+        validatedData = transcriptionRequestSchema.parse(req.body);
+      } catch (validationError: any) {
+        console.error("[TRANSCRIPTION] Validation error:", validationError);
+        return res.status(400).json({ 
+          error: "Invalid request", 
+          message: validationError.errors?.[0]?.message || "Please provide a valid YouTube URL",
+          details: validationError.errors 
+        });
+      }
+      
       const { url } = validatedData;
       const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
+      
+      if (!userId) {
+        return res.status(401).json({ error: "Unauthorized", message: "User not authenticated" });
+      }
+
+      // Ensure user exists in database before creating transcription
+      try {
+        let user = await storage.getUser(userId);
+        if (!user) {
+          console.log("[TRANSCRIPTION] User not found, creating user:", userId);
+          user = await storage.upsertUser({
+            id: userId,
+            email: 'aryanav8349@gmail.com',
+            firstName: 'Aryan',
+            lastName: 'Raj',
+            profileImageUrl: null,
+          });
+          console.log("[TRANSCRIPTION] User created:", user.id);
+        }
+      } catch (userError: any) {
+        console.error("[TRANSCRIPTION] Error ensuring user exists:", userError);
+        return res.status(500).json({ 
+          error: "User creation failed", 
+          message: userError.message || "Failed to create user"
+        });
+      }
+
+      // Check database connection
+      if (!process.env.DATABASE_URL) {
+        console.error("[TRANSCRIPTION] DATABASE_URL is not set");
+        return res.status(500).json({ 
+          error: "Database not configured", 
+          message: "DATABASE_URL is not set in environment variables" 
+        });
+      }
 
       // Create transcription record with explicit defaults
-      const transcription = await storage.createTranscription({
-        url,
-        transcription: "",
-        status: "processing",
-        progress: 0,
-        translationStatus: "idle",
-        sourceLanguage: undefined,
-        originalTranscription: undefined,
-        translatedTranscription: undefined,
-        error: undefined,
-        translationError: undefined,
-        userId,
-      });
+      let transcription;
+      try {
+        transcription = await storage.createTranscription({
+          url,
+          transcription: "",
+          status: "processing",
+          progress: 0,
+          translationStatus: "idle",
+          sourceLanguage: undefined,
+          originalTranscription: undefined,
+          translatedTranscription: undefined,
+          error: undefined,
+          translationError: undefined,
+          userId,
+        });
+        console.log("[TRANSCRIPTION] Created transcription record:", transcription.id);
+      } catch (dbError: any) {
+        console.error("[TRANSCRIPTION] Database error creating transcription:", dbError);
+        return res.status(500).json({ 
+          error: "Database error", 
+          message: dbError.message || "Failed to create transcription record",
+          details: process.env.NODE_ENV === 'development' ? dbError.stack : undefined
+        });
+      }
 
       // Process in background
       (async () => {
@@ -529,9 +682,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: "processing",
         message: "Transcription started. Please check back in a few moments.",
       });
-    } catch (error) {
-      console.error("Transcription endpoint error:", error);
-      res.status(400).json({ error: error instanceof Error ? error.message : "Invalid request" });
+    } catch (error: any) {
+      console.error("[TRANSCRIPTION] Endpoint error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Invalid request";
+      const statusCode = error.status || error.statusCode || 400;
+      res.status(statusCode).json({ 
+        error: "Transcription failed", 
+        message: errorMessage,
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      });
     }
   });
 

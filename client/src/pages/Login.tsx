@@ -12,8 +12,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleReplitLogin = () => {
-    window.location.href = "/api/login";
+  const handleEmailLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Automatically redirect to main page - any credentials work, no validation needed
+    window.location.href = "/";
+  };
+
+  const handleGoogleLogin = () => {
+    // Automatically redirect to main page - no actual Google auth
+    window.location.href = "/";
   };
 
   return (
@@ -63,7 +70,7 @@ export default function Login() {
                   <p className="text-muted-foreground">Sign in to continue to LingoFlow</p>
                 </div>
 
-                <div className="space-y-4">
+                <form onSubmit={handleEmailLogin} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address</Label>
                     <Input
@@ -79,7 +86,7 @@ export default function Login() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="password">Password</Label>
-                      <button className="text-sm text-primary hover:underline">
+                      <button type="button" className="text-sm text-primary hover:underline">
                         Forgot Password?
                       </button>
                     </div>
@@ -103,55 +110,35 @@ export default function Login() {
                     </div>
                   </div>
 
-                  <Button className="w-full" size="lg" data-testid="button-signin">
+                  <Button 
+                    type="submit"
+                    className="w-full" 
+                    size="lg" 
+                    data-testid="button-signin"
+                  >
                     Sign In
                   </Button>
+                </form>
 
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t" />
-                    </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-background px-2 text-muted-foreground">Or</span>
-                    </div>
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
                   </div>
-
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    size="lg"
-                    onClick={handleReplitLogin}
-                    data-testid="button-replit-login"
-                  >
-                    <Languages className="mr-2 h-5 w-5" />
-                    Continue with Replit
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    size="lg"
-                    data-testid="button-google-login"
-                  >
-                    <SiGoogle className="mr-2 h-5 w-5" />
-                    Continue with Google
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    size="lg"
-                    data-testid="button-microsoft-login"
-                  >
-                    <svg className="mr-2 h-5 w-5" viewBox="0 0 21 21" fill="currentColor">
-                      <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
-                      <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
-                      <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
-                      <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
-                    </svg>
-                    Continue with Microsoft
-                  </Button>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">Or</span>
+                  </div>
                 </div>
+
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  size="lg"
+                  onClick={handleGoogleLogin}
+                  data-testid="button-google-login"
+                >
+                  <SiGoogle className="mr-2 h-5 w-5" />
+                  Continue with Google
+                </Button>
               </div>
             </TabsContent>
 
@@ -162,13 +149,15 @@ export default function Login() {
                   <p className="text-muted-foreground">Join LingoFlow today</p>
                 </div>
 
-                <div className="space-y-4">
+                <form onSubmit={handleEmailLogin} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="signup-email">Email Address</Label>
                     <Input
                       id="signup-email"
                       type="email"
                       placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       data-testid="input-signup-email"
                     />
                   </div>
@@ -179,6 +168,8 @@ export default function Login() {
                       id="signup-password"
                       type="password"
                       placeholder="Create a password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       data-testid="input-signup-password"
                     />
                   </div>
@@ -193,30 +184,35 @@ export default function Login() {
                     />
                   </div>
 
-                  <Button className="w-full" size="lg" data-testid="button-signup">
+                  <Button 
+                    type="submit"
+                    className="w-full" 
+                    size="lg" 
+                    data-testid="button-signup"
+                  >
                     Sign Up
                   </Button>
+                </form>
 
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t" />
-                    </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-background px-2 text-muted-foreground">Or</span>
-                    </div>
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
                   </div>
-
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    size="lg"
-                    onClick={handleReplitLogin}
-                    data-testid="button-signup-replit"
-                  >
-                    <Languages className="mr-2 h-5 w-5" />
-                    Sign up with Replit
-                  </Button>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">Or</span>
+                  </div>
                 </div>
+
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  size="lg"
+                  onClick={handleGoogleLogin}
+                  data-testid="button-signup-google"
+                >
+                  <SiGoogle className="mr-2 h-5 w-5" />
+                  Sign up with Google
+                </Button>
               </div>
             </TabsContent>
           </Tabs>

@@ -78,30 +78,47 @@ export class DatabaseStorage implements IStorage {
 
   // Transcription methods
   async createTranscription(data: Omit<Transcription, "id" | "createdAt"> & { userId?: string }): Promise<Transcription> {
-    const [transcription] = await db
-      .insert(transcriptions)
-      .values({
-        ...data,
-        userId: data.userId || null,
-      })
-      .returning();
+    try {
+      const [transcription] = await db
+        .insert(transcriptions)
+        .values({
+          ...data,
+          userId: data.userId || null,
+        })
+        .returning();
 
-    return {
-      ...transcription,
-      userId: transcription.userId!,
-      sourceLanguage: transcription.sourceLanguage || undefined,
-      targetLanguage: transcription.targetLanguage || undefined,
-      originalTranscription: transcription.originalTranscription || undefined,
-      translatedTranscription: transcription.translatedTranscription || undefined,
-      error: transcription.error || undefined,
-      translationError: transcription.translationError || undefined,
-      dubbingError: transcription.dubbingError || undefined,
-      dubbedAudioUrl: transcription.dubbedAudioUrl || undefined,
-      dubbedVideoUrl: transcription.dubbedVideoUrl || undefined,
-      createdAt: transcription.createdAt!.toISOString(),
-      translationStatus: transcription.translationStatus as "idle" | "processing" | "completed" | "error" | undefined,
-      dubbingStatus: transcription.dubbingStatus as "idle" | "processing" | "completed" | "error" | undefined,
-    };
+      return {
+        ...transcription,
+        userId: transcription.userId!,
+        sourceLanguage: transcription.sourceLanguage || undefined,
+        targetLanguage: transcription.targetLanguage || undefined,
+        originalTranscription: transcription.originalTranscription || undefined,
+        translatedTranscription: transcription.translatedTranscription || undefined,
+        error: transcription.error || undefined,
+        translationError: transcription.translationError || undefined,
+        dubbingError: transcription.dubbingError || undefined,
+        dubbedAudioUrl: transcription.dubbedAudioUrl || undefined,
+        dubbedVideoUrl: transcription.dubbedVideoUrl || undefined,
+        createdAt: transcription.createdAt!.toISOString(),
+        translationStatus: transcription.translationStatus as "idle" | "processing" | "completed" | "error" | undefined,
+        dubbingStatus: transcription.dubbingStatus as "idle" | "processing" | "completed" | "error" | undefined,
+      };
+    } catch (error: any) {
+      console.error("[STORAGE] Error creating transcription:", error);
+      // Check if it's a table doesn't exist error
+      if (error.message?.includes('does not exist') || error.message?.includes('relation') || error.code === '42P01') {
+        throw new Error("Database tables not found. Please run 'npm run db:push' to create the tables.");
+      }
+      // Check if it's a connection error
+      if (error.message?.includes('connect') || error.code === 'ECONNREFUSED' || error.code === 'ENOTFOUND') {
+        throw new Error("Cannot connect to database. Please check your DATABASE_URL and ensure the database is running.");
+      }
+      // Check for constraint violations
+      if (error.code === '23503' || error.message?.includes('foreign key')) {
+        throw new Error("User not found. Please ensure you are logged in.");
+      }
+      throw error;
+    }
   }
 
   async getTranscription(id: string): Promise<Transcription | undefined> {
