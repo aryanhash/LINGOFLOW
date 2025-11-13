@@ -24,7 +24,6 @@ import { promisify } from "util";
 const require = createRequire(import.meta.url);
 const ytdlModule = require("@ybd-project/ytdl-core");
 const { YtdlCore } = ytdlModule;
-const PDFDocument = require("pdfkit");
 const execAsync = promisify(exec);
 
 // Configure multer for file uploads
@@ -1252,31 +1251,96 @@ Always be encouraging, professional, and provide actionable advice. Format your 
 
   // Helper function to extract text from different document types
   async function extractDocumentText(filePath: string, fileType: string): Promise<{ text: string; pageCount: number }> {
+    console.log(`[EXTRACT_TEXT] ===== START EXTRACTION =====`);
+    console.log(`[EXTRACT_TEXT] File path: ${filePath}`);
+    console.log(`[EXTRACT_TEXT] File type: ${fileType}`);
+    
+    try {
     const fileBuffer = await fs.promises.readFile(filePath);
+      console.log(`[EXTRACT_TEXT] File read successfully, size: ${fileBuffer.length} bytes`);
     
     if (fileType === "pdf") {
-      const pdfParseModule = await import("pdf-parse");
-      const pdfParse = pdfParseModule.default ?? pdfParseModule;
-      const pdfData = await pdfParse(fileBuffer);
-      
-      if (!pdfData.text || typeof pdfData.text !== 'string') {
+      console.log(`[EXTRACT_TEXT] Processing PDF file...`);
+      try {
+        // pdf-parse v2.4.5 exports an object with PDFParse class
+        const require = createRequire(import.meta.url);
+        const pdfParseModule = require("pdf-parse");
+        
+        console.log(`[EXTRACT_TEXT] pdf-parse module loaded`);
+        console.log(`[EXTRACT_TEXT] Module type: ${typeof pdfParseModule}`);
+        console.log(`[EXTRACT_TEXT] Has PDFParse class: ${!!pdfParseModule.PDFParse}`);
+        
+        let pdfData: any;
+        
+        // Check if PDFParse class exists (v2.4.5+)
+        if (pdfParseModule.PDFParse && typeof pdfParseModule.PDFParse === 'function') {
+          console.log(`[EXTRACT_TEXT] Using PDFParse class with 'new' keyword...`);
+          const parser = new pdfParseModule.PDFParse({ data: fileBuffer });
+          const result = await parser.getText();
+          pdfData = {
+            text: result.text || '',
+            numpages: result.total || result.pages?.length || 1
+          };
+          // Cleanup
+          try {
+            await parser.destroy();
+          } catch (e) {
+            // Ignore cleanup errors
+          }
+        } else if (typeof pdfParseModule === 'function') {
+          // Fallback: direct function call (older versions)
+          console.log(`[EXTRACT_TEXT] Using pdf-parse as direct function...`);
+          pdfData = await pdfParseModule(fileBuffer);
+        } else {
+          throw new Error("pdf-parse module format not recognized");
+        }
+        
+        if (!pdfData.text || typeof pdfData.text !== "string" || pdfData.text.trim().length === 0) {
           throw new Error("PDF contains no readable text");
         }
         
-      return { text: pdfData.text, pageCount: pdfData.numpages || 1 };
+        const pageCount = pdfData.numpages || 1;
+        console.log(`[EXTRACT_TEXT] ✓ PDF extraction successful: ${pdfData.text.length} chars, ${pageCount} pages`);
+        console.log(`[EXTRACT_TEXT] ===== END EXTRACTION =====`);
+        
+        return { text: pdfData.text, pageCount };
+      } catch (pdfError: any) {
+        console.error(`[EXTRACT_TEXT] ✗ PDF extraction failed:`, pdfError);
+        console.error(`[EXTRACT_TEXT] Error message: ${pdfError?.message}`);
+        console.error(`[EXTRACT_TEXT] Error stack: ${pdfError?.stack}`);
+        throw new Error(`Failed to parse PDF: ${pdfError.message || "Unknown error"}`);
+      }
     } else if (fileType === "docx") {
+        console.log(`[EXTRACT_TEXT] Processing DOCX file...`);
+      try {
         const mammoth = await import("mammoth");
+          console.log(`[EXTRACT_TEXT] mammoth module imported`);
+          
         const result = await mammoth.extractRawText({ buffer: fileBuffer });
+          console.log(`[EXTRACT_TEXT] DOCX extracted, result keys:`, Object.keys(result || {}));
         
         if (!result || !result.value || typeof result.value !== 'string' || result.value.trim().length === 0) {
           throw new Error("DOCX contains no readable text");
         }
         
         const pageCount = Math.ceil(result.value.length / 3000);
+          console.log(`[EXTRACT_TEXT] ✓ DOCX extraction successful: ${result.value.length} characters, estimated ${pageCount} pages`);
+          console.log(`[EXTRACT_TEXT] ===== END EXTRACTION =====`);
         return { text: result.value, pageCount: Math.max(1, pageCount) };
+        } catch (docxError: any) {
+          console.error(`[EXTRACT_TEXT] ✗ DOCX extraction failed:`, docxError);
+          throw new Error(`Failed to parse DOCX: ${docxError.message || 'Unknown error'}`);
+      }
     }
     
     throw new Error(`Unsupported file type: ${fileType}`);
+    } catch (error: any) {
+      console.error(`[EXTRACT_TEXT] ✗ Extraction failed:`, error);
+      console.error(`[EXTRACT_TEXT] Error type: ${error?.constructor?.name}`);
+      console.error(`[EXTRACT_TEXT] Error message: ${error?.message}`);
+      console.error(`[EXTRACT_TEXT] ===== END EXTRACTION (ERROR) =====`);
+      throw error;
+    }
   }
 
   // GET /api/document-translations - Get user document translations
@@ -1293,13 +1357,26 @@ Always be encouraging, professional, and provide actionable advice. Format your 
 
   // POST /api/translate-pdf - Document translation (PDF, DOC, DOCX)
   app.post("/api/translate-pdf", devAuth, upload.single("pdf"), async (req: any, res) => {
+    const startTime = Date.now();
     try {
+      console.log("\n[DOCUMENT_TRANSLATION] ===== START REQUEST =====");
+      console.log(`[DOCUMENT_TRANSLATION] Request received at: ${new Date().toISOString()}`);
+      
       if (!req.file) {
+        console.log(`[DOCUMENT_TRANSLATION] ✗ No file uploaded`);
         return res.status(400).json({ error: "No document file uploaded" });
       }
 
+      console.log(`[DOCUMENT_TRANSLATION] File uploaded:`, {
+        originalname: req.file.originalname,
+        mimetype: req.file.mimetype,
+        size: req.file.size,
+        path: req.file.path
+      });
+
       const validatedData = pdfTranslationRequestSchema.parse(req.body);
       const { sourceLanguage, targetLanguage } = validatedData;
+      console.log(`[DOCUMENT_TRANSLATION] Request body validated:`, { sourceLanguage, targetLanguage });
 
       const filePath = req.file.path;
       
@@ -1308,21 +1385,23 @@ Always be encouraging, professional, and provide actionable advice. Format your 
       const lastDotIndex = fileName.lastIndexOf('.');
       if (lastDotIndex === -1) {
         // No extension
+        console.log(`[DOCUMENT_TRANSLATION] ✗ File has no extension: ${fileName}`);
         if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
         return res.status(400).json({ error: "File must have an extension. Please upload PDF or DOCX files only." });
       }
       
       const fileExtension = fileName.slice(lastDotIndex + 1).toLowerCase();
+      console.log(`[DOCUMENT_TRANSLATION] File extension: ${fileExtension}`);
       
       // Validate file type explicitly (whitelist only)
       if (fileExtension !== "pdf" && fileExtension !== "docx") {
+        console.log(`[DOCUMENT_TRANSLATION] ✗ Unsupported file type: ${fileExtension}`);
         if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
         return res.status(400).json({ error: "Unsupported file type. Please upload PDF or DOCX files only." });
       }
       
       const fileType = fileExtension as "pdf" | "docx";
-
-      console.log("[DOCUMENT_TRANSLATION] Starting translation for:", req.file.originalname, "Type:", fileType);
+      console.log(`[DOCUMENT_TRANSLATION] ✓ File type validated: ${fileType}`);
 
       // Create translation record immediately
       const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
@@ -1340,16 +1419,18 @@ Always be encouraging, professional, and provide actionable advice. Format your 
       // Process in background
       (async () => {
         try {
+          console.log("[DOCUMENT_TRANSLATION] ===== START BACKGROUND PROCESSING =====");
           console.log("[DOCUMENT_TRANSLATION] Extracting text from document...");
           
           // Extract text based on file type
           const { text, pageCount } = await extractDocumentText(filePath, fileType);
           
           if (!text || text.trim().length === 0) {
+            console.error("[DOCUMENT_TRANSLATION] ✗ No text content found in document");
             throw new Error("No text content found in document");
           }
 
-          console.log("[DOCUMENT_TRANSLATION] Extracted", text.length, "characters from", pageCount, "pages");
+          console.log("[DOCUMENT_TRANSLATION] ✓ Extracted", text.length, "characters from", pageCount, "pages");
 
           // Translate text
           await storage.updatePdfTranslationStatus(translation.id, {
@@ -1358,43 +1439,71 @@ Always be encouraging, professional, and provide actionable advice. Format your 
             pageCount,
             reset: { error: true, translatedFileUrl: true }
           });
-          console.log("[DOCUMENT_TRANSLATION] Translating text...");
+          console.log("[DOCUMENT_TRANSLATION] ===== START TRANSLATION =====");
+          console.log(`[DOCUMENT_TRANSLATION] Source language: ${sourceLanguage}`);
+          console.log(`[DOCUMENT_TRANSLATION] Target language: ${targetLanguage}`);
+          console.log(`[DOCUMENT_TRANSLATION] Text length to translate: ${text.length} characters`);
+          console.log(`[DOCUMENT_TRANSLATION] Text preview: ${text.substring(0, 100)}...`);
+          
           const translatedText = await translateText(text, targetLanguage, sourceLanguage);
+          
+          console.log(`[DOCUMENT_TRANSLATION] ✓ Translation completed`);
+          console.log(`[DOCUMENT_TRANSLATION] Translated text length: ${translatedText.length} characters`);
+          console.log(`[DOCUMENT_TRANSLATION] Translated text preview: ${translatedText.substring(0, 100)}...`);
+          console.log(`[DOCUMENT_TRANSLATION] ===== END TRANSLATION =====`);
 
-          // Create new PDF with translated text
+          // Create new text file with translated text (instead of PDF)
           await storage.updatePdfTranslationStatus(translation.id, {
             status: "processing",
             progress: 70
           });
-          console.log("[DOCUMENT_TRANSLATION] Creating translated document...");
-          const outputPath = `uploads/${translation.id}_translated.pdf`;
-          const doc = new PDFDocument();
-          const writeStream = fs.createWriteStream(outputPath);
+          console.log("[DOCUMENT_TRANSLATION] ===== START FILE CREATION =====");
+          console.log(`[DOCUMENT_TRANSLATION] Creating translated text file...`);
+          
+          const outputPath = path.join("uploads", `${translation.id}_translated.txt`);
+          console.log(`[DOCUMENT_TRANSLATION] Output path: ${outputPath}`);
 
-          doc.pipe(writeStream);
-          doc.fontSize(12).text(translatedText, {
-            align: "left",
-            lineGap: 5,
-          });
-          doc.end();
+          // Normalize text to ensure proper encoding (remove any BOM or encoding issues)
+          const normalizedText = translatedText
+            .replace(/\uFEFF/g, '') // Remove BOM if present
+            .replace(/\r\n/g, '\n') // Normalize line endings
+            .replace(/\r/g, '\n');   // Handle old Mac line endings
 
-          await new Promise((resolve) => writeStream.on("finish", resolve));
+          console.log(`[DOCUMENT_TRANSLATION] Writing text file with UTF-8 encoding...`);
+          // Write translated text to file with explicit UTF-8 encoding
+          await fs.promises.writeFile(outputPath, normalizedText, { encoding: 'utf-8', flag: 'w' });
+          
+          // Verify file was created
+          const stats = await fs.promises.stat(outputPath);
+          console.log(`[DOCUMENT_TRANSLATION] ✓ Text file created successfully`);
+          console.log(`[DOCUMENT_TRANSLATION] File size: ${stats.size} bytes`);
+          console.log(`[DOCUMENT_TRANSLATION] ===== END FILE CREATION =====`);
 
-          // Complete
+          // Complete - use API endpoint for download
           await storage.updatePdfTranslationStatus(translation.id, {
             status: "completed",
             progress: 100,
             pageCount,
-            translatedFileUrl: `/uploads/${path.basename(outputPath)}`
+            translatedFileUrl: `/api/translate-pdf/${translation.id}/download`
           });
 
-          console.log("[DOCUMENT_TRANSLATION] Translation completed successfully");
+          console.log("[DOCUMENT_TRANSLATION] ✓✓✓ Translation completed successfully");
+          console.log(`[DOCUMENT_TRANSLATION] Download URL: /api/translate-pdf/${translation.id}/download`);
 
           // Cleanup original file
-          if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+          if (fs.existsSync(filePath)) {
+            console.log(`[DOCUMENT_TRANSLATION] Cleaning up original file: ${filePath}`);
+            fs.unlinkSync(filePath);
+          }
+          console.log("[DOCUMENT_TRANSLATION] ===== END BACKGROUND PROCESSING (SUCCESS) =====");
         } catch (error) {
           const errorMessage = error instanceof Error ? error.message : "Document translation failed";
-          console.error("[DOCUMENT_TRANSLATION] Error:", errorMessage);
+          console.error("[DOCUMENT_TRANSLATION] ===== END BACKGROUND PROCESSING (ERROR) =====");
+          console.error("[DOCUMENT_TRANSLATION] Error type:", error instanceof Error ? error.constructor.name : typeof error);
+          console.error("[DOCUMENT_TRANSLATION] Error message:", errorMessage);
+          if (error instanceof Error && error.stack) {
+            console.error("[DOCUMENT_TRANSLATION] Error stack:", error.stack);
+          }
           await storage.updatePdfTranslationStatus(translation.id, {
             status: "error",
             progress: 0,
@@ -1404,13 +1513,25 @@ Always be encouraging, professional, and provide actionable advice. Format your 
         }
       })();
 
+      const duration = Date.now() - startTime;
+      console.log(`[DOCUMENT_TRANSLATION] ✓ Request processed in ${duration}ms`);
+      console.log(`[DOCUMENT_TRANSLATION] Translation ID: ${translation.id}`);
+      console.log(`[DOCUMENT_TRANSLATION] ===== END REQUEST =====\n`);
+
       res.json({
         id: translation.id,
         status: "processing",
         message: "Document translation started.",
       });
     } catch (error) {
-      console.error("[DOCUMENT_TRANSLATION] Endpoint error:", error);
+      const duration = Date.now() - startTime;
+      console.error(`[DOCUMENT_TRANSLATION] ✗ Endpoint error after ${duration}ms:`, error);
+      console.error(`[DOCUMENT_TRANSLATION] Error type:`, error instanceof Error ? error.constructor.name : typeof error);
+      if (error instanceof Error) {
+        console.error(`[DOCUMENT_TRANSLATION] Error message:`, error.message);
+        console.error(`[DOCUMENT_TRANSLATION] Error stack:`, error.stack);
+      }
+      console.error(`[DOCUMENT_TRANSLATION] ===== END REQUEST (ERROR) =====\n`);
       res.status(400).json({ error: error instanceof Error ? error.message : "Invalid request" });
     }
   });
@@ -1426,6 +1547,75 @@ Always be encouraging, professional, and provide actionable advice. Format your 
       res.json(translation);
     } catch (error) {
       res.status(500).json({ error: "Failed to get translation status" });
+    }
+  });
+
+  // GET /api/translate-pdf/:id/download - Download translated text file
+  app.get("/api/translate-pdf/:id/download", devAuth, async (req: any, res) => {
+    try {
+      console.log(`[DOWNLOAD] ===== START DOWNLOAD =====`);
+      console.log(`[DOWNLOAD] Translation ID: ${req.params.id}`);
+      
+      const userId = req.session.mockUser?.id || req.user?.id || req.user?.claims?.sub;
+      const translation = await storage.getPdfTranslation(req.params.id);
+      
+      if (!translation) {
+        console.log(`[DOWNLOAD] ✗ Translation not found: ${req.params.id}`);
+        return res.status(404).json({ error: "Translation not found" });
+      }
+
+      if (translation.userId !== userId) {
+        console.log(`[DOWNLOAD] ✗ Unauthorized access attempt`);
+        return res.status(403).json({ error: "Access denied" });
+      }
+      
+      if (translation.status !== "completed") {
+        console.log(`[DOWNLOAD] ✗ Translation not completed, status: ${translation.status}`);
+        return res.status(400).json({ error: "Translation not completed yet" });
+      }
+      
+      const filename = `${translation.id}_translated.txt`;
+      const filePath = path.join("uploads", filename);
+      console.log(`[DOWNLOAD] File path: ${filePath}`);
+
+      // Check if file exists
+      if (!fs.existsSync(filePath)) {
+        console.error(`[DOWNLOAD] ✗ File not found: ${filePath}`);
+        return res.status(404).json({ error: "Translated file not found" });
+      }
+      
+      // Get file stats
+      const stats = await fs.promises.stat(filePath);
+      console.log(`[DOWNLOAD] File size: ${stats.size} bytes`);
+      
+      // Read file with explicit UTF-8 encoding
+      const fileContent = await fs.promises.readFile(filePath, 'utf-8');
+      console.log(`[DOWNLOAD] File read successfully, content length: ${fileContent.length} characters`);
+      
+      // Generate download filename from original filename
+      const originalFileName = translation.fileName || 'translated';
+      const baseFileName = originalFileName.replace(/\.[^/.]+$/, "") || 'translated';
+      const downloadFileName = `${baseFileName}_translated.txt`;
+      
+      console.log(`[DOWNLOAD] Download filename: ${downloadFileName}`);
+      
+      // Set headers for text file download with proper encoding
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Content-Disposition', `attachment; filename*=UTF-8''${encodeURIComponent(downloadFileName)}`);
+      res.setHeader('Access-Control-Expose-Headers', 'Content-Disposition');
+      res.setHeader('Content-Length', Buffer.byteLength(fileContent, 'utf-8'));
+      
+      console.log(`[DOWNLOAD] ✓ Headers set, sending file...`);
+      console.log(`[DOWNLOAD] ===== END DOWNLOAD =====`);
+      
+      // Send the file content
+      res.send(fileContent);
+    } catch (error: any) {
+      console.error(`[DOWNLOAD] ✗ ERROR:`, error);
+      console.error(`[DOWNLOAD] Error type: ${error?.constructor?.name}`);
+      console.error(`[DOWNLOAD] Error message: ${error?.message}`);
+      console.error(`[DOWNLOAD] Error stack:`, error?.stack);
+      res.status(500).json({ error: "Failed to download file" });
     }
   });
 
