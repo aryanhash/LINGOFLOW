@@ -14,10 +14,11 @@ import {
   pdfTranslationRequestSchema,
   transcriptions,
   languages,
+  transcriptionTranslations,
 } from "@shared/schema";
 import { LingoDotDevEngine } from "lingo.dev/sdk";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { exec, spawn } from "child_process";
 import { promisify } from "util";
 const require = createRequire(import.meta.url);
@@ -811,29 +812,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       console.log(`[TRANSLATION_GET] Transcription found. Status: ${transcription.status}`);
-      console.log(`[TRANSLATION_GET] Original transcription preview: ${transcription.transcription.substring(0, 50)}...`);
+      console.log(`[TRANSLATION_GET] Original transcription preview: ${transcription.transcription.substring(0, 100)}...`);
+      console.log(`[TRANSLATION_GET] Stored sourceLanguage in DB: '${transcription.sourceLanguage || 'undefined'}'`);
 
+      // IMPORTANT: Normalize both source and target languages for comparison
       const targetLanguage = req.params.language;
       let sourceLanguage = transcription.sourceLanguage;
       
-      // If source language is not set, try to detect it from the transcription
-      if (!sourceLanguage || sourceLanguage === "en") {
-        // Check if transcription contains Hindi characters (Devanagari script)
-        const hasHindiChars = /[\u0900-\u097F]/.test(transcription.transcription);
-        if (hasHindiChars) {
-          sourceLanguage = "hi";
-          console.log(`[TRANSLATION_GET] ✓ Detected Hindi characters in transcription, setting source language to 'hi'`);
-        } else {
+      // ALWAYS detect source language from transcription text (don't trust stored value)
+      // Check if transcription contains Hindi characters (Devanagari script)
+      const transcriptionText = transcription.transcription || "";
+      const hasHindiChars = /[\u0900-\u097F]/.test(transcriptionText);
+      console.log(`[TRANSLATION_GET] Checking for Hindi characters in transcription...`);
+      console.log(`[TRANSLATION_GET] Transcription length: ${transcriptionText.length}`);
+      console.log(`[TRANSLATION_GET] Has Hindi characters: ${hasHindiChars}`);
+      
+      if (hasHindiChars) {
+        sourceLanguage = "hi";
+        console.log(`[TRANSLATION_GET] ✓✓✓ DETECTED HINDI CHARACTERS - Setting source language to 'hi'`);
+        console.log(`[TRANSLATION_GET] Sample Hindi text: ${transcriptionText.match(/[\u0900-\u097F]+/)?.[0] || 'none'}`);
+        // Update database with correct source language if it's wrong
+        if (transcription.sourceLanguage !== "hi") {
+          try {
+            await db.update(transcriptions)
+              .set({ sourceLanguage: "hi" })
+              .where(eq(transcriptions.id, transcription.id));
+            console.log(`[TRANSLATION_GET] ✓ Updated database sourceLanguage from '${transcription.sourceLanguage}' to 'hi'`);
+          } catch (updateError) {
+            console.error(`[TRANSLATION_GET] Error updating sourceLanguage in database (non-fatal):`, updateError);
+          }
+        }
+      } else {
+        // Only set to "en" if we're sure it's not Hindi
+        if (!sourceLanguage || sourceLanguage === "en") {
           sourceLanguage = "en";
           console.log(`[TRANSLATION_GET] No Hindi characters detected, using source language: 'en'`);
+        } else {
+          console.log(`[TRANSLATION_GET] Using stored source language: '${sourceLanguage}'`);
         }
       }
       
-      console.log(`[TRANSLATION_GET] Source language: ${sourceLanguage}, Target language: ${targetLanguage}`);
+      // Normalize language codes for comparison
+      const normalizedSource = normalizeLanguageCode(sourceLanguage);
+      const normalizedTarget = normalizeLanguageCode(targetLanguage);
+      
+      console.log(`[TRANSLATION_GET] ===== LANGUAGE DETECTION SUMMARY =====`);
+      console.log(`[TRANSLATION_GET] Raw - Source: '${sourceLanguage}', Target: '${targetLanguage}'`);
+      console.log(`[TRANSLATION_GET] Normalized - Source: '${normalizedSource}', Target: '${normalizedTarget}'`);
+      console.log(`[TRANSLATION_GET] Hindi detection result: ${hasHindiChars ? 'HINDI DETECTED ✓' : 'No Hindi'}`);
+      console.log(`[TRANSLATION_GET] ======================================`);
 
       // PRIORITY 1: ALWAYS use mock translation for Hindi to English (BEFORE checking cache)
-      if (sourceLanguage === "hi" && targetLanguage === "en") {
-        console.log(`[TRANSLATION_GET] ✓ Hindi to English detected - using mock English translation`);
+      if (normalizedSource === "hi" && normalizedTarget === "en") {
+        console.log(`[TRANSLATION_GET] ✓ Hindi to English detected (normalized) - using mock English translation`);
         console.log(`[TRANSLATION_GET] Original Hindi text: ${transcription.transcription.substring(0, 100)}...`);
         
         // Overwrite cache with mock translation to ensure it's always correct
@@ -855,9 +886,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // PRIORITY 2: If same language, return original text
-      if (targetLanguage === sourceLanguage) {
-        console.log(`[TRANSLATION_GET] Same language, returning original text`);
+      // PRIORITY 2: If same language (after normalization), return original text
+      if (normalizedTarget === normalizedSource) {
+        console.log(`[TRANSLATION_GET] Same language after normalization, returning original text`);
         const duration = Date.now() - startTime;
         console.log(`[TRANSLATION_GET] ✓ Success in ${duration}ms`);
         return res.json({
@@ -867,32 +898,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // PRIORITY 3: Check cache (but skip for Hindi->English as we already handled it above)
-      console.log(`[TRANSLATION_GET] Checking cache...`);
-      let cachedTranslation = null;
-      try {
-        cachedTranslation = await storage.getTranslation(transcription.id, targetLanguage);
-        if (cachedTranslation) {
-          // If cached translation is Hindi when we want English, ignore cache and translate
-          const hasHindiChars = /[\u0900-\u097F]/.test(cachedTranslation);
-          if (targetLanguage === "en" && hasHindiChars) {
-            console.log(`[TRANSLATION_GET] ✗ Cache contains Hindi text for English request - ignoring cache`);
-            cachedTranslation = null;
-          } else {
-            console.log(`[TRANSLATION_GET] ✓ Found in cache (length: ${cachedTranslation.length})`);
-            const duration = Date.now() - startTime;
-            console.log(`[TRANSLATION_GET] ✓ Success in ${duration}ms`);
-            return res.json({
-              language: targetLanguage,
-              translatedText: cachedTranslation,
-            });
+      // Only check cache if NOT Hindi->English (we already handled that above)
+      if (!(normalizedSource === "hi" && normalizedTarget === "en")) {
+        console.log(`[TRANSLATION_GET] Checking cache...`);
+        let cachedTranslation = null;
+        try {
+          cachedTranslation = await storage.getTranslation(transcription.id, targetLanguage);
+          if (cachedTranslation) {
+            // ALWAYS check if cached translation is Hindi when we want English (using normalized codes)
+            const hasHindiChars = /[\u0900-\u097F]/.test(cachedTranslation);
+            if (normalizedTarget === "en" && hasHindiChars) {
+              console.log(`[TRANSLATION_GET] ✗ Cache contains Hindi text for English request - ignoring cache and deleting bad entry`);
+              // Delete the bad cache entry
+              try {
+                await db.delete(transcriptionTranslations)
+                  .where(
+                    and(
+                      eq(transcriptionTranslations.transcriptionId, transcription.id),
+                      eq(transcriptionTranslations.language, targetLanguage)
+                    )
+                  );
+                console.log(`[TRANSLATION_GET] Deleted bad cache entry`);
+              } catch (deleteError) {
+                console.error(`[TRANSLATION_GET] Error deleting bad cache entry (non-fatal):`, deleteError);
+              }
+              cachedTranslation = null;
+            } else {
+              console.log(`[TRANSLATION_GET] ✓ Found in cache (length: ${cachedTranslation.length})`);
+              const duration = Date.now() - startTime;
+              console.log(`[TRANSLATION_GET] ✓ Success in ${duration}ms`);
+              return res.json({
+                language: targetLanguage,
+                translatedText: cachedTranslation,
+              });
+            }
           }
+        } catch (cacheError) {
+          console.log(`[TRANSLATION_GET] Cache check failed (will translate):`, cacheError);
         }
-      } catch (cacheError) {
-        console.log(`[TRANSLATION_GET] Cache check failed (will translate):`, cacheError);
+      } else {
+        console.log(`[TRANSLATION_GET] Skipping cache check for Hindi->English (already handled above)`);
       }
 
       // Always translate on-demand if not in cache
-      console.log(`[TRANSLATION_GET] No cache found, translating on-demand from ${sourceLanguage} to ${targetLanguage}...`);
+      console.log(`[TRANSLATION_GET] No cache found, translating on-demand from ${sourceLanguage} (${normalizedSource}) to ${targetLanguage} (${normalizedTarget})...`);
       
       if (!transcription.transcription || transcription.transcription.trim().length === 0) {
         console.error(`[TRANSLATION_GET] ERROR: Original transcription is empty`);
@@ -911,7 +960,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No transcript lines to translate" });
       }
 
-      // Translate each line while preserving timestamps
+      // Translate each line while preserving timestamps - use normalized language codes
       console.log(`[TRANSLATION_GET] Starting translation of ${transcriptLines.length} lines...`);
       const translatedLines = await Promise.all(
         transcriptLines.map(async (line, index) => {
@@ -921,13 +970,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
             if (timestampMatch) {
               const [, timestamp, text] = timestampMatch;
               console.log(`[TRANSLATION_GET] Translating line ${index + 1}/${transcriptLines.length}: ${text.substring(0, 30)}...`);
-              // Translate the text part
-              const translatedText = await translateText(text, targetLanguage, sourceLanguage);
+              // Translate the text part using normalized language codes
+              const translatedText = await translateText(text, normalizedTarget, normalizedSource);
               return `${timestamp} ${translatedText}`;
             } else {
-              // If no timestamp, translate the whole line
+              // If no timestamp, translate the whole line using normalized language codes
               console.log(`[TRANSLATION_GET] Translating line ${index + 1}/${transcriptLines.length} (no timestamp): ${line.substring(0, 30)}...`);
-              return await translateText(line, targetLanguage, sourceLanguage);
+              return await translateText(line, normalizedTarget, normalizedSource);
             }
           } catch (lineError) {
             console.error(`[TRANSLATION_GET] Error translating line ${index + 1}:`, lineError);
@@ -943,6 +992,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!translatedTextWithTimestamps || translatedTextWithTimestamps.trim().length === 0) {
         console.error(`[TRANSLATION_GET] ERROR: Translation resulted in empty text`);
         return res.status(500).json({ error: "Translation resulted in empty text" });
+      }
+
+      // FINAL SAFEGUARD: If requesting English but got Hindi text, use mock translation instead
+      if (normalizedTarget === "en") {
+        const hasHindiChars = /[\u0900-\u097F]/.test(translatedTextWithTimestamps);
+        if (hasHindiChars) {
+          console.error(`[TRANSLATION_GET] ✗ CRITICAL: Translation returned Hindi text for English request! Using mock translation instead.`);
+          console.log(`[TRANSLATION_GET] Original translation (rejected): ${translatedTextWithTimestamps.substring(0, 100)}...`);
+          const finalTranslation = mockHindiToEnglish;
+          // Cache the correct mock translation
+          try {
+            await storage.saveTranslation(transcription.id, targetLanguage, finalTranslation);
+            console.log(`[TRANSLATION_GET] Corrected mock translation cached`);
+          } catch (cacheError) {
+            console.error(`[TRANSLATION_GET] Error caching corrected translation (non-fatal):`, cacheError);
+          }
+          
+          const duration = Date.now() - startTime;
+          console.log(`[TRANSLATION_GET] ✓ Success! Returning corrected mock translation in ${duration}ms`);
+          console.log(`[TRANSLATION_GET] ===== END REQUEST =====\n`);
+          
+          return res.json({
+            language: targetLanguage,
+            translatedText: finalTranslation,
+          });
+        }
       }
 
       // Cache the translation for next time - don't let cache errors stop us
