@@ -15,7 +15,7 @@
   "home": {
     "hero": {
       "title": "Break Language Barriers with AI-Powered Translation",
-      "subtitle": "Professional video transcription, multilingual chat, and PDF translation. All powered by advanced AI technology supporting 100+ languages.",
+      "subtitle": "Professional video transcription and dubbing, multilingual interview chat, and PDF translation. All powered by advanced AI technology supporting 100+ languages.",
       "ctaPrimary": "Get Started Free",
       "ctaSecondary": "Learn More",
       "trustedBy": "Trusted by 50,000+ users worldwide"
@@ -93,7 +93,7 @@
         "terms": "Terms",
         "security": "Security"
       },
-      "copyright": "© 2024 LinguaFlow. All rights reserved."
+      "copyright": "© 2025 LinguaFlow. All rights reserved."
     }
   },
   "login": {

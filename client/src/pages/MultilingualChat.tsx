@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { LanguageSelector } from "@/components/LanguageSelector";
 import { Send, Plus, MessageSquare, Bot, User, Languages, Loader2, Briefcase } from "lucide-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -14,10 +13,9 @@ import { useTranslation } from "@/contexts/TranslationContext";
 import type { ChatMessage, Conversation } from "@shared/schema";
 
 export default function MultilingualChat() {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation(); // Use global language from context
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
-  const [language, setLanguage] = useState("en");
   const [conversationId, setConversationId] = useState<string>("");
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -68,14 +66,14 @@ export default function MultilingualChat() {
       id: Date.now().toString(),
       role: "user",
       content: input,
-      language,
+      language: currentLanguage, // Use global language
       timestamp: new Date().toISOString(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
     chatMutation.mutate({
       message: input,
-      language,
+      language: currentLanguage, // Use global language
       conversationId: conversationId || undefined,
     });
   };
@@ -91,7 +89,7 @@ export default function MultilingualChat() {
     setMessages(conv.messages);
     setConversationId(conv.id);
     setSelectedConversationId(conv.id);
-    setLanguage(conv.primaryLanguage);
+    // Note: Language is now controlled globally via TranslationContext
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -171,16 +169,6 @@ export default function MultilingualChat() {
               <p className="text-xs text-muted-foreground">
                 {t("chat.header.subtitle")}
               </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">{t("chat.header.language")}</span>
-            <div className="w-40">
-              <LanguageSelector
-                value={language}
-                onValueChange={setLanguage}
-                testId="select-chat-language"
-              />
             </div>
           </div>
         </div>

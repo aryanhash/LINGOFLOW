@@ -4,7 +4,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18.3-blue.svg)](https://reactjs.org/)
 
-**LingoFlow** is an AI-powered multilingual web application that breaks down language barriers through video transcription, document translation, and multilingual chat. Translate content across 100+ languages with AI-powered voice cloning technology.
+**LingoFlow** is an AI-powered multilingual web application that breaks down language barriers through video transcription, document translation, and multilingual chat. Translate content across 100+ languages with AI-powered translation technology.
 
 ## ✨ Features
 
@@ -130,7 +130,6 @@ The application will be available at:
 2. Go to Dashboard → API Keys
 3. Create a new API key
 4. Copy and add to your `.env` file:
-   - `LINGO_API_KEY`
    - `LINGODOTDEV_API_KEY`
    - `VITE_LINGO_API_KEY`
 
@@ -252,8 +251,8 @@ DATABASE_URL=postgresql://username:password@localhost:5432/lingoflow
 
 ### API Key Errors
 
-- **"LINGO_API_KEY is invalid"**: Verify your API key at [lingo.dev dashboard](https://lingo.dev)
-- **"Authentication failed"**: Make sure all three Lingo API key variables are set in `.env`
+- **"LINGODOTDEV_API_KEY is invalid"**: Verify your API key at [lingo.dev dashboard](https://lingo.dev)
+- **"Authentication failed"**: Make sure all Lingo API key variables are set in `.env`
 - **"GEMINI_API_KEY not found"**: Get your key from [Google AI Studio](https://makersuite.google.com/app/apikey)
 
 ### Translation Not Working
