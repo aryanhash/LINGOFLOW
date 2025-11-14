@@ -322,5 +322,8 @@
     "uk": "Ukrainian",
     "nl": "Dutch",
     "sv": "Swedish"
+  },
+  "test": {
+    "ciCdTest": "Testing CI/CD translation workflow"
   }
 }
