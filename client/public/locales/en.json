@@ -324,6 +324,6 @@
     "sv": "Swedish"
   },
   "test": {
-    "ciCdTest": "Testing CI/CD translation workflow"
+    "ciCdTest": "Testing CI/CD translation workflow with Lingo.dev"
   }
 }
