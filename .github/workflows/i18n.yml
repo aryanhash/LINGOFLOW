@@ -1,55 +1,32 @@
-name: Lingo.dev i18n Translation
+name: Lingo.dev Translation CI/CD
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+    paths:
+      - 'client/public/locales/en.json'
+      - 'i18n.json'
+  workflow_dispatch: # Allow manual trigger
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  # Validate translations are up-to-date on PRs
-  validate:
-    name: Validate Translations
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      
-      - name: Check translations are up-to-date
-        run: npx lingo.dev@latest run --frozen
-        env:
-          LINGO_API_KEY: ${{ secrets.LINGO_API_KEY }}
-
-  # Auto-translate and create PR on main branch pushes
   translate:
-    name: Auto-translate
+    name: Auto-translate with Lingo.dev
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Run Lingo.dev Translation
+        uses: lingodotdev/lingo.dev@main
         with:
-          node-version: '20'
-      
-      - name: Run Lingo.dev translations
-        run: npx lingo.dev@latest ci --pull-request --api-key "$LINGO_API_KEY"
-        env:
-          LINGO_API_KEY: ${{ secrets.LINGO_API_KEY }}
-          GH_TOKEN: ${{ github.token }}
+          api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
+          pull-request: true
+          commit-message: "chore: update translations [skip ci]"

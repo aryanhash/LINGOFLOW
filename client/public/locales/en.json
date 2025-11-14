@@ -233,7 +233,7 @@
       "keyboardHint": "Press Enter to send, Shift + Enter for new line"
     },
     "toast": {
-      "error": "Chat error"
+      "error": "Chat error "
     }
   },
   "pdf": {
@@ -273,7 +273,7 @@
     }
   },
   "common": {
-    "loading": "Loading...",
+    "loading": "Loading.....",
     "error": "Error",
     "success": "Success",
     "cancel": "Cancel",
