@@ -167,21 +167,41 @@ RequestError [HttpError]: Requires authentication - https://docs.github.com/rest
 status: 401
 ```
 
-**Solution:**
-1. **Verify workflow permissions:**
-   - Go to Settings → Actions → General
-   - Enable "Read and write permissions"
-   - Enable "Allow GitHub Actions to create and approve pull requests"
-   - Click "Save"
+**Solution 1: Verify Repository Settings (MOST IMPORTANT)**
+1. **Go to repository Settings:**
+   - Navigate to: `https://github.com/aryanhash/LINGOFLOW/settings/actions`
+   
+2. **Enable Workflow Permissions:**
+   - Scroll to **"Workflow permissions"** section
+   - Select: ✅ **"Read and write permissions"**
+   - Enable: ✅ **"Allow GitHub Actions to create and approve pull requests"**
+   - Click **"Save"**
 
-2. **Check workflow file:**
-   - Ensure the workflow includes `github-token: ${{ secrets.GITHUB_TOKEN }}` in the Lingo.dev action
-   - The workflow should have `permissions: contents: write` and `pull-requests: write`
+3. **Re-run the workflow:**
+   - Go to Actions tab
+   - Find the failed workflow run
+   - Click **"Re-run all jobs"**
 
-3. **If still failing:**
-   - The workflow file should already have the fix (check `.github/workflows/i18n.yml`)
-   - Re-run the workflow from the Actions tab
-   - The `GITHUB_TOKEN` is automatically provided by GitHub Actions, no need to create it manually
+**Solution 2: Use CLI-Based Workflow (Alternative)**
+If the GitHub Action still doesn't work, use the CLI-based workflow:
+
+1. **Disable the main workflow temporarily:**
+   - Rename `.github/workflows/i18n.yml` to `i18n.yml.backup`
+
+2. **Enable the CLI workflow:**
+   - The file `.github/workflows/i18n-cli.yml` is already created
+   - It uses `npx lingo.dev@latest ci` command instead of the GitHub Action
+   - This approach is more reliable for authentication
+
+3. **Test it:**
+   - Make a small change to `en.json`
+   - Commit and push
+   - The CLI workflow should work
+
+**Solution 3: Check Token Usage**
+- The workflow now uses `GH_TOKEN: ${{ github.token }}` (as environment variable)
+- Also passes `github-token: ${{ github.token }}` (as input parameter)
+- Uses `github.token` instead of `secrets.GITHUB_TOKEN` (they're the same, but `github.token` is more explicit)
 
 ## 📝 Workflow File Location
 

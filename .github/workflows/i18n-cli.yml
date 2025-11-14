@@ -1,0 +1,40 @@
+name: Lingo.dev Translation CI/CD (CLI Alternative)
+
+# Alternative workflow using CLI instead of GitHub Action
+# Use this if the main workflow still has authentication issues
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'client/public/locales/en.json'
+      - 'i18n.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  translate:
+    name: Auto-translate with Lingo.dev CLI
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ github.token }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Run Lingo.dev Translation
+        run: npx lingo.dev@latest ci --pull-request --api-key "$LINGO_API_KEY"
+        env:
+          LINGO_API_KEY: ${{ secrets.LINGODOTDEV_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+
