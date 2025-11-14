@@ -19,3 +19,4 @@ attached_assets/**/*.json
 .env
 .env.local
 .env.*.local
+i18n.cache

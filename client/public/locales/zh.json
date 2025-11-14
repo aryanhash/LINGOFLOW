@@ -273,7 +273,7 @@
     }
   },
   "common": {
-    "loading": "加载中...",
+    "loading": "加载中.....",
     "error": "错误",
     "success": "成功",
     "cancel": "取消",
@@ -322,5 +322,8 @@
     "uk": "乌克兰语",
     "nl": "荷兰语",
     "sv": "瑞典语"
+  },
+  "test": {
+    "ciCdTest": "使用 Lingo.dev 测试 CI/CD 翻译工作流程"
   }
 }

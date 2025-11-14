@@ -233,7 +233,7 @@
       "keyboardHint": "Enter 키를 눌러 전송, Shift + Enter로 줄바꿈"
     },
     "toast": {
-      "error": "채팅 오류"
+      "error": "채팅 오류 "
     }
   },
   "pdf": {
@@ -273,7 +273,7 @@
     }
   },
   "common": {
-    "loading": "로딩 중...",
+    "loading": "로딩 중.....",
     "error": "오류",
     "success": "성공",
     "cancel": "취소",
@@ -322,5 +322,8 @@
     "uk": "우크라이나어",
     "nl": "네덜란드어",
     "sv": "스웨덴어"
+  },
+  "test": {
+    "ciCdTest": "Lingo.dev를 사용한 CI/CD 번역 워크플로 테스트 중"
   }
 }
