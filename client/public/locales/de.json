@@ -233,7 +233,7 @@
       "keyboardHint": "Drücke Enter zum Senden, Umschalt + Enter für neue Zeile"
     },
     "toast": {
-      "error": "Chat-Fehler"
+      "error": "Chat-Fehler "
     }
   },
   "pdf": {
@@ -273,7 +273,7 @@
     }
   },
   "common": {
-    "loading": "Wird geladen...",
+    "loading": "Wird geladen.....",
     "error": "Fehler",
     "success": "Erfolg",
     "cancel": "Abbrechen",
@@ -322,5 +322,8 @@
     "uk": "Ukrainisch",
     "nl": "Niederländisch",
     "sv": "Schwedisch"
+  },
+  "test": {
+    "ciCdTest": "Testen des CI/CD-Übersetzungsworkflows mit Lingo.dev"
   }
 }

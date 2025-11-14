@@ -147,7 +147,7 @@ checksums:
     chat/messages/original: 22dca22320d2c36d23f136ea55a8c5d1
     chat/input/placeholder: 1688cebd8408d0459aa5a028c8e9c669
     chat/input/keyboardHint: 87739090807aa592a7fa8fc9b309042f
-    chat/toast/error: fb2fd39dfdb88cc9509f5942b9850b79
+    chat/toast/error: b176e1c80a61f3e10ef93df25ea8a081
     pdf/pageTitle: 89b1840a713a2d680361c3a4be3671ef
     pdf/upload/dragDrop: 7de09068c12dd9492ecdf47042190822
     pdf/upload/supportedFormats: f4f09ae94c1a8c4b5243881480a3b180
@@ -172,7 +172,7 @@ checksums:
     pdf/toast/noFileDescription: 03509789c852dfd3f6e070a0d63258f4
     pdf/toast/invalidFile: 7d3fc946b37cceeb1d5baff0f88655b2
     pdf/toast/invalidFileDescription: 5afc750c43f6a9134a999a10ef7d552f
-    common/loading: 82b4ea7ed1439094d7c4be13aaba9a66
+    common/loading: 5ec3a12df64877d49d4b168181ca0f60
     common/error: 3c95bcb32c2104b99a46f5b3dd015248
     common/success: c43827becada6750f7a25890905f38b9
     common/cancel: 2e2a849c2223911717de8caa2c71bade
@@ -219,3 +219,4 @@ checksums:
     languages/uk: 2aa4e73ad0b9e0175e925697de77360f
     languages/nl: 331192a67bdf2449a4abc9a47c006a8f
     languages/sv: b196b5cefab3850d12e3c7b18e0dc743
+    test/ciCdTest: 42a5121860bfe72da1d7fcbebc5e2d19
