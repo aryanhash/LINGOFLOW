@@ -26,7 +26,10 @@ jobs:
       
       - name: Run Lingo.dev Translation
         uses: lingodotdev/lingo.dev@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           pull-request: true
           commit-message: "chore: update translations [skip ci]"

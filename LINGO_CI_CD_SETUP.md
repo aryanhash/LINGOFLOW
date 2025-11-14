@@ -159,12 +159,29 @@ npx lingo.dev@latest i18n
 - Check that `en.json` file was actually changed
 - Look at workflow logs in Actions tab
 
-### Issue: PR not being created
+### Issue: PR not being created / "Requires authentication" error (401)
+
+**Error Message:**
+```
+RequestError [HttpError]: Requires authentication - https://docs.github.com/rest
+status: 401
+```
 
 **Solution:**
-- Ensure `pull-request: true` in workflow file
-- Check that `GITHUB_TOKEN` has proper permissions
-- Verify you're pushing to `main` branch
+1. **Verify workflow permissions:**
+   - Go to Settings → Actions → General
+   - Enable "Read and write permissions"
+   - Enable "Allow GitHub Actions to create and approve pull requests"
+   - Click "Save"
+
+2. **Check workflow file:**
+   - Ensure the workflow includes `github-token: ${{ secrets.GITHUB_TOKEN }}` in the Lingo.dev action
+   - The workflow should have `permissions: contents: write` and `pull-requests: write`
+
+3. **If still failing:**
+   - The workflow file should already have the fix (check `.github/workflows/i18n.yml`)
+   - Re-run the workflow from the Actions tab
+   - The `GITHUB_TOKEN` is automatically provided by GitHub Actions, no need to create it manually
 
 ## 📝 Workflow File Location
 
